@@ -285,8 +285,18 @@ details.box .inner li::before{content:"—";position:absolute;left:0;color:var(-
 .table-card td .sub{display:block;font-size:.74rem;color:var(--muted)}
 .table-card .usd{font-family:var(--fd);font-weight:700;color:var(--maroon);white-space:nowrap}
 .table-card .mut{color:var(--muted)}
-.fee-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem;position:relative;z-index:1}
-@media(max-width:900px){.fee-notes{grid-template-columns:1fr}}
+.fee-notes{display:grid;grid-template-columns:repeat(3,1fr);margin-top:2.4rem;position:relative;z-index:1;border-radius:22px;overflow:hidden;background:linear-gradient(140deg,var(--deep),var(--maroon-2));box-shadow:var(--shadow)}
+.fee-notes::before{content:"";position:absolute;inset:0;background:var(--noise)}
+.fn{padding:2.1rem 1.9rem;position:relative;border-left:1px solid rgba(255,255,255,.12);transition:.3s}
+.fn:first-child{border-left:0}
+.fn:hover{background:rgba(255,255,255,.06)}
+.fn-n{position:absolute;top:1.3rem;right:1.5rem;font-family:var(--fd);font-weight:800;font-size:1.7rem;color:transparent;-webkit-text-stroke:1px rgba(201,212,242,.45)}
+.fn-i{width:52px;height:52px;border-radius:14px;background:rgba(201,212,242,.15);display:grid;place-items:center;margin-bottom:1.1rem}
+.fn-i svg{width:24px;height:24px;fill:var(--peri-2)}
+.fn h3{color:#fff;font-size:1.05rem;margin-bottom:.5rem}
+.fn p{color:#E8D5D6;font-size:.92rem}
+.fn p b{color:var(--peri-2)}
+@media(max-width:900px){.fee-notes{grid-template-columns:1fr}.fn{border-left:0;border-top:1px solid rgba(255,255,255,.12)}.fn:first-child{border-top:0}}
 .elist{display:grid;gap:.85rem;max-height:430px;overflow:auto;padding-right:6px}
 .eitem{display:flex;gap:1rem;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:.95rem 1.1rem;transition:.25s}
 .eitem:hover{border-color:var(--peri-2);transform:translateX(6px)}
@@ -576,10 +586,10 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
       </table>
     </div>
     <p class="rv" style="margin-top:1.1rem;font-size:.93rem;color:var(--muted)">Early Years (ages 3&ndash;5) termly fees are quoted on enquiry and include break &amp; lunch and club activities. One&#8209;off fees are charged once, at enrolment.</p>
-    <div class="fee-notes">
-      <div class="card rv"><div class="icon"><svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-1 15-4-4 1.4-1.4L11 13.2l5.6-5.6L18 9l-7 7z"/></svg></div><h3>Payment Policy</h3><p>All fees are payable in full to the school account <b>before</b> a student starts school, and are non&#8209;refundable once paid.</p></div>
-      <div class="card rv"><div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 5h-2v6l5 3 1-1.7-4-2.3V7z"/></svg></div><h3>What the One&#8209;offs Cover</h3><p>Registration (USD 100), development (USD 100) and caution (USD 100) &mdash; charged once at enrolment, not per term.</p></div>
-      <div class="card rv"><div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zM5 13.2V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8l-7 3.8-7-3.8z"/></svg></div><h3>Scholarships &amp; Plans</h3><p>Merit&#8209;based scholarships and need&#8209;based support, reviewed annually; flexible payment plans through the Bursar&rsquo;s office.</p></div>
+    <div class="fee-notes rv">
+      <div class="fn"><span class="fn-n">01</span><div class="fn-i"><svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-1 15-4-4 1.4-1.4L11 13.2l5.6-5.6L18 9l-7 7z"/></svg></div><h3>Payment Policy</h3><p>All fees are payable in full to the school account <b>before</b> a student starts school, and are non&#8209;refundable once paid.</p></div>
+      <div class="fn"><span class="fn-n">02</span><div class="fn-i"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 5h-2v6l5 3 1-1.7-4-2.3V7z"/></svg></div><h3>What the One&#8209;offs Cover</h3><p>Registration (USD 100), development (USD 100) and caution (USD 100) &mdash; charged once at enrolment, not per term.</p></div>
+      <div class="fn"><span class="fn-n">03</span><div class="fn-i"><svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zM5 13.2V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8l-7 3.8-7-3.8z"/></svg></div><h3>Scholarships &amp; Plans</h3><p>Merit&#8209;based scholarships and need&#8209;based support, reviewed annually; flexible payment plans through the Bursar&rsquo;s office.</p></div>
     </div>
     <p class="rv" style="margin-top:2rem;background:var(--peri-l);border-left:5px solid var(--maroon);border-radius:12px;padding:1rem 1.3rem;font-size:.95rem">Questions about fees? Contact the Bursar / admissions office on <b>+256 755 071 456</b> or <b>admissions@gillschool.ac.ug</b> &mdash; detailed statements and payment guidance within 24 hours.</p>
   </div>
