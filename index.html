@@ -275,6 +275,18 @@ details.box .inner ul{list-style:none;display:grid;gap:.45rem}
 details.box .inner li{padding-left:1.2rem;position:relative}
 details.box .inner li::before{content:"—";position:absolute;left:0;color:var(--peri-2)}
 .faq{display:grid;gap:.8rem;position:relative;z-index:1;max-width:880px}
+.table-card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-s);overflow-x:auto;position:relative;z-index:1}
+.table-card table{width:100%;border-collapse:collapse;min-width:900px}
+.table-card th{background:linear-gradient(140deg,var(--maroon),var(--maroon-2));color:#fff;font-family:var(--fd);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;padding:1.05rem .9rem;text-align:left;white-space:nowrap}
+.table-card td{padding:1rem .9rem;border-top:1px solid var(--line);font-size:.93rem;color:var(--ink);vertical-align:top}
+.table-card tbody tr:nth-child(even){background:var(--bg)}
+.table-card tbody tr:hover{background:var(--peri-l)}
+.table-card td b{display:block;font-family:var(--fd);font-size:.95rem}
+.table-card td .sub{display:block;font-size:.74rem;color:var(--muted)}
+.table-card .usd{font-family:var(--fd);font-weight:700;color:var(--maroon);white-space:nowrap}
+.table-card .mut{color:var(--muted)}
+.fee-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem;position:relative;z-index:1}
+@media(max-width:900px){.fee-notes{grid-template-columns:1fr}}
 .elist{display:grid;gap:.85rem;max-height:430px;overflow:auto;padding-right:6px}
 .eitem{display:flex;gap:1rem;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:.95rem 1.1rem;transition:.25s}
 .eitem:hover{border-color:var(--peri-2);transform:translateX(6px)}
@@ -360,6 +372,7 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
       <li><a href="#about">About Us</a></li>
       <li><a href="#academics">Academics</a></li>
       <li><a href="#admissions">Admissions</a></li>
+      <li><a href="#fees">Fees</a></li>
       <li><a href="#staff">Staff Directory</a></li>
       <li><a href="#news">News &amp; Events</a></li>
       <li><a href="#gallery">Gallery</a></li>
@@ -530,11 +543,45 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
       <details class="box"><summary>When can I apply for admission?</summary><div class="inner">We operate rolling admissions &mdash; apply at any time. Main intakes are September, January and April; apply early to secure your preferred start date.</div></details>
       <details class="box"><summary>Is there an entrance examination?</summary><div class="inner">We conduct age&#8209;appropriate assessments for placement. Reception&ndash;Year 2 is mainly observation and play&#8209;based; older students sit English and Mathematics assessments, plus subject&#8209;specific tests for A&#8209;Level entry.</div></details>
       <details class="box"><summary>Can international students apply?</summary><div class="inner">Absolutely. Our Cambridge curriculum is designed for global mobility &mdash; we assist with student visa applications and provide orientation support for international families.</div></details>
-      <details class="box"><summary>What are the school fees?</summary><div class="inner">Fees vary by year group and include tuition, materials and activities. Flexible payment plans are available; contact the admissions office for detailed fee information and payment options.</div></details>
+      <details class="box"><summary>What are the school fees?</summary><div class="inner">Fees vary by year group and include tuition, materials and activities &mdash; see the <a href="#fees" style="color:var(--peri-2);font-weight:700">School Fees 2026&ndash;2027</a> table for the full structure. Flexible payment plans are available; contact the admissions office for payment options.</div></details>
       <details class="box"><summary>Do you offer scholarships or financial aid?</summary><div class="inner">Yes &mdash; merit&#8209;based scholarships for outstanding performance and need&#8209;based assistance for qualified families, reviewed annually. Early application is encouraged.</div></details>
       <details class="box"><summary>What documents do I need to submit?</summary><div class="inner">Completed application form, birth certificate or passport, recent passport&#8209;size photographs, previous school transcripts and reports, immunisation records, and parent/guardian ID.</div></details>
     </div>
     <p class="rv" style="margin-top:2.2rem;color:#E8D5D6;font-size:.95rem">Admissions Office: <a style="color:var(--peri-2);font-weight:700" href="tel:+256755071456">+256 755 071 456</a> &middot; <a style="color:var(--peri-2);font-weight:700" href="tel:+256783003231">+256 783 003 231</a> &middot; <a style="color:var(--peri-2);font-weight:700" href="mailto:admissions@gillschool.ac.ug">admissions@gillschool.ac.ug</a> &mdash; Mon&ndash;Fri 8:00&ndash;17:00 &middot; we respond within 24 hours.</p>
+  </div>
+</section>
+
+<!-- ============ FEES ============ -->
+<section class="sec" id="fees" style="background:#fff">
+  <div class="wm">Fees</div>
+  <div class="wrap">
+    <div class="head center rv">
+      <span class="kicker" style="color:var(--maroon)">School Fees 2026&ndash;2027</span>
+      <h2>Transparent, termly pricing</h2>
+      <p>One clear structure, no hidden costs. Tuition, one&#8209;offs and meals are billed in USD; uniforms and clubs in UGX.</p>
+    </div>
+    <div class="table-card rv">
+      <table>
+        <thead>
+          <tr><th>Year Group</th><th>Termly Tuition</th><th>One&#8209;off Fees</th><th>Uniform &amp; Sports Kit</th><th>Break &amp; Lunch <span style="opacity:.7">(per term)</span></th><th>Clubs <span style="opacity:.7">(per term)</span></th><th>Exam Fees</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Years 1&ndash;6</b><span class="sub">Primary &middot; Key Stages 1 &amp; 2</span></td><td class="usd">USD 1,100</td><td class="usd">USD 300<span class="sub">registration + development + caution</span></td><td>UGX 350,000<span class="sub">includes sports kit</span></td><td class="usd">USD 150</td><td>UGX 100,000</td><td class="mut">&mdash;</td></tr>
+          <tr><td><b>Years 7&ndash;9</b><span class="sub">Lower Secondary &middot; Key Stage 3</span></td><td class="usd">USD 1,500</td><td class="usd">USD 300<span class="sub">registration + development + caution</span></td><td>UGX 450,000<span class="sub">includes sports kit</span></td><td class="usd">USD 200</td><td>UGX 150,000</td><td class="mut">&mdash;</td></tr>
+          <tr><td><b>Year 10</b><span class="sub">IGCSE Year 1</span></td><td class="usd">USD 1,700</td><td class="usd">USD 300<span class="sub">registration + development + caution</span></td><td>UGX 450,000<span class="sub">includes sports kit</span></td><td class="usd">USD 200</td><td>UGX 150,000</td><td class="mut">Quoted<span class="sub">Cambridge fees per series</span></td></tr>
+          <tr><td><b>Year 11</b><span class="sub">IGCSE Year 2</span></td><td class="usd">USD 1,900</td><td class="usd">USD 300<span class="sub">registration + development + caution</span></td><td>UGX 450,000<span class="sub">includes sports kit</span></td><td class="usd">USD 200</td><td>UGX 150,000</td><td class="mut">Quoted<span class="sub">Cambridge fees per series</span></td></tr>
+          <tr><td><b>Years 12&ndash;13</b><span class="sub">A&nbsp;Level &middot; Arts combination</span></td><td class="usd">USD 2,500</td><td class="usd">USD 300<span class="sub">registration + development + caution</span></td><td>UGX 450,000<span class="sub">includes sports kit</span></td><td class="usd">USD 200</td><td>UGX 150,000</td><td class="mut">Quoted<span class="sub">Cambridge fees per series</span></td></tr>
+          <tr><td><b>Years 12&ndash;13</b><span class="sub">A&nbsp;Level &middot; Science combination</span></td><td class="usd">USD 2,600</td><td class="usd">USD 300<span class="sub">registration + development + caution</span></td><td>UGX 450,000<span class="sub">includes sports kit</span></td><td class="usd">USD 200</td><td>UGX 150,000</td><td class="mut">Quoted<span class="sub">Cambridge fees per series</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="rv" style="margin-top:1.1rem;font-size:.93rem;color:var(--muted)">Early Years (ages 3&ndash;5) termly fees are quoted on enquiry and include break &amp; lunch and club activities. One&#8209;off fees are charged once, at enrolment.</p>
+    <div class="fee-notes">
+      <div class="card rv"><div class="icon"><svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-1 15-4-4 1.4-1.4L11 13.2l5.6-5.6L18 9l-7 7z"/></svg></div><h3>Payment Policy</h3><p>All fees are payable in full to the school account <b>before</b> a student starts school, and are non&#8209;refundable once paid.</p></div>
+      <div class="card rv"><div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 5h-2v6l5 3 1-1.7-4-2.3V7z"/></svg></div><h3>What the One&#8209;offs Cover</h3><p>Registration (USD 100), development (USD 100) and caution (USD 100) &mdash; charged once at enrolment, not per term.</p></div>
+      <div class="card rv"><div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zM5 13.2V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8l-7 3.8-7-3.8z"/></svg></div><h3>Scholarships &amp; Plans</h3><p>Merit&#8209;based scholarships and need&#8209;based support, reviewed annually; flexible payment plans through the Bursar&rsquo;s office.</p></div>
+    </div>
+    <p class="rv" style="margin-top:2rem;background:var(--peri-l);border-left:5px solid var(--maroon);border-radius:12px;padding:1rem 1.3rem;font-size:.95rem">Questions about fees? Contact the Bursar / admissions office on <b>+256 755 071 456</b> or <b>admissions@gillschool.ac.ug</b> &mdash; detailed statements and payment guidance within 24 hours.</p>
   </div>
 </section>
 
@@ -656,7 +703,7 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
       </div>
     </div>
     <div><h4>Explore</h4><ul><li><a href="#about">About Us</a></li><li><a href="#academics">Academics</a></li><li><a href="#admissions">Admissions</a></li><li><a href="#staff">Staff Directory</a></li><li><a href="#gallery">Gallery</a></li></ul></div>
-    <div><h4>Quick Links</h4><ul><li><a href="#inquiry">Enrolment Inquiry Form</a></li><li><a href="#news">Events Calendar</a></li><li><a href="#news">News &amp; Blog</a></li><li><a href="#contact">Schedule a Visit</a></li></ul></div>
+    <div><h4>Quick Links</h4><ul><li><a href="#inquiry">Enrolment Inquiry Form</a></li><li><a href="#fees">School Fees 2026&ndash;2027</a></li><li><a href="#news">Events Calendar</a></li><li><a href="#news">News &amp; Blog</a></li><li><a href="#contact">Schedule a Visit</a></li></ul></div>
     <div><h4>Contact</h4><ul><li>Najjera, Kampala, Uganda</li><li><a href="tel:+256771648684">+256 771 648 684</a></li><li><a href="tel:+256755071456">+256 755 071 456</a></li><li><a href="tel:+256783003231">+256 783 003 231</a></li><li><a href="mailto:admission@gillschool.ac.ug">admission@gillschool.ac.ug</a></li><li>Mon&ndash;Fri 7:30&ndash;17:00</li></ul></div>
   </div>
   <div class="base"><div class="wrap"><span>&copy; <span id="yr">2026</span> Gill International School. All rights reserved.</span><span>Cambridge International Education &middot; Najjera, Kampala</span></div></div>

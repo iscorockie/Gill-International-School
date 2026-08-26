@@ -24,6 +24,7 @@ The only optional external references are Google Fonts (falls back to system fon
 | **Academics** | The five Cambridge stages, Checkpoint / IGCSE / A‑Level assessment |
 | **Beyond the Classroom** | Arts, sports, drama & culture, diverse global community |
 | **Admissions** | 4‑step process, rolling admissions (Sept / Jan / Apr intakes), entry requirements per stage, FAQ, scholarships & international students, **enrolment inquiry form** |
+| **School Fees 2026–2027** | Full termly fee table per stage (USD/UGX), one‑off fees explained, payment policy, scholarships & payment plans |
 | **Staff Directory** | Filterable directory — Leadership, Early Years, Primary, Secondary, Arts & Sports, Administration |
 | **News & Events** | News cards + **colour‑coded events calendar** (term dates, visitation days, sports weeks, arts events, Ugandan public holidays) with month navigation and per‑day details |
 | **Gallery** | Filterable photo/video gallery with lightbox (keyboard navigable) |
