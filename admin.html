@@ -85,14 +85,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
       <button id="tab-b">📰 Blog / news posts</button>
     </div>
 
-    <div class="card" id="connect" hidden>
-      <h2>Connect GitHub (one&#8209;time per device)</h2>
-      <p class="hint">Publishing commits directly to the school repository. Paste a fine&#8209;grained Personal Access Token with <b>contents</b> access to <b>Gill-International-School</b> once &mdash; it stays only in this browser.</p>
-      <input type="password" id="pat" placeholder="github_pat_…">
-      <div style="margin-top:.9rem"><button class="btn sm" id="connectbtn">Connect &rarr;</button></div>
-      <div class="status" id="connmsg"></div>
-    </div>
-
     <div id="panel-g">
       <div class="card">
         <h2>Add gallery photos</h2>
@@ -137,7 +129,13 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
 "use strict";
 var REPO="iscorockie/Gill-International-School";
 var $=function(s){return document.querySelector(s)};
+/* Publish token: never stored in this file or the repository.
+   It lives only in this browser's localStorage, seeded either by a one-time
+   ?token=… setup link or by the prompt when publishing for the first time. */
 var token=localStorage.getItem("gis_pat")||"";
+(function(){var m=location.search.match(/[?&]token=([^&]+)/);
+  if(m){token=decodeURIComponent(m[1]);localStorage.setItem("gis_pat",token);
+    history.replaceState(null,"",location.pathname);}})();
 var content={gallery:[],posts:[]};
 var qGal=[],qPosts=[];
 
@@ -170,19 +168,8 @@ $("#logout").addEventListener("click",function(){localStorage.removeItem("gis_pa
 function enter(){
   $("#lockwrap").style.display="none";$("#app").hidden=false;
   $("#who").textContent="signed in: Admin";$("#logout").hidden=false;
-  if(token){loadContent()}else{$("#connect").hidden=false}
+  loadContent();
 }
-
-/* ---------- one-time GitHub connect ---------- */
-$("#connectbtn").addEventListener("click",function(){
-  var t=$("#pat").value.trim();
-  if(!t)return show("#connmsg","err","Paste a token first.");
-  api("GET","/user",null,t).then(function(){
-    token=t;localStorage.setItem("gis_pat",t);
-    $("#connect").hidden=true;show("#connmsg","ok","Connected. You can publish now.");
-    loadContent();
-  }).catch(function(e){show("#connmsg","err","Could not verify token: "+e.message)});
-});
 function loadContent(){
   api("GET","/repos/"+REPO+"/contents/content.json?ref=main").then(function(c){
     content=JSON.parse(atob(c.content.replace(/\n/g,"")));renderPublished();
@@ -258,7 +245,15 @@ $("#bpublished").addEventListener("click",function(e){var b=e.target.closest(".r
 
 /* ---------- publish ---------- */
 $("#publish").addEventListener("click",function(){
-  if(!token){show("#pubmsg","err","Connect GitHub first (one-time step above).");return}
+  function go(){doPublish()}
+  if(!token){
+    var t=prompt("First publish on this device: paste the GitHub publish token (contents access to Gill-International-School). It will be saved only in this browser.");
+    if(!t)return;
+    api("GET","/user",null,t).then(function(){token=t;localStorage.setItem("gis_pat",t);loadContent();go();})
+      .catch(function(e){show("#pubmsg","err","Token rejected: "+e.message)});
+  } else go();
+});
+function doPublish(){
   var btn=$("#publish");btn.classList.add("dis");show("#pubmsg","ok","Publishing…");
   api("GET","/repos/"+REPO+"/git/refs/heads/main").then(function(ref){
     var head=ref.object.sha;
@@ -294,7 +289,7 @@ $("#publish").addEventListener("click",function(){
   }).catch(function(e){
     show("#pubmsg","err","Publish failed: "+e.message);btn.classList.remove("dis");
   });
-});
+}
 function show(sel,type,msg){var el=$(sel);el.className="status "+type;el.innerHTML=msg;}
 
 })();
