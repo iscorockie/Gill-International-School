@@ -62,25 +62,35 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--maroon);
   </div>
 </header>
 <main>
-  <div class="lockwrap" id="lockwrap">
-    <div class="card lock">
-      <h2>Unlock the dashboard</h2>
-      <p class="hint">Paste a GitHub Personal Access Token with <b>repo (contents)</b> scope for the <b>Gill-International-School</b> repository.</p>
-      <label>Personal Access Token</label>
-      <input type="password" id="pat" placeholder="github_pat_…">
-      <div style="margin-top:1rem;display:flex;gap:.7rem">
-        <button class="btn" id="unlock">Unlock &rarr;</button>
-        <a class="btn" style="text-decoration:none;background:var(--peri-l);color:var(--maroon)" href="index.html">View site</a>
+    <div class="lockwrap" id="lockwrap">
+      <div class="card lock">
+        <h2>Admin login</h2>
+        <p class="hint">Sign in to manage gallery photos and blog posts.</p>
+        <label>Username</label>
+        <input id="user" placeholder="Username" autocomplete="username">
+        <div style="height:.8rem"></div>
+        <label>Password</label>
+        <input type="password" id="pass" placeholder="Password" autocomplete="current-password">
+        <div style="margin-top:1rem;display:flex;gap:.7rem">
+          <button class="btn" id="unlock">Log in &rarr;</button>
+          <a class="btn" style="text-decoration:none;background:var(--peri-l);color:var(--maroon)" href="index.html">View site</a>
+        </div>
+        <div class="status" id="lockmsg"></div>
       </div>
-      <div class="status" id="lockmsg"></div>
-      <p class="note">The token is stored only in this browser (localStorage) and is used solely to commit content updates to your repository. Use a fine‑grained token limited to this repo, and revoke it if this device is shared.</p>
     </div>
-  </div>
 
   <div id="app" hidden>
     <div class="tabs">
       <button class="on" id="tab-g">📷 Gallery uploads</button>
       <button id="tab-b">📰 Blog / news posts</button>
+    </div>
+
+    <div class="card" id="connect" hidden>
+      <h2>Connect GitHub (one&#8209;time per device)</h2>
+      <p class="hint">Publishing commits directly to the school repository. Paste a fine&#8209;grained Personal Access Token with <b>contents</b> access to <b>Gill-International-School</b> once &mdash; it stays only in this browser.</p>
+      <input type="password" id="pat" placeholder="github_pat_…">
+      <div style="margin-top:.9rem"><button class="btn sm" id="connectbtn">Connect &rarr;</button></div>
+      <div class="status" id="connmsg"></div>
     </div>
 
     <div id="panel-g">
@@ -140,20 +150,39 @@ function api(method,path,body,tk){
     });
 }
 
-/* ---------- unlock ---------- */
+/* ---------- login (username + password) ---------- */
+/* Default credentials: username "Admin", password "GIS2026".
+   To change the password, replace the hash below with the SHA-256 of the new one. */
+var CRED={user:"Admin",hash:"b44d042a221c8b1f3f865824d44dbc72535546d72e6506ab27df0d3cc68c84c8"};
+function sha(s){return crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)).then(function(b){
+  return Array.prototype.map.call(new Uint8Array(b),function(x){return ("0"+x.toString(16)).slice(-2)}).join("")})}
 $("#unlock").addEventListener("click",function(){
-  var t=$("#pat").value.trim()||token;
-  api("GET","/user",null,t).then(function(u){
-    token=t;localStorage.setItem("gis_pat",t);enter(u.login);
-  }).catch(function(e){show("#lockmsg","err","Could not verify token: "+e.message)});
+  var u=$("#user").value.trim(),p=$("#pass").value;
+  if(u!==CRED.user){show("#lockmsg","err","Wrong username.");return}
+  sha(p).then(function(h){
+    if(h!==CRED.hash){show("#lockmsg","err","Wrong password.");return}
+    enter();
+  });
 });
+$("#pass").addEventListener("keydown",function(e){if(e.key==="Enter")$("#unlock").click()});
 $("#logout").addEventListener("click",function(){localStorage.removeItem("gis_pat");location.reload()});
 
-function enter(login){
+function enter(){
   $("#lockwrap").style.display="none";$("#app").hidden=false;
-  $("#who").textContent="signed in: "+login;$("#logout").hidden=false;
-  loadContent();
+  $("#who").textContent="signed in: Admin";$("#logout").hidden=false;
+  if(token){loadContent()}else{$("#connect").hidden=false}
 }
+
+/* ---------- one-time GitHub connect ---------- */
+$("#connectbtn").addEventListener("click",function(){
+  var t=$("#pat").value.trim();
+  if(!t)return show("#connmsg","err","Paste a token first.");
+  api("GET","/user",null,t).then(function(){
+    token=t;localStorage.setItem("gis_pat",t);
+    $("#connect").hidden=true;show("#connmsg","ok","Connected. You can publish now.");
+    loadContent();
+  }).catch(function(e){show("#connmsg","err","Could not verify token: "+e.message)});
+});
 function loadContent(){
   api("GET","/repos/"+REPO+"/contents/content.json?ref=main").then(function(c){
     content=JSON.parse(atob(c.content.replace(/\n/g,"")));renderPublished();
@@ -229,6 +258,7 @@ $("#bpublished").addEventListener("click",function(e){var b=e.target.closest(".r
 
 /* ---------- publish ---------- */
 $("#publish").addEventListener("click",function(){
+  if(!token){show("#pubmsg","err","Connect GitHub first (one-time step above).");return}
   var btn=$("#publish");btn.classList.add("dis");show("#pubmsg","ok","Publishing…");
   api("GET","/repos/"+REPO+"/git/refs/heads/main").then(function(ref){
     var head=ref.object.sha;
@@ -267,8 +297,6 @@ $("#publish").addEventListener("click",function(){
 });
 function show(sel,type,msg){var el=$(sel);el.className="status "+type;el.innerHTML=msg;}
 
-/* auto-login if token stored */
-if(token){api("GET","/user").then(function(u){enter(u.login)}).catch(function(){/*stay locked*/});}
 })();
 </script>
 </body>
