@@ -28,9 +28,20 @@ The repo is the single source of truth. Two static deployments from the **same r
 - GitHub Pages (`iscorockie.github.io/Gill-International-School`) remains an automatic
   mirror/backup while enabled.
 
+
+## 3. Pre-school — `preschool.gill.ac.ug`
+
+1. Vercel → **Add New… → Project** → import the **same repo**
+2. **Root Directory:** `preschool` · **Framework Preset:** *Other*
+3. **Settings → Domains → add `preschool.gill.ac.ug`**
+4. DNS: `preschool` → **CNAME** `cname.vercel-dns.com`
+
+The old `preschool.gillschool.ac.ug` can be 301-redirected to the new subdomain once live.
+
 ## Repo layout
 
 ```
 /            main site: index.html, newsletter/, media/, content.json
 /admin/      admin dashboard (own Vercel root)
+/preschool/  pre-school site (own Vercel root)
 ```
