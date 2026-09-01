@@ -29,6 +29,7 @@ The only optional external references are Google Fonts (falls back to system fon
 | **News & Events** | News cards + **colour‑coded events calendar** (term dates, visitation days, sports weeks, arts events, Ugandan public holidays) with month navigation and per‑day details |
 | **Gallery** | Filterable photo/video gallery with lightbox (keyboard navigable) |
 | **Contact** | Phone / WhatsApp / email cards, message form, map & directions |
+| **Parent Portal** | `register.html` → `/register`, `login.html` → `/login`, `terms.html`, `privacy.html` — account creation & sign-in backed by Supabase (`config.js` + `SUPABASE.md`) |
 
 ## Features
 
