@@ -472,7 +472,7 @@ function mark(fields){
     v=f.value.trim()!=="";
     if(v&&f.type==="email")v=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.value.trim());
     if(v&&f.name==="password")v=f.value.length>=8;
-    if(v&&f.name==="confirm")v=f.value===signup.password.value;
+    if(v&&f.name==="confirm")v=f.value===signup.elements.password.value;
     fld.classList.toggle("bad",!v);if(!v)ok=false;
   });
   return ok;
@@ -483,31 +483,12 @@ function emailErr(msg){
   fld.classList.add("bad");
   fld.querySelector(".err").textContent=msg;
 }
-function finish(d){
-  $("#acctok").className="form-ok";
-  $("#acctok").hidden=false;
-  $("#acctok").innerHTML='<div class="tick">&#10003;</div>'+
-    '<h3>Welcome, '+d.parent_name.split(" ")[0]+'!</h3>'+
-    '<p>Your parent portal account has been created.<br>Reference <code>'+d.ref+'</code> &mdash; please quote it in any correspondence with us.</p>'+
-    '<p>You can sign in now with your email and password. Our admissions team will call '+(d.phone||"you")+' within one working day.</p>'+
-    '<div class="acct"><a class="btn" href="mailto:admissions@gillschool.ac.ug?subject=Application%20'+encodeURIComponent(d.ref)+'">Continue Application &rarr;</a>'+
-    '<a class="btn gd" href="/">Back to Home</a></div>';
-  signup.hidden=true;
-  acctTitle.textContent="Account created";
-  acctSub.textContent="";
+function goLogin(d,extra){
+  var q="created=1&ref="+encodeURIComponent(d.ref||"")+"&email="+encodeURIComponent(d.email||"")+(extra||"");
+  location.replace("/login?"+q);
 }
-function confirmMail(d){
-  $("#acctok").className="form-ok";
-  $("#acctok").hidden=false;
-  $("#acctok").innerHTML='<div class="tick">&#9993;</div>'+
-    '<h3>Almost there, '+d.parent_name.split(" ")[0]+'!</h3>'+
-    '<p>We\u2019ve sent a confirmation link to <b>'+d.email+'</b>. Click it to activate your parent portal account &mdash; your reference is <code>'+d.ref+'</code>.</p>'+
-    '<p>Check spam if it doesn\u2019t arrive in a few minutes, or <a href="mailto:admissions@gillschool.ac.ug?subject=Account%20confirmation">email admissions</a>.</p>'+
-    '<div class="acct"><a class="btn" href="/login">Go to Sign In</a><a class="btn gd" href="/">Back to Home</a></div>';
-  signup.hidden=true;
-  acctTitle.textContent="Confirm your email";
-  acctSub.textContent="";
-}
+function finish(d){goLogin(d,"")}
+function confirmMail(d){goLogin(d,"&confirm=1")}
 
 /* ---------- create account ---------- */
 signup.addEventListener("submit",function(e){

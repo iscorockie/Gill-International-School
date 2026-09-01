@@ -181,6 +181,10 @@ footer .bot a{color:#C7BCBD}
 .setup{display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;padding:.5rem .95rem;font-size:.76rem;font-weight:600;color:#7A5B00;background:#FFF6DC;border:1px solid #F2D98C;border-radius:999px}
 .setup b{font-weight:700}
 .setup[hidden]{display:none}
+.notice{display:flex;gap:.65rem;align-items:flex-start;margin-bottom:1.2rem;padding:.85rem 1.05rem;font-size:.88rem;line-height:1.5;color:#1E5631;background:#EAF7EE;border:1px solid #BFE5C8;border-radius:12px}
+.notice .ni{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#2F7D46;color:#fff;font-size:.72rem;font-weight:800;margin-top:.1rem}
+.notice b{font-weight:700}
+.notice[hidden]{display:none}
 
 /* ---------- reveal ---------- */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
@@ -231,6 +235,7 @@ footer .bot a{color:#C7BCBD}
 
     <div class="form-card rv" id="acct">
       <p class="setup" id="demo-pill" hidden>Demo mode &mdash; accounts are stored in this browser only. Connect Supabase in <b>/config.js</b> before launch.</p>
+      <div class="notice" id="created-note" hidden></div>
       <h3 id="acct-title">Sign In</h3>
       <p class="sub" id="acct-sub">Sign in to your parent portal to continue your application or track your child&rsquo;s enrolment.</p>
       <form id="signin" novalidate>
@@ -361,6 +366,23 @@ if(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase){
   try{SUP=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseAnonKey)}catch(e){SUP=null}
 }
 if(!SUP){var dp=$("#demo-pill");if(dp)dp.hidden=false}
+
+/* ---------- account-created notice (redirect from /register) ---------- */
+try{
+  var qs=new URLSearchParams(location.search);
+  if(qs.get("created")==="1"){
+    var esc=function(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")};
+    var ref=qs.get("ref")||"",em=qs.get("email")||"";
+    var note=$("#created-note");
+    if(note){
+      note.hidden=false;
+      note.innerHTML=qs.get("confirm")==="1"
+        ?'<span class="ni">&#9993;</span><div><b>Account created!</b> We&rsquo;ve sent a confirmation link to <b>'+esc(em)+'</b> &mdash; click it to activate your account, then sign in below.'+(ref?' Your reference is <b>'+esc(ref)+'</b>.':'')+'</div>'
+        :'<span class="ni">&#10003;</span><div><b>Account created!</b>'+(ref?' Your reference is <b>'+esc(ref)+'</b>.':'')+' Sign in below with your email and password.</div>';
+    }
+    if(em&&ly&&ly.elements.email)ly.elements.email.value=em;
+  }
+}catch(e){}
 
 /* ---------- password visibility ---------- */
 $$(".pw .eye").forEach(function(btn){
