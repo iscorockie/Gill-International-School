@@ -210,6 +210,14 @@ body.nav-open .burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg
 .form-ok{text-align:center;padding:2rem .5rem}
 .form-ok .tick{width:76px;height:76px;margin:0 auto 1.1rem;border-radius:50%;background:var(--peri-l);display:grid;place-items:center;font-size:2rem}
 .form-ok code{background:var(--peri-l);color:var(--maroon);padding:.2rem .6rem;border-radius:8px;font-weight:700}
+.field.chk{display:flex;gap:.65rem;align-items:flex-start;margin-top:.4rem;font-size:.9rem;color:var(--muted)}
+.field.chk label{display:flex;gap:.65rem;align-items:flex-start;margin:0;font:inherit;letter-spacing:0;cursor:pointer}
+.field.chk input{flex:0 0 18px;width:18px;height:18px;margin-top:2px;accent-color:var(--maroon);cursor:pointer}
+.field.chk a{font-weight:700}
+.field.chk.bad label{color:#B3261E}
+.acct{display:grid;gap:.75rem;margin-top:1.4rem}
+.acct .btn{width:100%;justify-content:center}
+.form-card form[hidden]{display:none}
 
 /* ---------- staff ---------- */
 .filters{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:2.4rem;position:relative;z-index:1}
@@ -354,6 +362,8 @@ details.box .inner li::before{content:"—";position:absolute;left:0;color:var(-
 @media(max-width:960px){.contact-split{grid-template-columns:1fr}}
 .map{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-s);min-height:380px;position:relative}
 .map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.map .dirs{position:absolute;right:14px;bottom:14px;z-index:2;background:var(--maroon);color:#fff;font-family:var(--fd);font-weight:700;font-size:.8rem;padding:.55rem 1.1rem;border-radius:999px;box-shadow:0 8px 22px rgba(0,0,0,.28);transition:.25s}
+.map .dirs:hover{transform:translateY(-2px);background:var(--maroon-2)}
 
 /* ---------- footer ---------- */
 footer{background:var(--deep-2);color:#CDB4B5;position:relative;overflow:hidden}
@@ -516,17 +526,33 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
         <div class="docs"><span>Birth certificate</span><span>Passport photos</span><span>Immunisation record</span><span>Parent ID</span></div>
       </div>
       <div class="form-card rv r">
-        <h3>Enquiry form</h3>
-        <p class="sub">Tell us about your little one &mdash; we&rsquo;ll call you back within one working day.</p>
-        <form id="pform" novalidate>
+        <h3 id="acct-title">Create Account</h3>
+        <p class="sub" id="acct-sub">Create your parent portal account to begin enrolment and track your child&rsquo;s application.</p>
+        <form id="signup" novalidate>
           <div class="fg">
-            <div class="field"><label>Parent / Guardian Name *</label><input name="parent_name" required placeholder="Your name"><div class="err">Please enter your name.</div></div>
-            <div class="field"><label>Phone / WhatsApp *</label><input name="phone" type="tel" required placeholder="+256 7xx xxx xxx"><div class="err">Please enter a phone number.</div></div>
-            <div class="field"><label>Child&rsquo;s Name *</label><input name="child_name" required placeholder="Child&rsquo;s name"><div class="err">Please enter your child&rsquo;s name.</div></div>
-            <div class="field"><label>Program *</label><select name="program" required><option value="">Choose&hellip;</option><option>Daycare (1&ndash;2 yrs)</option><option>Toddlers (2&ndash;3 yrs)</option><option>Nursery (3&ndash;4 yrs)</option><option>Reception (4&ndash;5 yrs)</option></select><div class="err">Please choose a program.</div></div>
-            <div class="field full"><label>Anything we should know? (optional)</label><textarea name="message" rows="3" placeholder="Questions, start date, sibling at GIS&hellip;"></textarea><div class="err"></div></div>
+            <div class="field full"><label>Parent / Guardian Name *</label><input name="parent_name" autocomplete="name" required placeholder="Your full name"><div class="err">Please enter your name.</div></div>
+            <div class="field"><label>Email *</label><input name="email" type="email" autocomplete="email" required placeholder="you@example.com"><div class="err">Please enter a valid email.</div></div>
+            <div class="field"><label>Phone / WhatsApp *</label><input name="phone" type="tel" autocomplete="tel" required placeholder="+256 7xx xxx xxx"><div class="err">Please enter a phone number.</div></div>
+            <div class="field full"><label>Password *</label><input name="password" type="password" autocomplete="new-password" minlength="8" required placeholder="At least 8 characters"><div class="err">Please enter a password of at least 8 characters.</div></div>
           </div>
-          <div style="margin-top:1.4rem;text-align:center"><button class="btn" type="submit">Send Enquiry &rarr;</button></div>
+          <div class="field chk">
+            <label for="terms"><input id="terms" name="terms" type="checkbox" required> I agree to the <a href="https://gill.ac.ug" target="_blank" rel="noopener">terms &amp; conditions</a>.</label>
+            <div class="err">Please accept the terms &amp; conditions to continue.</div>
+          </div>
+          <div class="acct">
+            <button class="btn" type="submit"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M15 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zM9 6H7V4H5v2H3v2h2v2h2V8h2V6zm6 8c-2.7 0-8 1.3-8 4v2h16v-2c0-2.7-5.3-4-8-4z"/></svg> Create Account</button>
+            <button class="btn gd" type="button" id="tosignin"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M19 4h-8v2h8v12h-8v2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm-8 5.5L9.6 10.9 11.7 13H4v2h7.7l-2.1 2.1L11 18.5 16 13.5l-5-5z"/></svg> Already have an account? Sign In</button>
+          </div>
+        </form>
+        <form id="signin" novalidate hidden>
+          <div class="fg">
+            <div class="field full"><label>Email *</label><input id="sinemail" name="email" type="email" autocomplete="email" required placeholder="you@example.com"><div class="err">Please enter a valid email.</div></div>
+            <div class="field full"><label>Password *</label><input name="password" type="password" autocomplete="current-password" required placeholder="Your password"><div class="err">Please enter your password.</div></div>
+          </div>
+          <div class="acct">
+            <button class="btn" type="submit">Sign In</button>
+            <button class="btn gd" type="button" id="tosignup">New here? Create Account</button>
+          </div>
         </form>
       </div>
     </div>
@@ -548,17 +574,59 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
       <div class="cc rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></div><h3>Email</h3><a href="mailto:info.gillschool@gmail.com">info.gillschool@gmail.com</a></div>
     </div>
     <div class="contact-split">
-      <div class="map rv l"><iframe title="Map — Gill International Pre-School, Najjera" src="https://www.openstreetmap.org/export/embed.html?bbox=32.62%2C0.36%2C32.70%2C0.42&amp;layer=mapnik&amp;marker=0.39%2C32.66" loading="lazy"></iframe></div>
+      <div class="map rv l"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 738" role="img" aria-label="Static map showing Gill International Pre-School at White Close, Plot 341, Najjera-Kira Municipality, opposite Hass Petrol Station" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%">
+<rect width="1000" height="738" fill="#F4F6FA"/>
+<polyline points="387.1,786.5 461.1,794.6 679.0,818.1" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="387.1,786.5 461.1,794.6 679.0,818.1" fill="none" stroke="#DCE1EC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="387.1,786.5 461.1,794.6 679.0,818.1" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="421.4,666.3 594.0,661.7 1167.6,651.0" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="421.4,666.3 594.0,661.7 1167.6,651.0" fill="none" stroke="#DCE1EC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="421.4,666.3 594.0,661.7 1167.6,651.0" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="502.3,307.3 722.7,289.7 1073.8,264.9 1109.6,260.2" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="502.3,307.3 722.7,289.7 1073.8,264.9 1109.6,260.2" fill="none" stroke="#DCE1EC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="502.3,307.3 722.7,289.7 1073.8,264.9 1109.6,260.2" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="530.6,157.5 792.3,134.4" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="530.6,157.5 792.3,134.4" fill="none" stroke="#DCE1EC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="530.6,157.5 792.3,134.4" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="320.6,118.1 309.7,167.0" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="320.6,118.1 309.7,167.0" fill="none" stroke="#DCE1EC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="320.6,118.1 309.7,167.0" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="387.1,786.5 421.4,666.3 470.1,466.4 502.3,307.3 516.9,238.1 530.6,157.5 572.8,-115.5 589.9,-217.1 608.0,-322.7 626.3,-430.4" fill="none" stroke="#FFFFFF" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="387.1,786.5 421.4,666.3 470.1,466.4 502.3,307.3 516.9,238.1 530.6,157.5 572.8,-115.5 589.9,-217.1 608.0,-322.7 626.3,-430.4" fill="none" stroke="#CBD3DF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="387.1,786.5 421.4,666.3 470.1,466.4 502.3,307.3 516.9,238.1 530.6,157.5 572.8,-115.5 589.9,-217.1 608.0,-322.7 626.3,-430.4" fill="none" stroke="#FFFFFF" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="530.6,157.5 320.6,118.1 50.6,69.1" fill="none" stroke="#F4D9DD" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="530.6,157.5 320.6,118.1 50.6,69.1" fill="none" stroke="#C98A93" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" />
+<polyline points="530.6,157.5 320.6,118.1 50.6,69.1" fill="none" stroke="#8C2429" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+<g transform="translate(518 122) rotate(-83)"><text font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#6A7385" font-weight="600">Kira Najjeera Rd</text></g>
+<g transform="translate(452 447) rotate(-84)"><text font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#6A7385" font-weight="600">Mbogo Rd</text></g>
+<g transform="translate(205 72) rotate(-15.5)"><text font-family="Inter,Arial,sans-serif" font-size="13" fill="#8C2429" font-weight="700" letter-spacing=".04em">White Close</text></g>
+<g transform="translate(622 148) rotate(-4)"><text font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#6A7385" font-weight="600">Mwenyi Cl</text></g>
+<g transform="translate(640 306) rotate(-3)"><text font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#6A7385" font-weight="600">Bwanika Dr</text></g>
+<g transform="translate(640 659) rotate(-1)"><text font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#6A7385" font-weight="600">Victoria Cl</text></g>
+<circle cx="564.0" cy="125.9" r="8" fill="#fff" stroke="#C2453C" stroke-width="3"/>
+<circle cx="564.0" cy="125.9" r="2.6" fill="#C2453C"/>
+<g transform="translate(580.0 125.9)"><rect x="0" y="-40" width="196" height="40" rx="10" fill="#fff" opacity=".96"/><circle cx="20" cy="-20" r="9" fill="#F6D9D1"/><circle cx="20" cy="-20" r="3.4" fill="#C2453C"/><text x="36" y="-16" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="700" fill="#33222B">Hass Petroleum</text><text x="36" y="-3" font-family="Inter,Arial,sans-serif" font-size="10" fill="#7A6A72">Petrol station &#183; landmark</text></g>
+<circle cx="511.9" cy="542.6" r="8" fill="#fff" stroke="#3B7DD8" stroke-width="3"/>
+<path d="M505.9 536.6 h4 v-4 h4 v4 h4 v4 h-4 v4 h-4 v-4 h-4 z" fill="#3B7DD8"/>
+<g transform="translate(525.9 530.6)"><rect x="0" y="-18" width="172" height="36" rx="10" fill="#fff" opacity=".96"/><circle cx="18" cy="0" r="8.5" fill="#E3EDFB"/><path d="M-5 0 h3.2 v-3.2 h3.2 v3.2 h3.2 v3.2 h-3.2 v3.2 h-3.2 v-3.2 h-3.2 z" transform="translate(18 0) scale(.9)" fill="#3B7DD8"/><text x="34" y="4.5" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="600" fill="#33222B">Najjera Hospital</text></g>
+<circle class="pulse" cx="452.7" cy="142.9" r="14" fill="none" stroke="#8C2429" stroke-width="2" opacity=".6"/>
+<g transform="translate(452.7 142.9)"><path d="M0 0 C-13 -30 -27 -44 -27 -60 a27 27 0 1 1 54 0 C27 -44 13 -30 0 0 Z" fill="#8C2429" stroke="#fff" stroke-width="5"/><circle cx="0" cy="-60" r="20" fill="#fff"/><text x="0" y="-52" text-anchor="middle" font-family="Sora,Inter,Arial,sans-serif" font-weight="800" font-size="25" fill="#8C2429">G</text></g>
+<g transform="translate(476.7 168.9)"><rect x="0" y="0" width="430" height="66" rx="12" fill="#fff" stroke="#E9E2E7" opacity=".98"/><rect x="0" y="0" width="5" height="66" rx="2.5" fill="#8C2429"/><text x="20" y="26" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="800" fill="#3B0D10">Gill International Pre-School</text><text x="20" y="48" font-family="Inter,Arial,sans-serif" font-size="12" fill="#5D6673">White Close &#183; Plot 341 &#183; Najjera-Kira Municipality</text><text x="20" y="62" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="600" fill="#8C2429">Opposite Hass Petrol Station</text></g>
+<g transform="translate(952 706)"><circle r="26" fill="#fff" stroke="#E4E7F0"/><path d="M0 -16 L7 9 L0 4 L-7 9 Z" fill="#8C2429"/><text y="-30" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="700" fill="#5D6673">N</text></g>
+<text x="16" y="726" font-family="Inter,Arial,sans-serif" font-size="9.5" fill="#98A0AF">Map data &#169; OpenStreetMap contributors</text>
+</svg><a class="dirs" href="https://www.openstreetmap.org/?mlat=0.376236%26mlon=32.625021%23map=17/0.37624/32.62502" target="_blank" rel="noopener">Get Directions &rsaquo;</a></div>
       <div class="form-card rv r">
-        <h3>Send a message</h3>
-        <p class="sub">Questions about programs, fees or a visit? Drop us a line.</p>
+        <h3>Enquiry form</h3>
+        <p class="sub">Tell us about your little one &mdash; we&rsquo;ll call you back within one working day.</p>
         <form id="cform" novalidate>
           <div class="fg">
-            <div class="field"><label>Your Name *</label><input name="name" required placeholder="Your name"><div class="err">Please enter your name.</div></div>
-            <div class="field"><label>Email *</label><input name="email" type="email" required placeholder="you@example.com"><div class="err">Please enter a valid email.</div></div>
-            <div class="field full"><label>Message *</label><textarea name="message" rows="4" required placeholder="How can we help?"></textarea><div class="err">Please write a short message.</div></div>
+            <div class="field"><label>Parent / Guardian Name *</label><input name="parent_name" required placeholder="Your name"><div class="err">Please enter your name.</div></div>
+            <div class="field"><label>Phone / WhatsApp *</label><input name="phone" type="tel" required placeholder="+256 7xx xxx xxx"><div class="err">Please enter a phone number.</div></div>
+            <div class="field"><label>Child&rsquo;s Name *</label><input name="child_name" required placeholder="Child&rsquo;s name"><div class="err">Please enter your child&rsquo;s name.</div></div>
+            <div class="field"><label>Program *</label><select name="program" required><option value="">Choose&hellip;</option><option>Daycare (1&ndash;2 yrs)</option><option>Toddlers (2&ndash;3 yrs)</option><option>Nursery (3&ndash;4 yrs)</option><option>Reception (4&ndash;5 yrs)</option></select><div class="err">Please choose a program.</div></div>
+            <div class="field full"><label>Anything we should know? (optional)</label><textarea name="message" rows="3" placeholder="Questions, start date, sibling at GIS&hellip;"></textarea><div class="err"></div></div>
           </div>
-          <div style="margin-top:1.4rem;text-align:center"><button class="btn" type="submit">Send Message &rarr;</button></div>
+          <div style="margin-top:1.4rem;text-align:center"><button class="btn" type="submit">Send Enquiry &rarr;</button></div>
         </form>
       </div>
     </div>
@@ -707,8 +775,61 @@ function wire(form,kind){
   });
   form.addEventListener("input",function(e){var f=e.target.closest(".field");if(f)f.classList.remove("bad")});
 }
-var _af=$("#pform");if(_af)wire(_af,"inquiry");
-var _cf=$("#cform");if(_cf)wire(_cf,"message");
+/* enquiry form (contact section) */
+var _cf=$("#cform");if(_cf)wire(_cf,"inquiry");
+
+/* parent portal account (create / sign in) */
+var signup=$("#signup"),signin=$("#signin"),acctTitle=$("#acct-title"),acctSub=$("#acct-sub");
+function acctMode(mode){
+  var up=mode==="signup";
+  signup.hidden=!up;signin.hidden=up;
+  acctTitle.textContent=up?"Create Account":"Welcome Back";
+  acctSub.textContent=up?"Create your parent portal account to begin enrolment and track your child\u2019s application.":"Sign in to your parent portal to manage your child\u2019s enrolment.";
+}
+if(signup){
+  $("#tosignin").addEventListener("click",function(){acctMode("signin")});
+  signup.addEventListener("submit",function(e){
+    e.preventDefault();var ok=true;
+    $$("[required]",signup).forEach(function(f){
+      var fld=f.closest(".field"),v;
+      if(f.type==="checkbox")v=f.checked;
+      else v=f.value.trim()!=="";
+      if(v&&f.type==="email")v=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.value);
+      if(v&&f.name==="password")v=f.value.length>=8;
+      fld.classList.toggle("bad",!v);if(!v)ok=false;
+    });
+    if(!ok)return;
+    var d={};new FormData(signup).forEach(function(v,k){if(k!=="terms")d[k]=v});
+    var ref="GIPS-ACC-"+new Date().getFullYear()+"-"+Math.floor(1000+Math.random()*9000);
+    try{var all=JSON.parse(localStorage.getItem("gips-accounts")||"[]");d.ref=ref;d.at=new Date().toISOString();all.push(d);localStorage.setItem("gips-accounts",JSON.stringify(all))}catch(err){}
+    signup.outerHTML='<div class="form-ok"><div class="tick">&#10003;</div><h3>Welcome, '+d.parent_name.split(" ")[0]+'!</h3><p style="color:var(--muted);margin-top:.5rem">Your parent portal account has been created. We&rsquo;ll email '+d.email+' your sign-in details. Reference <code>'+ref+'</code>.</p></div>';
+    signin.remove();
+  });
+  signup.addEventListener("input",function(e){var f=e.target.closest(".field");if(f)f.classList.remove("bad")});
+}
+if(signin){
+  $("#tosignup").addEventListener("click",function(){acctMode("signup")});
+  signin.addEventListener("submit",function(e){
+    e.preventDefault();var ok=true;
+    $$("[required]",signin).forEach(function(f){
+      var fld=f.closest(".field"),v=f.value.trim()!=="";
+      if(v&&f.type==="email")v=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.value);
+      fld.classList.toggle("bad",!v);if(!v)ok=false;
+    });
+    if(!ok)return;
+    var d={};new FormData(signin).forEach(function(v,k){d[k]=v});
+    var found=false;
+    try{found=JSON.parse(localStorage.getItem("gips-accounts")||"[]").some(function(a){return a.email&&a.email.toLowerCase()===d.email.toLowerCase()})}catch(err){}
+    if(!found){
+      var fb=$("#sinemail").closest(".field");
+      fb.classList.add("bad");
+      fb.querySelector(".err").textContent="No account found \u2014 tap \u201cNew here? Create Account\u201d to register.";
+      return;
+    }
+    signin.outerHTML='<div class="form-ok"><div class="tick">&#10003;</div><h3>Welcome back!</h3><p style="color:var(--muted);margin-top:.5rem">You&rsquo;re signed in to the GIPS parent portal. We&rsquo;ll take you to your child&rsquo;s enrolment dashboard shortly.</p></div>';
+  });
+  signin.addEventListener("input",function(e){var f=e.target.closest(".field");if(f)f.classList.remove("bad")});
+}
 })();
 
 </script>
