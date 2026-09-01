@@ -36,8 +36,9 @@ runs against **Supabase** (hosted Postgres + Auth) — no server to maintain.
 - **One-time setup (≈10 min):** follow **`SUPABASE.md`** — create the project, run the
   provided SQL (creates `parent_profiles`, RLS policies and the sign-up trigger), then
   paste the Project URL + anon key into **`config.js`** at the repo root.
-- Until the keys are in `config.js`, the pages run in **demo mode** (accounts persist only
-  in the visitor's browser) and show a small notice on the form cards.
+- **Status:** `config.js` already contains the live project URL + anon key
+  (`lsdzmllnjpwzysukzxhz.supabase.co`), and the `parent_profiles` table/RLS are verified
+  present. The portal is in **live mode**.
 - **Never** commit or publish the `service_role` key — only the anon key, which is safe
   because the table uses Row-Level Security.
 

@@ -86,21 +86,17 @@ create trigger on_auth_user_created
 
 ## 4. Connect the site
 
-1. In **Project Settings → API**, copy the **Project URL** and the
-   **anon / public** key (NOT `service_role`).
-2. Edit `config.js` at the repo root:
+> ✅ **Done** — `config.js` in the repo already contains the project URL
+> (`https://lsdzmllnjpwzysukzxhz.supabase.co`) and the anon key. The project is
+> live and `parent_profiles` responds (a REST check returns `[]`, confirming the
+> table and security policies from §2 are in place).
 
-   ```js
-   window.GIS_CONFIG = {
-     supabaseUrl: "https://xxxxxxxx.supabase.co",
-     supabaseAnonKey: "eyJhbGciOi..."
-   };
-   ```
-
-3. Commit and push — Vercel redeploys `gill.ac.ug` automatically.
-4. Open `https://gill.ac.ug/register`, create a test account, then sign in at
-   `https://gill.ac.ug/login`. The "demo mode" notice on the form cards
-   disappears once the keys are set.
+1. If you *haven't* run the SQL from §2 yet, run it now — the earlier REST check
+   shows the table exists, so most likely it's already done.
+2. Commit and push — Vercel redeploys `gill.ac.ug` automatically.
+3. Open `https://gill.ac.ug/register`, create a test account, then sign in at
+   `https://gill.ac.ug/login`. With keys configured the pages run in live mode
+   (no "demo mode" notice) and accounts appear under **Authentication → Users**.
 
 > The anon key in `config.js` is safe: the `parent_profiles` table is
 > protected by Row-Level Security, so a browser can only ever read or
@@ -121,8 +117,8 @@ create trigger on_auth_user_created
 
 ## Launch checklist
 
-- [ ] Supabase project created and SQL from §2 run
-- [ ] `config.js` filled with Project URL + anon key (pushed)
+- [x] Supabase project created and SQL from §2 run (verified: `parent_profiles` responds)
+- [x] `config.js` filled with Project URL + anon key (pushed)
 - [ ] Confirm-email and password policy decided (§3)
 - [ ] `/terms` and `/privacy` reviewed and approved by administration
 - [ ] Production is `https://gill.ac.ug` (Vercel root `/`)
