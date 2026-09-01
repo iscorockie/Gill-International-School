@@ -56,14 +56,14 @@ body.nav-open .burger span:nth-child(1){transform:translateY(8px) rotate(45deg)}
 body.nav-open .burger span:nth-child(2){opacity:0}
 body.nav-open .burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
 @media(max-width:1060px){
-  .burger{display:block}
-  .nav-links{position:fixed;inset:0;background:linear-gradient(160deg,var(--deep),var(--deep-2));flex-direction:column;justify-content:center;gap:.4rem;transform:translateX(100%);transition:.4s;padding-top:60px}
+  .burger{display:block;position:relative;z-index:2}
+  .nav-links{position:fixed;inset:0;z-index:1;background:linear-gradient(160deg,var(--deep),var(--deep-2));flex-direction:column;justify-content:center;gap:.4rem;transform:translateX(100%);transition:.4s;padding-top:60px}
   body.nav-open .nav-links{transform:none}
   .nav-links a{font-size:1.25rem;padding:.7rem}
 }
 
 /* ---------- hero ---------- */
-.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;overflow:hidden;position:relative}
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;overflow:hidden;position:relative}
 .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kb 22s ease-in-out infinite alternate}
 @keyframes kb{from{transform:scale(1.06)}to{transform:scale(1.15) translateY(-14px)}}
 .hero-veil{position:absolute;inset:0;background:radial-gradient(120% 95% at 50% 38%,rgba(42,9,12,.62) 0%,rgba(42,9,12,.87) 78%),linear-gradient(transparent 45%,rgba(24,5,7,.96) 100%)}
