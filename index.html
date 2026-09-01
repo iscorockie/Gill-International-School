@@ -210,6 +210,15 @@ body.nav-open .burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg
 .form-ok{text-align:center;padding:2rem .5rem}
 .form-ok .tick{width:76px;height:76px;margin:0 auto 1.1rem;border-radius:50%;background:var(--peri-l);display:grid;place-items:center;font-size:2rem}
 .form-ok code{background:var(--peri-l);color:var(--maroon);padding:.2rem .6rem;border-radius:8px;font-weight:700}
+.portal-card h3{font-size:1.5rem}
+.portal-cta{display:flex;flex-direction:column;gap:1rem;margin-top:1.7rem}
+.portal-btn{display:flex;align-items:center;justify-content:center;gap:.65rem;width:100%;padding:1.05rem 1.4rem;border-radius:999px;font-family:var(--fd);font-weight:700;font-size:1.02rem;letter-spacing:.01em;text-decoration:none;transition:.25s;text-align:center}
+.portal-btn svg{width:20px;height:20px;fill:currentColor;flex:none}
+.portal-btn.fill{background:linear-gradient(120deg,var(--maroon),var(--maroon-2));color:#fff;box-shadow:0 12px 28px rgba(110,27,32,.35)}
+.portal-btn.fill:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(110,27,32,.45)}
+.portal-btn.ghost{border:2px solid var(--maroon);color:var(--maroon);background:#fff}
+.portal-btn.ghost:hover{background:var(--peri-l);transform:translateY(-2px)}
+.portal-note{text-align:center;color:var(--muted);font-size:.86rem;line-height:1.55;margin-top:.35rem}
 
 /* ---------- staff ---------- */
 .filters{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:2.4rem;position:relative;z-index:1}
@@ -511,28 +520,21 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
     <div class="adm-grid">
       <div class="rv l">
         <div class="steps">
-          <div class="step"><div class="n">1</div><div><h3>Make an Inquiry</h3><p>Submit the enrolment form or call our admissions office &mdash; we respond within one working day.</p></div></div>
+          <div class="step"><div class="n">1</div><div><h3>Create an Account</h3><p>Sign up on the Parent Portal or call our admissions office &mdash; we respond within one working day.</p></div></div>
           <div class="step"><div class="n">2</div><div><h3>Tour the Campus</h3><p>Meet our teachers and experience the GIS spirit first&#8209;hand in Najjera.</p></div></div>
           <div class="step"><div class="n">3</div><div><h3>Assessment &amp; Documents</h3><p>A friendly, age&#8209;appropriate assessment plus submission of documents.</p></div></div>
           <div class="step"><div class="n">4</div><div><h3>Offer &amp; Enrolment</h3><p>Receive your offer, complete enrolment, pick up uniforms and books. Karibu!</p></div></div>
         </div>
         <div class="docs"><span>Birth certificate</span><span>2 passport photos</span><span>School report / transfer letter</span><span>Immunisation record (Early Years)</span><span>Parent / guardian ID</span></div>
       </div>
-      <div class="form-card rv r" id="inquiry">
-        <h3>Enrolment Inquiry Form</h3>
-        <p class="sub">Takes under two minutes. Our admissions team will call you back within one working day.</p>
-        <form id="admform" novalidate>
-          <div class="fg">
-            <div class="field"><label>Parent / Guardian Name *</label><input name="parent_name" required placeholder="e.g. Mary Kyomukama"><div class="err">Please enter your name.</div></div>
-            <div class="field"><label>Email Address *</label><input name="email" type="email" required placeholder="you@example.com"><div class="err">Please enter a valid email.</div></div>
-            <div class="field"><label>Phone / WhatsApp *</label><input name="phone" type="tel" required placeholder="+256 7xx xxx xxx"><div class="err">Please enter a phone number.</div></div>
-            <div class="field"><label>Child&rsquo;s Name *</label><input name="child_name" required placeholder="Child&rsquo;s full name"><div class="err">Please enter your child&rsquo;s name.</div></div>
-            <div class="field"><label>Stage Applying For *</label><select name="stage" required><option value="">Select a stage&hellip;</option><option>Early Years (Ages 3&ndash;5)</option><option>Cambridge Primary (Ages 5&ndash;11)</option><option>Cambridge Lower Secondary (Ages 12&ndash;14)</option><option>IGCSE (Ages 15&ndash;16)</option><option>AS &amp; A Levels (Ages 17&ndash;18)</option></select><div class="err">Please choose a stage.</div></div>
-            <div class="field"><label>Preferred Start Term *</label><select name="term" required><option value="">Select a term&hellip;</option><option>Term I &mdash; September 2026</option><option>Term II &mdash; January 2027</option><option>Term III &mdash; April 2027</option></select><div class="err">Please choose a term.</div></div>
-            <div class="field full"><label>Anything we should know? (optional)</label><textarea name="message" rows="3" placeholder="Questions, learning needs, current school&hellip;"></textarea></div>
-          </div>
-          <div style="margin-top:1.4rem;text-align:center"><button class="btn" type="submit">Submit Inquiry &rarr;</button></div>
-        </form>
+      <div class="form-card rv r portal-card" id="create-account">
+        <h3>Parent Portal</h3>
+        <p class="sub">Create your account to begin your application and track your child&rsquo;s enrolment &mdash; it takes less than two minutes.</p>
+        <div class="portal-cta">
+          <a class="portal-btn fill" href="/register"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> Create Account</a>
+          <a class="portal-btn ghost" href="/login"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 7 9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg> Already have an account? Sign In</a>
+          <p class="portal-note">Account registration happens on gill.ac.ug &mdash; one portal for pre&#8209;school and main campus applications.</p>
+        </div>
       </div>
     </div>
     <div class="feat4 rv">
@@ -712,7 +714,7 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
       </div>
     </div>
     <div><h4>Explore</h4><ul><li><a href="#about">About Us</a></li><li><a href="#academics">Academics</a></li><li><a href="#admissions">Admissions</a></li><li><a href="#staff">Staff Directory</a></li><li><a href="#gallery">Gallery</a></li></ul></div>
-    <div><h4>Quick Links</h4><ul><li><a href="#inquiry">Enrolment Inquiry Form</a></li><li><a href="#news">Events Calendar</a></li><li><a href="#news">News &amp; Blog</a></li><li><a href="#contact">Schedule a Visit</a></li></ul></div>
+    <div><h4>Quick Links</h4><ul><li><a href="#create-account">Parent Portal</a></li><li><a href="#news">Events Calendar</a></li><li><a href="#news">News &amp; Blog</a></li><li><a href="#contact">Schedule a Visit</a></li></ul></div>
     <div><h4>Contact</h4><ul><li>Najjera, Kampala, Uganda</li><li><a href="tel:+256771648684">+256 771 648 684</a></li><li><a href="tel:+256755071456">+256 755 071 456</a></li><li><a href="tel:+256783003231">+256 783 003 231</a></li><li><a href="mailto:info.gillschool@gmail.com">info.gillschool@gmail.com</a></li><li>Mon&ndash;Fri 7:30&ndash;17:00</li></ul></div>
   </div>
   <div class="base"><div class="wrap"><span>&copy; <span id="yr">2026</span> Gill International School. All rights reserved.</span><span>Cambridge International Education &middot; Najjera, Kampala &middot; <a href="preschool/" target="_blank" rel="noopener" style="color:var(--peri-2)">Pre&#8209;School</a></span></div></div>
@@ -949,7 +951,7 @@ function wire(form,kind){
   });
   form.addEventListener("input",function(e){var f=e.target.closest(".field");if(f)f.classList.remove("bad")});
 }
-var _af=$("#admform");if(_af)wire(_af,"inquiry");var _cf=$("#cform");if(_cf)wire(_cf,"message");
+var _cf=$("#cform");if(_cf)wire(_cf,"message");
 
 /* ---- dynamic content (published via admin dashboard) ---- */
 fetch("content.json").then(function(r){return r.ok?r.json():null}).then(function(data){
