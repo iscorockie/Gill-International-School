@@ -3,8 +3,8 @@
 > **Empowering Global Citizens of Tomorrow**
 > Christ‑centred Cambridge International education in Najjera, Kampala — inspiring young minds from Early Years to A Levels, ages 3–19.
 
-🌐 **Live site:** <https://iscorockie.github.io/Gill-International-School/>
-🏫 **School:** Gill International School, Najjera, Kampala, Uganda
+🌐 **Live site:** <https://gill.ac.ug>  ·  GitHub Pages mirror/backup: <https://iscorockie.github.io/Gill-International-School/>
+🏫 **School:** Gill International School, Plot 8, Block 228, Najjera, Kampala, Uganda
 🎓 **Curriculum:** Cambridge Assessment International Education (CAIE) — Early Years → Primary → Lower Secondary → IGCSE → AS & A Levels
 
 ---
@@ -57,9 +57,9 @@ To update the site, simply replace `index.html` and push — no rebuild required
 
 ## Contact
 
-- 📍 Najjera, Kampala, Uganda
+- 📍 Plot 8, Block 228, Najjera, Kampala, Uganda
 - 📞 +256 771 648 684 · +256 755 071 456 · +256 783 003 231
-- ✉️ admission@gillschool.ac.ug · admissions@gillschool.ac.ug
+- ✉️ info.gillschool@gmail.com
 - 💬 WhatsApp: +256 771 648 684
 
 ---
