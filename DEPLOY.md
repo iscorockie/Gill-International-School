@@ -21,6 +21,11 @@ The repo is the single source of truth. Two static deployments from the **same r
 ## Notes
 
 - No build step, no server, no region setting — static files served from Vercel's global CDN.
+- **Clean URLs:** `vercel.json` at the repo root sets `"cleanUrls": true` so extensionless paths
+  (`/register`, `/login`, `/terms`, `/privacy`) resolve to their `.html` files and `*.html`
+  requests 308-redirect to the clean path. It must live in each project's **Root Directory**
+  (for the main site that is the repo root, so it applies; the pre-school site only links to
+  absolute `https://gill.ac.ug/…` URLs and needs no config of its own).
 - Every push to `main` redeploys both projects automatically (~1 min), including content
   published through the admin dashboard (`content.json` + `media/` at the repo root).
 - Dashboard login: username **Admin** + password (see school records). The GitHub publish
