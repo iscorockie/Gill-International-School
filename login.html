@@ -178,6 +178,10 @@ footer .bot{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;p
 footer .bot a{color:#C7BCBD}
 @media(max-width:900px){footer .top{grid-template-columns:1fr;gap:2rem}}
 
+.setup{display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;padding:.5rem .95rem;font-size:.76rem;font-weight:600;color:#7A5B00;background:#FFF6DC;border:1px solid #F2D98C;border-radius:999px}
+.setup b{font-weight:700}
+.setup[hidden]{display:none}
+
 /* ---------- reveal ---------- */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
 .rv.in{opacity:1;transform:none}
@@ -226,6 +230,7 @@ footer .bot a{color:#C7BCBD}
     </div>
 
     <div class="form-card rv" id="acct">
+      <p class="setup" id="demo-pill" hidden>Demo mode &mdash; accounts are stored in this browser only. Connect Supabase in <b>/config.js</b> before launch.</p>
       <h3 id="acct-title">Sign In</h3>
       <p class="sub" id="acct-sub">Sign in to your parent portal to continue your application or track your child&rsquo;s enrolment.</p>
       <form id="signin" novalidate>
@@ -334,6 +339,8 @@ footer .bot a{color:#C7BCBD}
     <span><a href="/terms">Terms</a> &middot; <a href="/privacy">Privacy</a> &middot; <a href="https://preschool.gill.ac.ug/">Pre-School site</a></span>
   </div>
 </footer>
+<script src="/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
 "use strict";
@@ -348,8 +355,14 @@ if("IntersectionObserver" in window){
   $$(".rv").forEach(function(el){io.observe(el)});
 }else{$$(".rv").forEach(function(el){el.classList.add("in")})}
 
-var KEY="gis-accounts";
-var ly=$("#signin"),lt=$("#acct-title"),ls=$("#acct-sub");
+var KEY="gis-accounts",ly=$("#signin"),lt=$("#acct-title"),ls=$("#acct-sub");
+var CFG=(window.GIS_CONFIG||{}),SUP=null;
+if(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase){
+  try{SUP=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseAnonKey)}catch(e){SUP=null}
+}
+if(!SUP){var dp=$("#demo-pill");if(dp)dp.hidden=false}
+
+/* ---------- password visibility ---------- */
 $$(".pw .eye").forEach(function(btn){
   btn.addEventListener("click",function(){
     var inp=btn.parentElement.querySelector("input");
@@ -357,8 +370,31 @@ $$(".pw .eye").forEach(function(btn){
   });
 });
 function clr(e){var f=e.target.closest(".field");if(f)f.classList.remove("bad")}
+function emailErr(msg){
+  var em=ly.querySelector('[name=email]'),fld=em.closest(".field");
+  fld.classList.add("bad");
+  fld.querySelector(".err").textContent=msg;
+}
+function done(d,row,meta){
+  var name=(row&&row.parent_name)||(meta&&meta.parent_name)||"";
+  var ref=(row&&row.ref)||"";
+  $("#acctok").className="form-ok";
+  $("#acctok").hidden=false;
+  $("#acctok").innerHTML='<div class="tick">&#10003;</div>'+
+    '<h3>Welcome back'+(name?", "+name.split(" ")[0]:"")+'!</h3>'+
+    (ref?'<p>You\u2019re signed in. Your application reference is <code>'+ref+'</code>.</p>':"")+
+    '<p>Our admissions team will update you soon. Need it sooner? Call <b>+256 755 071 456</b> or email <a href="mailto:admissions@gillschool.ac.ug">admissions@gillschool.ac.ug</a>.</p>'+
+    '<div class="acct"><a class="btn" href="mailto:admissions@gillschool.ac.ug?subject=Application%20status'+(ref?"%20"+encodeURIComponent(ref):"")+'">Check Application Status</a>'+
+    '<a class="btn gd" href="/">Back to Home</a></div>';
+  ly.hidden=true;
+  lt.textContent="Signed in";
+  ls.textContent="";
+}
+
+/* ---------- sign in ---------- */
 ly.addEventListener("submit",function(e){
-  e.preventDefault();var ok=true;
+  e.preventDefault();
+  var ok=true;
   $$("[required]",ly).forEach(function(f){
     var fld=f.closest(".field"),v=f.value.trim()!=="";
     if(v&&f.type==="email")v=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.value.trim());
@@ -366,32 +402,29 @@ ly.addEventListener("submit",function(e){
   });
   if(!ok)return;
   var d={};new FormData(ly).forEach(function(v,k){d[k]=v});
+  if(SUP){
+    SUP.auth.signInWithPassword({email:d.email,password:d.password})
+      .then(function(res){
+        if(res.error){emailErr("No account found with this email, or the password is incorrect \u2014 create one at gill.ac.ug/register.");return}
+        var meta=(res.data.user&&res.data.user.user_metadata)||{};
+        SUP.from("parent_profiles").select("parent_name,ref").eq("id",res.data.user.id).maybeSingle()
+          .then(function(pr){done(d,pr.data||{},meta)})
+          .catch(function(){done(d,{},meta)});
+      })
+      .catch(function(){emailErr("Could not reach the sign-in service \u2014 please try again in a moment.")});
+    return;
+  }
+  /* demo mode */
   var found=null;
   try{
     found=(JSON.parse(localStorage.getItem(KEY)||"[]")).filter(function(a){
       return a.email&&a.email.toLowerCase()===d.email.toLowerCase();
     })[0]||null;
   }catch(err){}
-  if(!found){
-    var em=ly.querySelector('[name=email]'),fld=em.closest(".field");
-    fld.classList.add("bad");
-    fld.querySelector(".err").textContent="No account found with this email \u2014 create one at gill.ac.ug/register.";
-    return;
-  }
-  $("#acctok").className="form-ok";
-  $("#acctok").hidden=false;
-  $("#acctok").innerHTML='<div class="tick">&#10003;</div>'+
-    '<h3>Welcome back'+(found.parent_name?", "+found.parent_name.split(" ")[0]:"")+'!</h3>'+
-    '<p>You\u2019re signed in to the Gill parent portal.'+(found.ref?" Your application reference is <code>"+found.ref+"</code>.":"")+'</p>'+
-    '<p>Our admissions team will update you soon. Need it sooner? Call <b>+256 755 071 456</b> or email <a href="mailto:admissions@gillschool.ac.ug">admissions@gillschool.ac.ug</a>.</p>'+
-    '<div class="acct"><a class="btn" href="mailto:admissions@gillschool.ac.ug?subject=Application%20status'+(found.ref?"%20"+encodeURIComponent(found.ref):"")+'">Check Application Status</a>'+
-    '<a class="btn gd" href="/">Back to Home</a></div>';
-  ly.hidden=true;
-  lt.textContent="Signed in";
-  ls.textContent="";
+  if(!found){emailErr("No account found with this email, or the password is incorrect \u2014 create one at gill.ac.ug/register.");return}
+  done(d,found,{});
 });
 ly.addEventListener("input",clr);
-
 })();
 </script>
 </body>

@@ -178,6 +178,10 @@ footer .bot{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;p
 footer .bot a{color:#C7BCBD}
 @media(max-width:900px){footer .top{grid-template-columns:1fr;gap:2rem}}
 
+.setup{display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;padding:.5rem .95rem;font-size:.76rem;font-weight:600;color:#7A5B00;background:#FFF6DC;border:1px solid #F2D98C;border-radius:999px}
+.setup b{font-weight:700}
+.setup[hidden]{display:none}
+
 /* ---------- reveal ---------- */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
 .rv.in{opacity:1;transform:none}
@@ -235,6 +239,7 @@ footer .bot a{color:#C7BCBD}
 
     <!-- ============ ACCOUNT FORMS ============ -->
     <div class="form-card rv" id="acct">
+      <p class="setup" id="demo-pill" hidden>Demo mode &mdash; accounts are stored in this browser only. Connect Supabase in <b>/config.js</b> before launch.</p>
       <h3 id="acct-title">Create Account</h3>
       <p class="sub" id="acct-sub">Fill in your details to get started with your application.</p>
 
@@ -362,6 +367,8 @@ footer .bot a{color:#C7BCBD}
   </div>
 </footer>
 
+<script src="/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
 "use strict";
@@ -381,8 +388,13 @@ if("IntersectionObserver" in window){
   $$(".rv").forEach(function(el){io.observe(el)});
 }else{$$(".rv").forEach(function(el){el.classList.add("in")})}
 
-/* ---------- account forms ---------- */
+/* ---------- supabase / demo mode ---------- */
 var signup=$("#signup"),acctTitle=$("#acct-title"),acctSub=$("#acct-sub");
+var CFG=(window.GIS_CONFIG||{}),SUP=null;
+if(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase){
+  try{SUP=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseAnonKey)}catch(e){SUP=null}
+}
+if(!SUP){var dp=$("#demo-pill");if(dp)dp.hidden=false}
 
 /* ---------- password visibility ---------- */
 $$(".pw .eye").forEach(function(btn){
@@ -392,7 +404,7 @@ $$(".pw .eye").forEach(function(btn){
   });
 });
 
-/* ---------- shared validation ---------- */
+/* ---------- validation ---------- */
 function mark(fields){
   var ok=true;
   fields.forEach(function(f){
@@ -408,6 +420,36 @@ function mark(fields){
   return ok;
 }
 function clearBad(e){var f=e.target.closest(".field");if(f)f.classList.remove("bad");var c=e.target.closest(".chk");if(c)c.classList.remove("bad")}
+function emailErr(msg){
+  var em=signup.querySelector('[name=email]'),fld=em.closest(".field");
+  fld.classList.add("bad");
+  fld.querySelector(".err").textContent=msg;
+}
+function finish(d){
+  $("#acctok").className="form-ok";
+  $("#acctok").hidden=false;
+  $("#acctok").innerHTML='<div class="tick">&#10003;</div>'+
+    '<h3>Welcome, '+d.parent_name.split(" ")[0]+'!</h3>'+
+    '<p>Your parent portal account has been created.<br>Reference <code>'+d.ref+'</code> &mdash; please quote it in any correspondence with us.</p>'+
+    '<p>You can sign in now with your email and password. Our admissions team will call '+(d.phone||"you")+' within one working day.</p>'+
+    '<div class="acct"><a class="btn" href="mailto:admissions@gillschool.ac.ug?subject=Application%20'+encodeURIComponent(d.ref)+'">Continue Application &rarr;</a>'+
+    '<a class="btn gd" href="/">Back to Home</a></div>';
+  signup.hidden=true;
+  acctTitle.textContent="Account created";
+  acctSub.textContent="";
+}
+function confirmMail(d){
+  $("#acctok").className="form-ok";
+  $("#acctok").hidden=false;
+  $("#acctok").innerHTML='<div class="tick">&#9993;</div>'+
+    '<h3>Almost there, '+d.parent_name.split(" ")[0]+'!</h3>'+
+    '<p>We\u2019ve sent a confirmation link to <b>'+d.email+'</b>. Click it to activate your parent portal account &mdash; your reference is <code>'+d.ref+'</code>.</p>'+
+    '<p>Check spam if it doesn\u2019t arrive in a few minutes, or <a href="mailto:admissions@gillschool.ac.ug?subject=Account%20confirmation">email admissions</a>.</p>'+
+    '<div class="acct"><a class="btn" href="/login">Go to Sign In</a><a class="btn gd" href="/">Back to Home</a></div>';
+  signup.hidden=true;
+  acctTitle.textContent="Confirm your email";
+  acctSub.textContent="";
+}
 
 /* ---------- create account ---------- */
 signup.addEventListener("submit",function(e){
@@ -418,27 +460,23 @@ signup.addEventListener("submit",function(e){
   delete d.confirm;
   d.ref="GIS-"+new Date().getFullYear()+"-"+Math.floor(1000+Math.random()*9000);
   d.at=new Date().toISOString();
+  if(SUP){
+    SUP.auth.signUp({email:d.email,password:d.password,options:{data:{parent_name:d.parent_name,phone:d.phone,school:d.school,ref:d.ref}}})
+      .then(function(res){
+        if(res.error){emailErr("This email already has an account \u2014 sign in at gill.ac.ug/login.");return}
+        if(res.data.session){finish(d);return}
+        confirmMail(d);
+      })
+      .catch(function(){emailErr("Could not reach the registration service \u2014 please try again in a moment.")});
+    return;
+  }
+  /* demo mode (until config.js has Supabase keys) */
   try{
     var all=JSON.parse(localStorage.getItem(KEY)||"[]");
-    if(all.some(function(a){return a.email&&a.email.toLowerCase()===d.email.toLowerCase()})){
-      var em=signup.querySelector('[name=email]'),fld=em.closest(".field");
-      fld.classList.add("bad");
-      fld.querySelector(".err").textContent="This email already has an account \u2014 sign in at gill.ac.ug/login.";
-      return;
-    }
+    if(all.some(function(a){return a.email&&a.email.toLowerCase()===d.email.toLowerCase()})){emailErr("This email already has an account \u2014 sign in at gill.ac.ug/login.");return}
     all.push(d);localStorage.setItem(KEY,JSON.stringify(all));
   }catch(err){}
-  $("#acctok").className="form-ok";
-  $("#acctok").hidden=false;
-  $("#acctok").innerHTML='<div class="tick">&#10003;</div>'+
-    '<h3>Welcome, '+d.parent_name.split(" ")[0]+'!</h3>'+
-    '<p>Your parent portal account has been created.<br>Reference <code>'+d.ref+'</code> &mdash; please quote it in any correspondence with us.</p>'+
-    '<p>We\u2019ll email sign-in instructions to '+d.email+' shortly. Our admissions team will call '+(d.phone||"you")+' within one working day.</p>'+
-    '<div class="acct"><a class="btn" href="mailto:admissions@gillschool.ac.ug?subject=Application%20'+encodeURIComponent(d.ref)+'">Continue Application &rarr;</a>'+
-    '<a class="btn gd" href="/">Back to Home</a></div>';
-  signup.hidden=true;
-  acctTitle.textContent="Account created";
-  acctSub.textContent="";
+  finish(d);
 });
 signup.addEventListener("input",clearBad);
 })();
