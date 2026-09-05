@@ -46,8 +46,8 @@ section{position:relative}
 nav.links{display:flex;align-items:center;gap:.15rem;list-style:none}
 nav.links a{font-family:var(--fd);font-weight:600;font-size:.83rem;color:#F4E7E8;padding:.5rem .7rem;border-radius:8px;position:relative}
 nav.links a::after{content:"";position:absolute;left:.7rem;right:.7rem;bottom:2px;height:2px;background:var(--peri-2);transform:scaleX(0);transform-origin:left;transition:.3s}
-nav.links a:hover::after,nav.links a.on::after{transform:scaleX(1)}
-nav.links a:hover,nav.links a.on{color:#fff}
+nav.links a:not(.btn):hover::after,nav.links a.on:not(.btn)::after{transform:scaleX(1)}
+nav.links a:not(.btn):hover,nav.links a.on:not(.btn){color:#fff}
 nav.links a.btn::after{display:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--fd);font-weight:700;font-size:.92rem;letter-spacing:.01em;padding:.9rem 1.7rem;border-radius:999px;border:0;cursor:pointer;position:relative;overflow:hidden;transition:.3s;color:#fff;background:linear-gradient(120deg,var(--maroon),var(--maroon-2));box-shadow:0 10px 26px rgba(110,27,32,.35)}
 .btn::before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:.5s}
@@ -59,7 +59,7 @@ nav.links a.btn::after{display:none}
 .btn.gh:hover{background:rgba(255,255,255,.12)}
 .btn.gd{background:transparent;color:var(--maroon);box-shadow:inset 0 0 0 2px var(--maroon)}
 .btn.gd:hover{background:var(--maroon);color:#fff}
-.btn.sm{padding:.62rem 1.3rem;font-size:.83rem}
+.btn.sm{padding:.42rem .95rem;font-size:.75rem;gap:.35rem;box-shadow:0 4px 14px rgba(110,27,32,.28);letter-spacing:.02em;line-height:1.2}
 .burger{display:none;background:none;border:0;cursor:pointer;padding:6px}
 .burger span{display:block;width:26px;height:2.5px;background:#fff;margin:5.5px 0;border-radius:2px;transition:.3s}
 .burger.x span:nth-child(1){transform:translateY(8px) rotate(45deg)}
@@ -269,6 +269,30 @@ footer .base a{color:var(--peri-2)}
 .btn-ps{background:linear-gradient(120deg,var(--peri),var(--peri-2));color:var(--deep);box-shadow:0 8px 22px rgba(169,187,234,.38)}
 .btn-ps:hover{background:linear-gradient(120deg,#DCE4F8,#B9C8EE);color:var(--deep);transform:translateY(-2px)}
 .btn-ps svg{flex:none}
+
+/* nav CTA compact + no underline */
+.links .btn::after,nav .btn::after,.links a.btn::after{display:none!important}
+.links .btn{white-space:nowrap}
+@media(max-width:900px){
+  .links .btn.sm{padding:.7rem 1.4rem;font-size:1rem}
+}
+/* mosaic with 5 tiles */
+.mosaic{grid-template-columns:1fr 1fr;grid-auto-rows:100px}
+.mosaic figure:first-child{grid-column:span 2;grid-row:span 2}
+/* life strip — more photos */
+.strip{grid-template-columns:repeat(5,1fr)}
+@media(max-width:900px){.strip{grid-template-columns:repeat(3,1fr)}.strip a:nth-child(2n){margin-top:0}}
+@media(max-width:520px){.strip{grid-template-columns:repeat(2,1fr)}}
+
+
+/* CTA hover colours — keep readable on light/peri buttons */
+.nav-links a.btn.btn-ps:hover,.nav-links .btn-ps:hover,
+.links a.btn.btn-ps:hover,.links .btn-ps:hover{color:var(--deep)!important}
+.nav-links a.btn.lt:hover,.nav-links .btn.lt:hover,
+.links a.btn.lt:hover,.links .btn.lt:hover{color:var(--maroon)!important}
+.nav-links a.btn.gh:hover,.nav-links .btn.gh:hover,
+.links a.btn.gh:hover,.links .btn.gh:hover{color:#fff!important}
+
 </style>
 </head>
 <body>
@@ -299,8 +323,12 @@ footer .base a{color:var(--peri-2)}
   <div class="hero-photos" id="heroPhotos" aria-hidden="true">
     <b class="on" style="background-image:url('/preschool/photos/playground-swings.jpg')"></b>
     <b style="background-image:url('/preschool/photos/craft-table.jpg')"></b>
+    <b style="background-image:url('/preschool/photos/circle-time.jpg')"></b>
     <b style="background-image:url('/preschool/photos/recycled-art.jpg')"></b>
+    <b style="background-image:url('/preschool/photos/garden-fun.jpg')"></b>
     <b style="background-image:url('/preschool/photos/balloon-play.jpg')"></b>
+    <b style="background-image:url('/preschool/photos/painting-table.jpg')"></b>
+    <b style="background-image:url('/preschool/photos/weaving-yarn.jpg')"></b>
   </div>
   <span class="shard s1"></span><span class="shard s2"></span>
   <div class="hero-veil"></div>
@@ -345,6 +373,8 @@ footer .base a{color:var(--peri-2)}
       </div>
       <div class="mosaic">
         <figure><img src="/preschool/photos/playground-swings.jpg" alt="Pre-school children on the swings at Gill International Pre-School" loading="lazy"><figcaption>Playtime in the garden</figcaption></figure>
+        <figure><img src="/preschool/photos/circle-time.jpg" alt="Circle time with paper flower crafts" loading="lazy"></figure>
+        <figure><img src="/preschool/photos/garden-fun.jpg" alt="Children bouncing on the trampoline" loading="lazy"></figure>
         <figure><img src="/preschool/photos/spoon-flower.jpg" alt="Pre-school pupil holding a spoon-flower craft" loading="lazy"></figure>
         <figure><img src="/preschool/photos/weaving-yarn.jpg" alt="Pre-school pupils weaving with yarn in class" loading="lazy"></figure>
       </div>
@@ -415,10 +445,14 @@ footer .base a{color:var(--peri-2)}
     <div class="strip rv">
       <a href="/preschool/#gallery"><img src="/preschool/photos/balloon-play.jpg" alt="Two pre-school girls playing with balloons" loading="lazy"></a>
       <a href="/preschool/#gallery"><img src="/preschool/photos/craft-table.jpg" alt="Teacher and pupils at the craft table" loading="lazy"></a>
+      <a href="/preschool/#gallery"><img src="/preschool/photos/circle-time.jpg" alt="Circle time with paper flowers" loading="lazy"></a>
       <a href="/preschool/#gallery"><img src="/preschool/photos/spoon-flower.jpg" alt="Pupil showing a spoon-flower craft" loading="lazy"></a>
+      <a href="/preschool/#gallery"><img src="/preschool/photos/garden-fun.jpg" alt="Children on the trampoline" loading="lazy"></a>
       <a href="/preschool/#gallery"><img src="/preschool/photos/recycled-art.jpg" alt="Pupils making recycled-bottle art" loading="lazy"></a>
       <a href="/preschool/#gallery"><img src="/preschool/photos/weaving-yarn.jpg" alt="Pupils weaving with coloured yarn" loading="lazy"></a>
+      <a href="/preschool/#gallery"><img src="/preschool/photos/painting-table.jpg" alt="Pupils painting at the round table" loading="lazy"></a>
       <a href="/preschool/#gallery"><img src="/preschool/photos/proud-pupil.jpg" alt="Pupil proudly holding his decorated bottle" loading="lazy"></a>
+      <a href="/preschool/#gallery"><img src="/preschool/photos/pupil-portrait-1.jpg" alt="Pre-school pupil portrait" loading="lazy"></a>
     </div>
     <div class="next-cta rv"><a class="btn gd" href="/preschool/#gallery">See the full pre-school gallery</a></div>
   </div>
