@@ -50,6 +50,8 @@ nav.scrolled{background:rgba(42,9,12,.86);backdrop-filter:blur(14px);-webkit-bac
 .btn.gh:hover{background:rgba(255,255,255,.12)}
 .btn.gd{background:transparent;color:var(--maroon);box-shadow:inset 0 0 0 2px var(--maroon)}
 .btn.gd:hover{background:var(--maroon);color:#fff}
+.btn.sm{padding:.6rem 1.25rem;font-size:.8rem;line-height:1.25;white-space:nowrap;flex:none}
+.nav-links a.btn::after{display:none}
 .burger{display:none;background:none;border:0;cursor:pointer;padding:6px}
 .burger span{display:block;width:26px;height:2.5px;background:#fff;margin:5.5px 0;border-radius:2px;transition:.3s}
 body.nav-open .burger span:nth-child(1){transform:translateY(8px) rotate(45deg)}
@@ -60,6 +62,7 @@ body.nav-open .burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg
   .nav-links{position:fixed;inset:0;z-index:1;background:linear-gradient(160deg,var(--deep),var(--deep-2));flex-direction:column;justify-content:center;gap:.4rem;transform:translateX(100%);transition:.4s;padding-top:60px}
   body.nav-open .nav-links{transform:none}
   .nav-links a{font-size:1.25rem;padding:.7rem}
+  .nav-links a.btn{font-size:1rem;padding:.8rem 2rem;margin-top:.5rem}
 }
 
 /* ---------- hero ---------- */
@@ -402,7 +405,7 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
 #totop:hover{transform:translateY(-4px)}
 
 /* ---------- pre-school nav CTA ---------- */
-.nav-links .btn-ps{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.3rem;font-size:.8rem;background:linear-gradient(120deg,var(--peri),var(--peri-2));color:var(--deep);box-shadow:0 8px 22px rgba(169,187,234,.38)}
+.nav-links .btn-ps{background:linear-gradient(120deg,var(--peri),var(--peri-2));color:var(--deep);box-shadow:0 8px 22px rgba(169,187,234,.38)}
 .nav-links .btn-ps:hover{background:linear-gradient(120deg,#DCE4F8,#B9C8EE);color:var(--deep)}
 .nav-links .btn-ps svg{flex:none}
 </style>
@@ -422,8 +425,8 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
       <li><a href="#newsletter">Newsletter</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a class="btn btn-ps" href="preschool/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zM5 13.2V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8l-7 3.8-7-3.8z"/></svg> Pre-School</a></li>
-      <li><a class="btn" style="padding:.6rem 1.3rem;font-size:.8rem" href="#admissions">Apply Now</a></li>
+      <li><a class="btn btn-ps sm" href="preschool/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zM5 13.2V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8l-7 3.8-7-3.8z"/></svg> Pre-School</a></li>
+      <li><a class="btn sm" href="#admissions">Apply Now</a></li>
     </ul>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>

@@ -1,31 +1,37 @@
 # Pre-school photos
 
-These 7 files are referenced by the pre-school gallery (`/preschool/index.html`)
-and by the sign-in page design (`/login.html` — hero slideshow, sign-in mosaic,
-form-card header and the "Life at Gill" strip).
+Thirteen web-sized photographs of Gill International Pre-School. They are used by:
 
-**The files currently in this folder are tiny colour placeholders.**
-Replace each one with the real photograph listed below, keeping the exact filename.
+- the pre-school gallery (`/preschool/index.html` — `GAL` array),
+- the pre-school page design (hero background, About frame, program cards),
+- the sign-in page (`/login.html` — hero slideshow, welcome mosaic,
+  form-card header and the "Life at Gill" strip).
 
-| Filename                  | Photo                                            | Original      |
-|---------------------------|--------------------------------------------------|---------------|
-| `playground-swings.jpg`   | Children on the nest swings in the garden         | IMG_7275_1.jpg |
-| `balloon-play.jpg`        | Two girls with teal and orange balloons           | IMG_7277_1.jpg |
-| `craft-table.jpg`         | Teacher and pupils at the yellow craft table      | ACT_6744.jpg   |
-| `spoon-flower.jpg`        | Girl holding the plastic-spoon flower             | ACT_6768.jpg   |
-| `recycled-art.jpg`        | Overhead shot of the recycled-bottle art lesson   | ACT_6837.jpg   |
-| `weaving-yarn.jpg`        | Three pupils weaving with coloured yarn           | ACT_6860.jpg   |
-| `proud-pupil.jpg`         | Boy outdoors holding his decorated bottle         | ACT_0136.jpg   |
+| Filename | Photo | Orientation |
+|----------|-------|-------------|
+| `playground-swings.jpg` | Children on the nest swings in the garden | Landscape |
+| `trampoline-fun.jpg` | Pupils bouncing on the trampoline | Landscape |
+| `balloon-play.jpg` | Two girls with teal and orange balloons | Landscape |
+| `craft-table.jpg` | Teacher and pupils at the yellow craft table | Landscape |
+| `helping-hands.jpg` | Teacher helping pupils with spoon crafts | Landscape |
+| `spoon-flower.jpg` | Pupils holding a finished spoon flower | Landscape |
+| `recycled-art.jpg` | Overhead shot of the recycled-bottle art lesson | Landscape |
+| `weaving-yarn.jpg` | Three pupils weaving with coloured yarn | Landscape |
+| `drum-painting.jpg` | Boys painting their music drums red | Landscape |
+| `proud-pupil.jpg` | Boy outdoors holding his decorated bottle | Portrait |
+| `straw-craft.jpg` | Girl holding her colourful straw craft | Portrait |
+| `my-artwork.jpg` | Girl presenting her frame and spoon flower | Portrait |
+| `first-friends.jpg` | Two pupils with a flower and backpack | Portrait |
 
-## Recommended before committing the real files
+## Adding / replacing photos
 
-Keep them web-sized so the pages stay fast:
+Keep files web-sized (~1600px longest edge, quality 82) so the pages stay fast:
 
 ```bash
-# ~1600px wide, quality 82
 for f in preschool/photos/*.jpg; do
-  convert "$f" -resize '1600x1600>' -quality 82 -strip "$f"
+  convert "$f" -auto-orient -resize '1600x1600>' -quality 82 -strip "$f"
 done
 ```
 
-`proud-pupil.jpg` is portrait — it is used in tall/portrait slots, so do not crop it to landscape.
+Portrait files are used in tall slots (gallery `h2` tiles, program cards crop
+to 16/10) — do not crop them to landscape.
