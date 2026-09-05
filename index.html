@@ -232,7 +232,9 @@ body.nav-open .burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg
 .scard::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--maroon),var(--peri-2));transform:scaleX(0);transition:.35s}
 .scard:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
 .scard:hover::before{transform:scaleX(1)}
-.scard .av{width:82px;height:82px;margin:0 auto 1rem;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,var(--maroon),var(--deep));color:#fff;font-family:var(--fd);font-weight:800;font-size:1.4rem;box-shadow:0 0 0 4px #fff,0 0 0 6px var(--peri-2)}
+.scard .av{width:112px;height:112px;margin:0 auto 1rem;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,var(--maroon),var(--deep));color:#fff;font-family:var(--fd);font-weight:800;font-size:1.4rem;box-shadow:0 0 0 4px #fff,0 0 0 6px var(--peri-2);overflow:hidden}
+.scard .av.ph{background:none}
+.scard .av img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;border-radius:50%}
 .scard h3{font-size:.98rem}
 .scard .role{color:var(--maroon);font-weight:600;font-size:.84rem;margin:.2rem 0 .5rem}
 .scard p{font-size:.84rem;color:var(--muted)}
@@ -592,7 +594,7 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
       <p>Qualified, caring educators and staff who know every child by name.</p>
     </div>
     <div class="filters rv" id="sfilters">
-      <button class="on" data-f="all">All Staff</button><button data-f="leadership">Leadership</button><button data-f="early">Early Years</button><button data-f="primary">Primary</button><button data-f="secondary">Secondary</button><button data-f="arts">Arts &amp; Sports</button><button data-f="admin">Administration</button>
+      <button class="on" data-f="all">All Staff</button><button data-f="leadership">Leadership</button><button data-f="primary">Primary</button><button data-f="secondary">Secondary</button><button data-f="arts">Arts &amp; Sports</button><button data-f="admin">Administration</button>
     </div>
     <div class="staff-grid" id="sgrid"></div>
   </div>
@@ -804,30 +806,43 @@ showQ();setInterval(function(){qi=(qi+1)%QUOTES.length;showQ()},6000);}
 
 /* staff */
 var STAFF=[
- ["Mr. Daniel Ssemambo","Head of School","leadership","M.Ed. Cambridge International Examiner; 18 years in international education."],
- ["Mrs. Grace Achieng","Deputy Head — Academics","leadership","Leads curriculum quality across all five Cambridge stages."],
- ["Ms. Ruth Namutebi","Early Years Lead","early","Montessori-trained specialist in play-based foundational learning."],
- ["Mrs. Patricia Nabirye","Reception & Year 1 Teacher","early","Early literacy and phonics champion; parent-partnership advocate."],
- ["Mr. Peter Okello","Year 4 Class Teacher","primary","Primary Mathematics enthusiast and house captain mentor."],
- ["Ms. Aisha Hassan","Year 6 Class Teacher","primary","Prepares learners for Cambridge Primary Checkpoint with joy."],
- ["Mr. Brian Mugisha","Mathematics — Secondary","secondary","IGCSE & A-Level Maths; leads the GIS Maths Olympiad club."],
- ["Mrs. Lydia Nansubuga","Sciences — Secondary","secondary","Chemistry lead; runs the hands-on STEM and Science Fair programme."],
- ["Mr. Samuel Kaggwa","Humanities & Languages","secondary","History, Geography and Literature; debate society patron."],
- ["Ms. Diana Amongi","ICT & Computer Studies","secondary","Digital literacy and coding across Key Stages 2–4."],
- ["Mr. Joseph Ssenyonga","Sports & Physical Education","arts","Football and athletics coach; Inter-House Athletics organiser."],
- ["Ms. Rachel Adongo","Music, Drama & Art","arts","Directs the annual Arts, Music & Culture Evening."],
- ["Mrs. Mary Kyomukama","Admissions & Front Office","admin","Your first call for tours, fees and enrolment."],
- ["Mr. Isaac Twesigye","Bursar & Finance","admin","Handles billing, scholarships and the sibling discount."]
+ /* [name, role, categories, bio, photo] */
+ ["Mrs. Sophie Bamwoyeraki","Head of Academics","leadership","Champions teaching and learning quality across every Cambridge stage.","staff/sophie-bamwoyeraki.jpg"],
+ ["Ms. Caroline Mbabazi","Head of Primary","leadership primary","Leads our primary school and guides every child through the Cambridge Primary stages.","staff/caroline-mbabazi.jpg"],
+ ["Ms. Carol Tumwiine Rwegyira","Head of Secondary","leadership secondary","Leads the secondary school on the journey through IGCSE to A-Level.","staff/carol-rwegyira.jpg"],
+ ["Mr. Aston Turyahebwa","Head of Humanities Department","leadership secondary","Heads the humanities department &mdash; history, geography and global perspectives.","staff/aston-turyahebwa.jpg"],
+ ["Ms. Diana Mbabazi","Business Manager","leadership admin","Oversees the school's business operations and day-to-day planning.","staff/diana-mbabazi.jpg"],
+ ["Ms. Prossy Nakanda","Year 1 Homeroom Teacher","primary","Settles our youngest primary learners into happy, confident classroom routines.","staff/prossy-nakanda.jpg"],
+ ["Ms. Sybile Mader","Year 2 Homeroom Teacher","primary","Grows confident readers, writers and problem-solvers in Year 2.","staff/sybile-mader.jpg"],
+ ["Ms. Sandra Laker","Assistant Teacher &mdash; Year 2","primary","Gives Year 2 learners patient, one-on-one classroom support.","staff/sandra-laker.jpg"],
+ ["Mr. Isaiah Eletu","Year 3 Homeroom Teacher","primary","Makes Year 3 a year of curiosity, questions and discovery.","staff/isaiah-eletu.jpg"],
+ ["Ms. Alyce Babirye","Year 4 Homeroom Teacher","primary","Leads Year 4 with energy, encouragement and high expectations.","staff/alyce-babirye.jpg"],
+ ["Ms. Happy Nalubwama","Year 5 Homeroom Teacher","primary","Guides Year 5 learners as they grow into independent thinkers.","staff/happy-nalubwama.jpg"],
+ ["Mr. Gosbert Masereka","Year 6 Homeroom Teacher","primary","Prepares Year 6 for Cambridge Primary Checkpoint and the step into secondary.","staff/gosbert-masereka.jpg"],
+ ["Mr. Aladin Muhindo","Maths &amp; Science Teacher","primary","Brings primary mathematics and science alive with practical investigation.","staff/aladin-muhindo.jpg"],
+ ["Ms. Poline Nabafu","Special Needs Teacher","primary","Champions inclusive learning and individual support for every child.","staff/poline-nabafu.jpg"],
+ ["Ms. Joan Nalubwama","Year 7 Homeroom Teacher","secondary","Welcomes Year 7 into secondary school life and strong study habits.","staff/joan-nalubwama.jpg"],
+ ["Mr. Emmanuel Ndugga","Year 9 Homeroom Teacher","secondary","Mentors Year 9 as they shape their IGCSE subject choices.","staff/emmanuel-ndugga.jpg"],
+ ["Ms. Harriet Akello","Year 10 Homeroom Teacher","secondary","Steadies Year 10 through the first year of the IGCSE programme.","staff/harriet-akello.jpg"],
+ ["Mr. Martine Eupa","Biology &amp; Chemistry Teacher","secondary","Leads hands-on biology and chemistry practicals in the labs.","staff/martine-eupa.jpg"],
+ ["Mr. Paul Ochanya","Physics &amp; Mathematics Teacher","secondary","Builds strong foundations in physics and mathematics for IGCSE and beyond.","staff/paul-ochanya.jpg"],
+ ["Mr. Allan Tumusiime","ICT Teacher &amp; Technician","secondary","Teaches ICT and keeps the campus technology running smoothly.","staff/allan-tumusiime.jpg"],
+ ["Mr. David Mawejje","Music Teacher &mdash; Primary &amp; Secondary","arts primary secondary","Teaches music across the whole school, from rhythm and song to performance.","staff/david-mawejje.jpg"],
+ ["Ms. Cindy Naginda","Art Teacher","arts secondary","Inspires creativity and self-expression in the art studio.","staff/cindy-naginda.jpg"],
+ ["Ms. Caroline Kembabazi","School Administrator","admin","Keeps the front office and the day-to-day running of the school in order.","staff/caroline-kembabazi.jpg"],
+ ["Ms. Enid Katushabe","Finance &amp; Parent Relations","admin","Looks after fees and billing, and keeps a warm line open to parents.","staff/enid-katushabe.jpg"],
+ ["Ms. Godliva Ayebazibwe","School Librarian","admin","Grows a culture of reading across every year group.","staff/godliva-ayebazibwe.jpg"]
 ];
 if($("#sgrid")){$("#sgrid").innerHTML=STAFF.map(function(s){
   var init=s[0].replace(/^(Mr\.|Mrs\.|Ms\.)\s*/,"").split(" ").map(function(w){return w[0]}).join("").slice(0,2);
-  return '<div class="scard rv in" data-d="'+s[2]+'"><div class="av">'+init+'</div><h3>'+s[0]+'</h3><div class="role">'+s[1]+'</div><p>'+s[3]+'</p></div>';
+  var av=s[4]?'<div class="av ph"><img src="'+s[4]+'" alt="Portrait of '+s[0]+'" loading="lazy"></div>':'<div class="av">'+init+'</div>';
+  return '<div class="scard rv in" data-d="'+s[2]+'">'+av+'<h3>'+s[0]+'</h3><div class="role">'+s[1]+'</div><p>'+s[3]+'</p></div>';
 }).join("");
 $("#sfilters").addEventListener("click",function(e){
   var b=e.target.closest("button");if(!b)return;
   $$("#sfilters button").forEach(function(x){x.classList.remove("on")});b.classList.add("on");
   var f=b.getAttribute("data-f");
-  $$("#sgrid .scard").forEach(function(c){c.style.display=(f==="all"||c.getAttribute("data-d")===f)?"":"none"});
+  $$("#sgrid .scard").forEach(function(c){c.style.display=(f==="all"||(" "+c.getAttribute("data-d")+" ").indexOf(" "+f+" ")>-1)?"":"none"});
 });}
 
 /* gallery */
