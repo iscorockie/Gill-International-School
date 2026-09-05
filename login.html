@@ -230,6 +230,45 @@ footer .base a{color:var(--peri-2)}
 #totop{position:fixed;right:22px;bottom:22px;width:52px;height:52px;border-radius:16px;border:0;background:linear-gradient(140deg,var(--maroon),var(--deep));color:#fff;font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:.3s;box-shadow:0 14px 34px rgba(0,0,0,.3);z-index:80}
 #totop.show{opacity:1;pointer-events:auto}
 #totop:hover{transform:translateY(-4px)}
+
+/* ---------- pre-school photography ---------- */
+.hero-photos{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-photos b{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.06);transition:opacity 1.6s ease,transform 8s linear}
+.hero-photos b.on{opacity:1;transform:scale(1)}
+.hero-veil{z-index:1}
+.hero::before{z-index:2}
+.shard{z-index:2}
+
+.mosaic{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:110px;gap:.7rem;margin-top:1.9rem}
+.mosaic figure{position:relative;margin:0;border-radius:16px;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.32);border:1px solid rgba(255,255,255,.16)}
+.mosaic figure:first-child{grid-column:span 2;grid-row:span 2}
+.mosaic img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.3,1)}
+.mosaic figure:hover img{transform:scale(1.07)}
+.mosaic figcaption{position:absolute;inset:auto 0 0 0;padding:1.6rem .8rem .6rem;color:#fff;font-family:var(--fd);font-weight:600;font-size:.74rem;letter-spacing:.01em;background:linear-gradient(transparent,rgba(30,8,10,.9))}
+@media(max-width:560px){.mosaic{grid-auto-rows:92px}}
+
+.form-card .cardshot{position:relative;margin:-2.3rem -2.3rem 1.6rem;height:150px;overflow:hidden;border-radius:22px 22px 0 0}
+.form-card .cardshot img{width:100%;height:100%;object-fit:cover;object-position:center 38%}
+.form-card .cardshot::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(59,13,16,.10),rgba(255,255,255,.96))}
+.form-card .cardshot span{position:absolute;left:1.1rem;bottom:.55rem;z-index:1;font-family:var(--fd);font-weight:700;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--maroon)}
+@media(max-width:560px){.form-card .cardshot{margin:-1.7rem -1.7rem 1.3rem;height:120px}}
+
+#life{background:var(--bg);overflow:hidden}
+.strip{display:grid;grid-template-columns:repeat(6,1fr);gap:.9rem;position:relative;z-index:1}
+.strip a{position:relative;display:block;border-radius:16px;overflow:hidden;aspect-ratio:3/4;box-shadow:var(--shadow-s);transition:.35s}
+.strip a:nth-child(2n){margin-top:1.6rem}
+.strip a:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.strip img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.3,1)}
+.strip a:hover img{transform:scale(1.08)}
+.strip a::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(59,13,16,.55));opacity:0;transition:.35s}
+.strip a:hover::after{opacity:1}
+@media(max-width:900px){.strip{grid-template-columns:repeat(3,1fr)}.strip a:nth-child(2n){margin-top:0}}
+@media(max-width:520px){.strip{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- pre-school nav CTA ---------- */
+.btn-ps{background:linear-gradient(120deg,var(--peri),var(--peri-2));color:var(--deep);box-shadow:0 8px 22px rgba(169,187,234,.38)}
+.btn-ps:hover{background:linear-gradient(120deg,#DCE4F8,#B9C8EE);color:var(--deep);transform:translateY(-2px)}
+.btn-ps svg{flex:none}
 </style>
 </head>
 <body>
@@ -246,8 +285,8 @@ footer .base a{color:var(--peri-2)}
       <a href="/#home">Home</a>
       <a href="/#admissions">Admissions</a>
       <a href="/#academics">Academics</a>
-      <a href="/preschool/">Pre-School</a>
       <a href="/#contact">Contact</a>
+      <a class="btn btn-ps sm" href="/preschool/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zM5 13.2V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8l-7 3.8-7-3.8z"/></svg> Pre-School</a>
       <a class="btn gh sm" href="/login">Sign In</a>
       <a class="btn lt sm" href="/register">Create Account</a>
     </nav>
@@ -257,6 +296,12 @@ footer .base a{color:var(--peri-2)}
 
 <!-- ============ HERO ============ -->
 <section class="hero">
+  <div class="hero-photos" id="heroPhotos" aria-hidden="true">
+    <b class="on" style="background-image:url('/preschool/photos/playground-swings.jpg')"></b>
+    <b style="background-image:url('/preschool/photos/craft-table.jpg')"></b>
+    <b style="background-image:url('/preschool/photos/recycled-art.jpg')"></b>
+    <b style="background-image:url('/preschool/photos/balloon-play.jpg')"></b>
+  </div>
   <span class="shard s1"></span><span class="shard s2"></span>
   <div class="hero-veil"></div>
   <div class="wrap hero-grid">
@@ -298,8 +343,14 @@ footer .base a{color:var(--peri-2)}
       <div class="docs">
         <span>Ages 1&ndash;19</span><span>Max 20 pupils per class</span><span>2 campuses &middot; Najjera</span><span>Rolling admissions</span>
       </div>
+      <div class="mosaic">
+        <figure><img src="/preschool/photos/playground-swings.jpg" alt="Pre-school children on the swings at Gill International Pre-School" loading="lazy"><figcaption>Playtime in the garden</figcaption></figure>
+        <figure><img src="/preschool/photos/spoon-flower.jpg" alt="Pre-school pupil holding a spoon-flower craft" loading="lazy"></figure>
+        <figure><img src="/preschool/photos/weaving-yarn.jpg" alt="Pre-school pupils weaving with yarn in class" loading="lazy"></figure>
+      </div>
     </div>
     <div class="form-card rv">
+      <div class="cardshot"><img src="/preschool/photos/proud-pupil.jpg" alt="Gill pupil smiling on the pre-school campus" loading="lazy"><span>Welcome back</span></div>
       <p class="setup" id="demo-pill" hidden>Demo mode &mdash; accounts are stored in this browser only. Connect Supabase in <b>/config.js</b> before launch.</p>
       <div class="notice" id="created-note" hidden></div>
       <h3 id="acct-title">Sign In</h3>
@@ -352,6 +403,27 @@ footer .base a{color:var(--peri-2)}
   </div>
 </section>
 
+<!-- ============ LIFE AT GILL ============ -->
+<section id="life" class="sec">
+  <span class="wm">Our Pupils</span>
+  <div class="wrap">
+    <div class="head center rv">
+      <span class="kicker">Life at Gill</span>
+      <h2>The family you are signing in to</h2>
+      <p>Everyday moments from our pre-school campus in Najjera &mdash; play, craft, curiosity and plenty of smiles.</p>
+    </div>
+    <div class="strip rv">
+      <a href="/preschool/#gallery"><img src="/preschool/photos/balloon-play.jpg" alt="Two pre-school girls playing with balloons" loading="lazy"></a>
+      <a href="/preschool/#gallery"><img src="/preschool/photos/craft-table.jpg" alt="Teacher and pupils at the craft table" loading="lazy"></a>
+      <a href="/preschool/#gallery"><img src="/preschool/photos/spoon-flower.jpg" alt="Pupil showing a spoon-flower craft" loading="lazy"></a>
+      <a href="/preschool/#gallery"><img src="/preschool/photos/recycled-art.jpg" alt="Pupils making recycled-bottle art" loading="lazy"></a>
+      <a href="/preschool/#gallery"><img src="/preschool/photos/weaving-yarn.jpg" alt="Pupils weaving with coloured yarn" loading="lazy"></a>
+      <a href="/preschool/#gallery"><img src="/preschool/photos/proud-pupil.jpg" alt="Pupil proudly holding his decorated bottle" loading="lazy"></a>
+    </div>
+    <div class="next-cta rv"><a class="btn gd" href="/preschool/#gallery">See the full pre-school gallery</a></div>
+  </div>
+</section>
+
 <!-- ============ BOTTOM CTA ============ -->
 <section class="join">
   <div class="wrap">
@@ -381,10 +453,10 @@ footer .base a{color:var(--peri-2)}
       </div>
     </div>
     <div><h4>Explore</h4><ul><li><a href="/#about">About Us</a></li><li><a href="/#academics">Academics</a></li><li><a href="/#admissions">Admissions</a></li><li><a href="/#staff">Staff Directory</a></li><li><a href="/#gallery">Gallery</a></li></ul></div>
-    <div><h4>Parent Portal</h4><ul><li><a href="/register">Create Account</a></li><li><a href="/login">Sign In</a></li><li><a href="/preschool/">Pre-School</a></li><li><a href="/terms">Terms &amp; Conditions</a></li><li><a href="/privacy">Privacy Policy</a></li></ul></div>
+    <div><h4>Parent Portal</h4><ul><li><a href="/register">Create Account</a></li><li><a href="/login">Sign In</a></li><li><a href="/terms">Terms &amp; Conditions</a></li><li><a href="/privacy">Privacy Policy</a></li></ul></div>
     <div><h4>Contact</h4><ul><li>Najjera, Kampala, Uganda</li><li><a href="tel:+256771648684">+256 771 648 684</a></li><li><a href="tel:+256755071456">+256 755 071 456</a></li><li><a href="tel:+256783003231">+256 783 003 231</a></li><li><a href="mailto:info.gillschool@gmail.com">info.gillschool@gmail.com</a></li><li>Mon&ndash;Fri 7:30&ndash;17:00</li></ul></div>
   </div>
-  <div class="base"><div class="wrap"><span>&copy; <span id="yr">2026</span> Gill International School. All rights reserved.</span><span>Cambridge International Education &middot; Najjera, Kampala &middot; <a href="/terms">Terms</a> &middot; <a href="/privacy">Privacy</a> &middot; <a href="/preschool/" target="_blank" rel="noopener" style="color:var(--peri-2)">Pre&#8209;School</a></span></div></div>
+  <div class="base"><div class="wrap"><span>&copy; <span id="yr">2026</span> Gill International School. All rights reserved.</span><span>Cambridge International Education &middot; Najjera, Kampala &middot; <a href="/terms">Terms</a> &middot; <a href="/privacy">Privacy</a> &middot; <a href="https://lubech.tech" target="_blank" rel="noopener" style="color:var(--peri-2)">Designed by Lubech Tech</a></span></div></div>
 </footer>
 <button id="totop" aria-label="Back to top">&uarr;</button>
 
@@ -396,6 +468,13 @@ footer .base a{color:var(--peri-2)}
 var $=function(s,c){return (c||document).querySelector(s)},
     $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
 var hdr=$("#hdr"),burger=$("#burger"),navlinks=$("#navlinks"),prog=$("#progress"),totop=$("#totop");
+
+/* hero photo crossfade */
+(function(){
+  var slides=$$("#heroPhotos b");if(slides.length<2)return;
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  var i=0;setInterval(function(){slides[i].classList.remove("on");i=(i+1)%slides.length;slides[i].classList.add("on")},6000);
+})();
 
 /* header scrolled + progress + totop */
 function onScroll(){
