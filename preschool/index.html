@@ -420,6 +420,23 @@ a.btn{text-decoration:none}
 .pulse{animation:pulse 2.4s ease-out infinite;transform-origin:center;transform-box:fill-box}
 @keyframes pulse{0%{transform:scale(.55);opacity:.75}70%{transform:scale(1.6);opacity:0}100%{transform:scale(1.6);opacity:0}}
 @media(prefers-reduced-motion:reduce){.pulse{animation:none}}
+
+/* ---------- staff (leadership + administration) ---------- */
+.staff-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;position:relative;z-index:1}
+@media(max-width:1020px){.staff-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.staff-grid{grid-template-columns:1fr}}
+.gtitle{font-family:var(--fd);font-weight:700;font-size:1.02rem;color:var(--maroon);margin:2.6rem 0 1.1rem;display:flex;align-items:center;gap:.8rem}
+.gtitle::after{content:"";flex:1;height:1px;background:var(--line)}
+.gtitle:first-of-type{margin-top:0}
+.scard{background:#fff;border-radius:18px;padding:1.7rem 1.3rem;text-align:center;box-shadow:var(--shadow-s);transition:.35s;position:relative;overflow:hidden}
+.scard::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--maroon),var(--peri-2));transform:scaleX(0);transition:.35s}
+.scard:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.scard:hover::before{transform:scaleX(1)}
+.scard .av{width:112px;height:112px;margin:0 auto 1rem;border-radius:50%;overflow:hidden;background:linear-gradient(140deg,var(--maroon),var(--deep));box-shadow:0 0 0 4px #fff,0 0 0 6px var(--peri-2)}
+.scard .av img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;border-radius:50%}
+.scard h3{font-size:.98rem}
+.scard .role{color:var(--maroon);font-weight:600;font-size:.84rem;margin:.2rem 0 .5rem}
+.scard p{font-size:.84rem;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -432,6 +449,7 @@ a.btn{text-decoration:none}
       <li><a href="#about">About Us</a></li>
       <li><a href="#programs">Programs</a></li>
       <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#team">Our Team</a></li>
       <li><a href="#admissions">Admissions</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a class="btn sm" href="#admissions">Apply Now</a></li>
@@ -542,6 +560,31 @@ a.btn{text-decoration:none}
 </section>
 
 <!-- ============ ADMISSIONS ============ -->
+<section class="sec" id="team">
+  <div class="wm">Our Team</div>
+  <div class="wrap">
+    <div class="head rv">
+      <span class="kicker" style="color:var(--maroon)">Staff Directory</span>
+      <h2>Meet the people behind the little minds</h2>
+      <p>The leadership and administration team who keep our pre&#8209;school safe, warm and running smoothly, every single day.</p>
+    </div>
+    <h3 class="gtitle">Leadership</h3>
+    <div class="staff-grid">
+      <div class="scard rv"><div class="av"><img src="../staff/sophie-bamwoyeraki.jpg" alt="Portrait of Mrs. Sophie Bamwoyeraki, Head of Academics" loading="lazy"></div><h3>Mrs. Sophie Bamwoyeraki</h3><div class="role">Head of Academics</div><p>Champions teaching and learning quality across every Cambridge stage.</p></div>
+      <div class="scard rv"><div class="av"><img src="../staff/caroline-mbabazi.jpg" alt="Portrait of Ms. Caroline Mbabazi, Head of Primary" loading="lazy"></div><h3>Ms. Caroline Mbabazi</h3><div class="role">Head of Primary</div><p>Leads our primary school and guides every child through the Cambridge Primary stages.</p></div>
+      <div class="scard rv"><div class="av"><img src="../staff/carol-rwegyira.jpg" alt="Portrait of Ms. Carol Tumwiine Rwegyira, Head of Secondary" loading="lazy"></div><h3>Ms. Carol Tumwiine Rwegyira</h3><div class="role">Head of Secondary</div><p>Leads the secondary school on the journey through IGCSE to A Level.</p></div>
+      <div class="scard rv"><div class="av"><img src="../staff/aston-turyahebwa.jpg" alt="Portrait of Mr. Aston Turyahebwa, Head of Humanities Department" loading="lazy"></div><h3>Mr. Aston Turyahebwa</h3><div class="role">Head of Humanities Department</div><p>Heads the humanities department: history, geography and global perspectives.</p></div>
+    </div>
+    <h3 class="gtitle">Administration</h3>
+    <div class="staff-grid">
+      <div class="scard rv"><div class="av"><img src="../staff/diana-mbabazi.jpg" alt="Portrait of Ms. Diana Mbabazi, Business Manager" loading="lazy"></div><h3>Ms. Diana Mbabazi</h3><div class="role">Business Manager</div><p>Oversees the school&rsquo;s business operations and day-to-day planning.</p></div>
+      <div class="scard rv"><div class="av"><img src="../staff/caroline-kembabazi.jpg" alt="Portrait of Ms. Caroline Kembabazi, School Administrator" loading="lazy"></div><h3>Ms. Caroline Kembabazi</h3><div class="role">School Administrator</div><p>Keeps the front office and the day-to-day running of the school in order.</p></div>
+      <div class="scard rv"><div class="av"><img src="../staff/enid-katushabe.jpg" alt="Portrait of Ms. Enid Katushabe, Finance &amp; Parent Relations" loading="lazy"></div><h3>Ms. Enid Katushabe</h3><div class="role">Finance &amp; Parent Relations</div><p>Looks after fees and billing, and keeps a warm line open to parents.</p></div>
+      <div class="scard rv"><div class="av"><img src="../staff/godliva-ayebazibwe.jpg" alt="Portrait of Ms. Godliva Ayebazibwe, School Librarian" loading="lazy"></div><h3>Ms. Godliva Ayebazibwe</h3><div class="role">School Librarian</div><p>Grows a culture of reading across every year group.</p></div>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="admissions">
   <div class="wm">Admissions</div>
   <div class="wrap">
