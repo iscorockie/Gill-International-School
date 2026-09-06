@@ -40,10 +40,13 @@ create table if not exists public.parent_profiles (
 -- Row-Level Security: a parent can only read/write their own row
 alter table public.parent_profiles enable row level security;
 
+drop policy if exists "view own profile"   on public.parent_profiles;
 create policy "view own profile"   on public.parent_profiles
   for select using (auth.uid() = id);
+drop policy if exists "insert own profile" on public.parent_profiles;
 create policy "insert own profile" on public.parent_profiles
   for insert with check (auth.uid() = id);
+drop policy if exists "update own profile" on public.parent_profiles;
 create policy "update own profile" on public.parent_profiles
   for update using (auth.uid() = id);
 
@@ -74,6 +77,13 @@ create trigger on_auth_user_created
 ```
 
 ## 3. Recommended Auth settings
+
+> **Emails not arriving?** On the free tier Supabase sends confirmation
+> emails with its own default sender — check the spam folder first. If they
+> keep failing, turn on **Authentication → Notifications → Emails →
+> "Enable custom SMTP"** and point it at any SMTP provider. (The site works
+> either way; only the emailed links depend on this.)
+
 
 **Authentication → Sign In / Up:**
 
