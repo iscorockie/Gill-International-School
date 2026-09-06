@@ -98,6 +98,13 @@ create trigger on_auth_user_created
 > 3. **Save changes** — Supabase then raises the free-tier limit to
 >    30 emails/hour, which is plenty for parent sign-ups.
 >
+>    *Supabase shows an amber "personal rather than transactional email"
+>    warning for Gmail — that is expected and fine at our volume (a few
+>    sign-ups a day, well under Gmail's ~500 messages/day). If enrolment
+>    ever scales to hundreds of emails a day, swap in a domain-based
+>    transactional sender (e.g. Resend/SendGrid/Postmark on gill.ac.ug);
+>    it's a one-form change, no site changes.*
+>
 > (The site works either way; only the emailed confirmation / password-reset
 > links depend on this.)
 
