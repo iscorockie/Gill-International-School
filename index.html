@@ -288,17 +288,16 @@ body.nav-open .burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg
 .feat4 p{color:#E3CDCE;font-size:.85rem}
 .req-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;position:relative;z-index:1}
 @media(max-width:860px){.req-grid{grid-template-columns:1fr}}
-.req-grid details .inner{display:flex;align-items:stretch;gap:1.2rem}
-.req-grid details .req-txt{flex:1 1 auto;min-width:0;display:flex;align-items:center}
-.req-grid .bph{position:relative;flex:0 0 34%;min-width:170px;max-width:215px;min-height:170px;border-radius:58% 42% 63% 37%/45% 52% 48% 55%;overflow:hidden;box-shadow:0 10px 22px rgba(0,0,0,.26)}
-.req-grid details:nth-child(2) .bph{border-radius:45% 55% 38% 62%/52% 44% 56% 48%}
-.req-grid details:nth-child(3) .bph{border-radius:37% 63% 55% 45%/55% 45% 52% 48%}
-.req-grid details:nth-child(4) .bph{border-radius:62% 38% 44% 56%/45% 55% 48% 52%}
-.req-grid .bph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:rgba(255,255,255,.12)}
+
+.req-grid details.box{position:relative;background:#3B0D10;border-color:rgba(255,255,255,.2)}
+.req-grid details.box::before{content:"";position:absolute;inset:0;background:var(--tile) center/cover no-repeat;z-index:0}
+.req-grid details.box::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,#33090d 0%,rgba(110,27,32,.95) 22%,rgba(140,36,41,.68) 48%,rgba(140,36,41,.32) 72%,rgba(140,36,41,.08) 100%)}
+.req-grid details.box summary,.req-grid details.box .inner{position:relative;z-index:2}
+.req-grid details .inner ul{max-width:62%}
 .req-grid details[open] .inner{animation:reqIn .4s ease}
 @keyframes reqIn{from{opacity:0;transform:translateY(.45rem)}to{opacity:1;transform:none}}
-@media(max-width:860px){.req-grid .bph{flex-basis:38%;min-width:150px;max-width:190px;min-height:150px}}
-@media(max-width:520px){.req-grid details .inner{flex-direction:column-reverse;gap:1rem}.req-grid .bph{flex-basis:auto;width:100%;max-width:none;min-height:180px}}
+@media(max-width:860px){.req-grid details .inner ul{max-width:68%}}
+@media(max-width:520px){.req-grid details .inner ul{max-width:100%}.req-grid details.box::after{background:linear-gradient(90deg,#33090d 0%,rgba(110,27,32,.96) 32%,rgba(140,36,41,.85) 60%,rgba(140,36,41,.68) 82%,rgba(140,36,41,.55) 100%)}}.req-grid .bph{flex-basis:auto;width:100%;max-width:none;min-height:180px}}
 details.box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden}
 details.box summary{cursor:pointer;list-style:none;padding:1.05rem 1.3rem;font-family:var(--fd);font-weight:700;color:#fff;display:flex;justify-content:space-between;align-items:center;font-size:.95rem}
 details.box summary::-webkit-details-marker{display:none}
@@ -612,10 +611,10 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
       <h2 style="font-size:clamp(1.4rem,2.6vw,1.9rem);color:#fff">What each stage needs</h2>
     </div>
     <div class="req-grid rv">
-      <details class="box"><summary>Early Years (Ages 3&ndash;5)</summary><div class="inner"><div class="req-txt"><ul><li>Age 4&ndash;5 by 1 September</li><li>Birth certificate or passport</li><li>Immunisation records</li><li>Previous school report (if applicable)</li><li>Parent interview</li></ul></div><div class="bph"><img src="preschool/photos/circle-time.jpg" alt="Early Years classroom at Gill International School" loading="lazy"><img class="b2" src="preschool/photos/balloon-play.jpg" alt="Preschoolers playing with balloons on the playground" loading="lazy"></div></div></details>
-      <details class="box"><summary>Cambridge Primary (Ages 5&ndash;11)</summary><div class="inner"><div class="req-txt"><ul><li>Age appropriate for year group</li><li>Previous school transcripts</li><li>English proficiency assessment</li><li>Mathematics assessment</li><li>Student interview</li></ul></div><div class="bph"><img src="preschool/photos/painting-table.jpg" alt="Primary pupils painting at Gill International School" loading="lazy"></div></div></details>
-      <details class="box"><summary>Lower Secondary (Ages 12&ndash;14)</summary><div class="inner"><div class="req-txt"><ul><li>Strong academic record</li><li>School transcripts (2 years)</li><li>English &amp; Maths placement tests</li><li>Teacher recommendations</li><li>Student &amp; parent interview</li></ul></div><div class="bph"><img src="images/campus-science-lab.jpg" alt="Lower secondary pupils in the science lab" loading="lazy"><img class="b2" src="images/campus-sports-pitch.jpg" alt="Students playing football on the sports pitch" loading="lazy"></div></div></details>
-      <details class="box"><summary>Upper Secondary &amp; Advanced (Ages 15&ndash;18)</summary><div class="inner"><div class="req-txt"><ul><li>IGCSE certificates or equivalent</li><li>Minimum 5 IGCSEs at grade C</li><li>Subject&#8209;specific entry requirements</li><li>Academic reference letter</li><li>University aspiration interview</li></ul></div><div class="bph"><img src="images/campus-graduation.jpg" alt="Gill International School graduates in gowns" loading="lazy"></div></div></details>
+      <details class="box" style="--tile:url('preschool/photos/circle-time.jpg')"><summary>Early Years (Ages 3&ndash;5)</summary><div class="inner"><ul><li>Age 4&ndash;5 by 1 September</li><li>Birth certificate or passport</li><li>Immunisation records</li><li>Previous school report (if applicable)</li><li>Parent interview</li></ul></div></details>
+      <details class="box" style="--tile:url('preschool/photos/painting-table.jpg')"><summary>Cambridge Primary (Ages 5&ndash;11)</summary><div class="inner"><ul><li>Age appropriate for year group</li><li>Previous school transcripts</li><li>English proficiency assessment</li><li>Mathematics assessment</li><li>Student interview</li></ul></div></details>
+      <details class="box" style="--tile:url('images/campus-science-lab.jpg')"><summary>Lower Secondary (Ages 12&ndash;14)</summary><div class="inner"><ul><li>Strong academic record</li><li>School transcripts (2 years)</li><li>English &amp; Maths placement tests</li><li>Teacher recommendations</li><li>Student &amp; parent interview</li></ul></div></details>
+      <details class="box" style="--tile:url('images/campus-graduation.jpg')"><summary>Upper Secondary &amp; Advanced (Ages 15&ndash;18)</summary><div class="inner"><ul><li>IGCSE certificates or equivalent</li><li>Minimum 5 IGCSEs at grade C</li><li>Subject&#8209;specific entry requirements</li><li>Academic reference letter</li><li>University aspiration interview</li></ul></div></details>
     </div>
     <div class="head" style="margin:3.6rem 0 1.4rem">
       <span class="kicker">FAQ</span>
