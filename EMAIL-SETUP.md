@@ -57,13 +57,38 @@ into Vercel DNS (tables below are what those records will look like).
 ## Option B — Zoho Mail (free: up to 5 mailboxes, real inboxes)
 
 Best free option if you also want staff to *receive* mail on the domain
-(info@gill.ac.ug, accounts@gill.ac.ug, …).
+(info@gill.ac.ug, accounts@gill.ac.ug, …). Forever-Free plan: 5 users,
+5 GB each, no credit card. (Free tier = webmail + mobile app; outgoing
+SMTP — what Supabase needs — is included.)
 
-1. Sign up at **mail.zoho.com** → "Get a Free Account" → choose **your own
-   domain** → enter `gill.ac.ug`.
-2. In **Zoho Admin Console → Tools & Configurations** Zoho lists the exact
-   records for your data-center region. The standard (US/international DC)
-   set is:
+**Step 1 — Sign up & add the domain**
+Go to **mail.zoho.com → Sign Up** (verify the phone number by OTP) →
+pick **Forever Free** → choose **use your own domain** → enter
+`gill.ac.ug`. Pick the data center Zoho offers for your region.
+
+> ⚠️ The data center decides the record suffix (US → `zoho.com`,
+> India → `zoho.in`, EU → `zoho.eu` …). **Always copy the exact values
+> Zoho shows you** — from *Admin Console → Domains* (MX) and
+> *Tools & Configurations* (SPF/DKIM) — never trust a generic list.
+
+**Step 2 — Verify domain ownership (temporary record)**
+Zoho shows a verification TXT value that looks like:
+
+```
+zoho-verification=zbXXXXXXXX.zmverify.zoho.in
+```
+
+Add it in **Vercel DNS** (Type `TXT`, Name `@`, Value = that exact string)
+→ back in Zoho click **Verify TXT Record** → green check. You may delete
+this record afterwards.
+
+**Step 3 — Create the mailbox**
+In the Zoho admin, add your first user (it becomes the super-admin
+mailbox): **info@gill.ac.ug** → set a strong password.
+
+**Step 4 — Add the mail records in Vercel DNS**
+From **Admin Console → Domains → Manage DNS Records**, add exactly what
+it lists. The standard (US/international DC) set:
 
    **Add in Vercel DNS:**
 
@@ -74,13 +99,9 @@ Best free option if you also want staff to *receive* mail on the domain
    | MX | `@` | `mx3.zoho.com` | 50 |
    | TXT | `@` | `v=spf1 include:zoho.com ~all` | — |
 
-   *(If your Zoho data center is EU/India/AU, Zoho shows the regional
-   variants — `mx.zoho.eu`, `include:zoho.eu`, etc. Always copy the exact
-   values from Tools & Configurations.)*
-3. Recommended: enable **DKIM** in the same screen (Auto DKIM) and add the
-   TXT record Zoho generates (Name looks like `zoho._domainkey`).
-4. Create the mailbox **info@gill.ac.ug** (Users → Add User) and set its
-   password.
+   | TXT (DKIM) | `zoho._domainkey` *(Zoho shows the exact Name)* | `v=DKIM1; k=rsa; p=…` *(Zoho-generated — copy verbatim)* | — |
+4. **Step 5 — Verify** in Zoho: MX / SPF / DKIM should all show green.
+   Test: send a mail from info@ to your Gmail, and from Gmail to info@.
 
 **Supabase form:**
 
