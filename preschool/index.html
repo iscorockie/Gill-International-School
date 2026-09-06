@@ -128,7 +128,7 @@ body.nav-open .burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg
 .rv.r{transform:translateX(36px)}
 .rv.z{transform:scale(.92)}
 .rv.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.marquee .track,.orbit .ring,.badge,.shard,.scrollcue span{animation:none}}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.marquee .track,.orbit .ring,.badge,.map-pin::before,.shard,.scrollcue span{animation:none}.map-pin::before{opacity:0}}
 
 /* ---------- about ---------- */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
@@ -358,8 +358,18 @@ details.box .inner li::before{content:"—";position:absolute;left:0;color:var(-
 .cc a:hover{color:var(--maroon)}
 .contact-split{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;margin-top:3.5rem;align-items:stretch;position:relative;z-index:1}
 @media(max-width:960px){.contact-split{grid-template-columns:1fr}}
-.map{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-s);min-height:380px;position:relative}
-.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.map{position:relative;display:flex;align-items:center;background:var(--peri-l)}
+.map-box{position:relative;width:100%;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-s);background:var(--peri-l)}
+.map-img{width:100%;height:auto;display:block}
+.map-pin{position:absolute;left:45.27%;top:19.36%;transform:translate(-50%,-100%);z-index:3;display:block;filter:drop-shadow(0 8px 14px rgba(30,20,22,.35));transition:transform .25s}
+.map-pin:hover{transform:translate(-50%,-100%) scale(1.1)}
+.map-pin::before{content:"";position:absolute;left:50%;top:44%;width:52px;height:52px;border-radius:50%;background:rgba(140,36,41,.35);transform:translate(-50%,-50%) scale(.6);animation:pinpulse 2s ease-out infinite;z-index:-1}
+@keyframes pinpulse{0%{transform:translate(-50%,-50%) scale(.55);opacity:.85}70%{transform:translate(-50%,-50%) scale(1.7);opacity:0}100%{opacity:0}}
+.pin-head{width:46px;height:46px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:linear-gradient(120deg,var(--maroon),var(--maroon-2));display:grid;place-items:center;border:3px solid #fff;box-shadow:0 6px 16px rgba(30,20,22,.28)}
+.pin-head svg{transform:rotate(45deg);width:22px;height:22px;fill:#fff}
+.map-open{position:absolute;right:14px;bottom:14px;z-index:3;display:inline-flex;align-items:center;gap:.45rem;background:linear-gradient(120deg,var(--maroon),var(--maroon-2));color:#fff;font-family:var(--fd);font-weight:700;font-size:.8rem;padding:.62rem 1.15rem;border-radius:999px;box-shadow:0 10px 24px rgba(110,27,32,.4);transition:.25s}
+.map-open:hover{transform:translateY(-2px);color:#fff;box-shadow:0 14px 30px rgba(110,27,32,.5)}
+.map-credit{position:absolute;left:12px;bottom:10px;z-index:3;font-size:.68rem;color:rgba(30,34,42,.68);background:rgba(255,255,255,.78);padding:.22rem .55rem;border-radius:6px}
 
 /* ---------- footer ---------- */
 footer{background:var(--deep-2);color:#CDB4B5;position:relative;overflow:hidden}
@@ -391,8 +401,6 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
 #programs .stage .ages{background:var(--peri-l)}
 
 /* ---------- portal CTA + map directions ---------- */
-.map .dirs{position:absolute;right:14px;bottom:14px;z-index:2;background:var(--maroon);color:#fff;font-family:var(--fd);font-weight:700;font-size:.8rem;padding:.55rem 1.1rem;border-radius:999px;box-shadow:0 8px 22px rgba(0,0,0,.28);transition:.25s}
-.map .dirs:hover{transform:translateY(-2px);background:var(--maroon-2)}
 .acct{display:grid;gap:.75rem;margin-top:1.4rem}
 .acct .btn{width:100%;justify-content:center}
 a.btn{text-decoration:none}
@@ -417,9 +425,6 @@ a.btn{text-decoration:none}
 .nav-links a.btn.gh:hover,.nav-links .btn.gh:hover,
 .links a.btn.gh:hover,.links .btn.gh:hover{color:#fff!important}
 
-.pulse{animation:pulse 2.4s ease-out infinite;transform-origin:center;transform-box:fill-box}
-@keyframes pulse{0%{transform:scale(.55);opacity:.75}70%{transform:scale(1.6);opacity:0}100%{transform:scale(1.6);opacity:0}}
-@media(prefers-reduced-motion:reduce){.pulse{animation:none}}
 
 /* ---------- staff (leadership + administration) ---------- */
 .staff-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;position:relative;z-index:1}
@@ -631,7 +636,9 @@ a.btn{text-decoration:none}
       <div class="cc rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></div><h3>Email</h3><a href="mailto:info.gillschool@gmail.com">info.gillschool@gmail.com</a></div>
     </div>
     <div class="contact-split">
-      <div class="map rv l"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 738" role="img" aria-label="Static map showing Gill International Pre-School at White Close, Plot 341, Najjera-Kira Municipality, opposite Hass Petrol Station" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%">
+      <div class="map rv l">
+        <div class="map-box">
+        <svg class="map-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 738" role="img" aria-label="Map of Najjera, Kampala showing Gill International Pre-School at White Close, Plot 341, Najjera-Kira Municipality, opposite Hass Petrol Station">
 <rect width="1000" height="738" fill="#F4F6FA"/>
 <polyline points="387.1,786.5 461.1,794.6 679.0,818.1" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
 <polyline points="387.1,786.5 461.1,794.6 679.0,818.1" fill="none" stroke="#DCE1EC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
@@ -666,13 +673,17 @@ a.btn{text-decoration:none}
 <circle cx="511.9" cy="542.6" r="8" fill="#fff" stroke="#3B7DD8" stroke-width="3"/>
 <path d="M505.9 536.6 h4 v-4 h4 v4 h4 v4 h-4 v4 h-4 v-4 h-4 z" fill="#3B7DD8"/>
 <g transform="translate(525.9 530.6)"><rect x="0" y="-18" width="172" height="36" rx="10" fill="#fff" opacity=".96"/><circle cx="18" cy="0" r="8.5" fill="#E3EDFB"/><path d="M-5 0 h3.2 v-3.2 h3.2 v3.2 h3.2 v3.2 h-3.2 v3.2 h-3.2 v-3.2 h-3.2 z" transform="translate(18 0) scale(.9)" fill="#3B7DD8"/><text x="34" y="4.5" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="600" fill="#33222B">Najjera Hospital</text></g>
-<circle class="pulse" cx="452.7" cy="142.9" r="14" fill="none" stroke="#8C2429" stroke-width="2" opacity=".6"/>
-<g transform="translate(452.7 142.9)"><path d="M0 0 C-13 -30 -27 -44 -27 -60 a27 27 0 1 1 54 0 C27 -44 13 -30 0 0 Z" fill="#8C2429" stroke="#fff" stroke-width="5"/><circle cx="0" cy="-60" r="20" fill="#fff"/><text x="0" y="-52" text-anchor="middle" font-family="Sora,Inter,Arial,sans-serif" font-weight="800" font-size="25" fill="#8C2429">G</text></g>
-<g transform="translate(476.7 168.9)"><rect x="0" y="0" width="430" height="66" rx="12" fill="#fff" stroke="#E9E2E7" opacity=".98"/><rect x="0" y="0" width="5" height="66" rx="2.5" fill="#8C2429"/><text x="20" y="26" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="800" fill="#3B0D10">Gill International Pre-School</text><text x="20" y="48" font-family="Inter,Arial,sans-serif" font-size="12" fill="#5D6673">White Close &#183; Plot 341 &#183; Najjera-Kira Municipality</text><text x="20" y="62" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="600" fill="#8C2429">Opposite Hass Petrol Station</text></g>
 <g transform="translate(952 706)"><circle r="26" fill="#fff" stroke="#E4E7F0"/><path d="M0 -16 L7 9 L0 4 L-7 9 Z" fill="#8C2429"/><text y="-30" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="700" fill="#5D6673">N</text></g>
 <text x="16" y="726" font-family="Inter,Arial,sans-serif" font-size="9.5" fill="#98A0AF">Map data &#169; OpenStreetMap contributors</text>
 </svg>
-      <a class="dirs" href="https://www.openstreetmap.org/?mlat=0.376236%26mlon=32.625021%23map=17/0.37624/32.62502" target="_blank" rel="noopener">Get Directions &rsaquo;</a></div>
+        <a class="map-pin" href="https://www.google.com/maps/search/?api=1&query=Gill+International+Pre-School+Plot+341+White+Close+Najjera+Kampala+Uganda" target="_blank" rel="noopener" aria-label="Open Gill International Pre-School, Plot 341, White Close, Najjera in Google Maps">
+          <span class="pin-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a5.5 5.5 0 0 0-5.5 5.5C6.5 13 12 21 12 21s5.5-8 5.5-12.5A5.5 5.5 0 0 0 12 3zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg></span>
+        </a>
+        <a class="map-open" href="https://www.google.com/maps/search/?api=1&query=Gill+International+Pre-School+Plot+341+White+Close+Najjera+Kampala+Uganda" target="_blank" rel="noopener">Open in Google Maps
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+        <span class="map-credit">Gill Int&rsquo;l Pre&#8209;School &middot; Plot 341, White Close, Najjera</span>
+        </div>
+      </div>
       <div class="form-card rv r">
         <h3>Enquiry form</h3>
         <p class="sub">Tell us about your little one, and we&rsquo;ll call you back within one working day.</p>
