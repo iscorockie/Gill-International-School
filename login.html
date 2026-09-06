@@ -597,13 +597,13 @@ ly.addEventListener("submit",function(e){
   if(SUP){
     SUP.auth.signInWithPassword({email:d.email,password:d.password})
       .then(function(res){
-        if(res.error){emailErr("No account found with this email, or the password is incorrect \u2014 create one at gill.ac.ug/register.");return}
+        if(res.error){emailErr("No account found with this email, or the password is incorrect. Create one at gill.ac.ug/register.");return}
         var meta=(res.data.user&&res.data.user.user_metadata)||{};
         SUP.from("parent_profiles").select("parent_name,ref").eq("id",res.data.user.id).maybeSingle()
           .then(function(pr){done(d,pr.data||{},meta)})
           .catch(function(){done(d,{},meta)});
       })
-      .catch(function(){emailErr("Could not reach the sign-in service \u2014 please try again in a moment.")});
+      .catch(function(){emailErr("Could not reach the sign-in service. Please try again in a moment.")});
     return;
   }
   /* demo mode */
@@ -613,7 +613,8 @@ ly.addEventListener("submit",function(e){
       return a.email&&a.email.toLowerCase()===d.email.toLowerCase();
     })[0]||null;
   }catch(err){}
-  if(!found){emailErr("No account found with this email, or the password is incorrect \u2014 create one at gill.ac.ug/register.");return}
+  if(!found){emailErr("No account found with this email, or the password is incorrect. Create one at gill.ac.ug/register.");return}
+  if(found.password&&found.password!==d.password){emailErr("That password does not match this account. Please try again.");return}
   done(d,found,{});
 });
 ly.addEventListener("input",clr);

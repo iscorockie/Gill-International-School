@@ -555,17 +555,17 @@ signup.addEventListener("submit",function(e){
   if(SUP){
     SUP.auth.signUp({email:d.email,password:d.password,options:{data:{parent_name:d.parent_name,phone:d.phone,school:d.school,ref:d.ref}}})
       .then(function(res){
-        if(res.error){emailErr("This email already has an account \u2014 sign in at gill.ac.ug/login.");return}
+        if(res.error){emailErr("This email already has an account. Sign in at gill.ac.ug/login.");return}
         if(res.data.session){finish(d);return}
         confirmMail(d);
       })
-      .catch(function(){emailErr("Could not reach the registration service \u2014 please try again in a moment.")});
+      .catch(function(){emailErr("Could not reach the registration service. Please try again in a moment.")});
     return;
   }
   /* demo mode (until config.js has Supabase keys) */
   try{
     var all=JSON.parse(localStorage.getItem(KEY)||"[]");
-    if(all.some(function(a){return a.email&&a.email.toLowerCase()===d.email.toLowerCase()})){emailErr("This email already has an account \u2014 sign in at gill.ac.ug/login.");return}
+    if(all.some(function(a){return a.email&&a.email.toLowerCase()===d.email.toLowerCase()})){emailErr("This email already has an account. Sign in at gill.ac.ug/login.");return}
     all.push(d);localStorage.setItem(KEY,JSON.stringify(all));
   }catch(err){}
   finish(d);
