@@ -958,12 +958,15 @@ function refreshItems(){gitems=$$("#gal .gi:not(.hide)")}
 function showLB(i){
   refreshItems();gi=(i+gitems.length)%gitems.length;
   var it=gitems[gi];
-  if(it.getAttribute("data-video")){lbfig.innerHTML='<div class="msg"><h3 style="margin-bottom:.6rem">🎬 '+(it.getAttribute("data-title")||"Video")+'</h3><p style="color:var(--muted)">Our full video tour premieres at the Open Day on <b>Saturday, 29 August 2026</b>. Join us in Najjera to see GIS in motion, or send a message below and we’ll email you the link on launch day.</p></div>'}
-  else{var im=it.querySelector("img");lbfig.innerHTML='<img src="'+im.src+'" alt=""><figcaption>'+(it.getAttribute("data-title")||im.alt)+"</figcaption>"}
+  if(it.getAttribute("data-video")){lbfig.innerHTML='<div class="msg"><h3 style="margin-bottom:.6rem">🎬 '+(it.getAttribute("data-title")||"Video")+'</h3><p style="color:var(--muted)">Our full video tour premieres at the Open Day on <b>Saturday, 29 August 2026</b>. In the meantime, catch our latest clips on the school&rsquo;s YouTube channel.</p><p style="margin-top:1.1rem"><a href="https://www.youtube.com/@Gill-Int-Sch" target="_blank" rel="noopener" style="color:var(--maroon);font-weight:700">Visit our YouTube channel &rarr;</a></p></div>'}else{var im=it.querySelector("img");lbfig.innerHTML='<img src="'+im.src+'" alt=""><figcaption>'+(it.getAttribute("data-title")||im.alt)+"</figcaption>"}
   lb.classList.add("open");document.body.style.overflow="hidden";
 }
 function closeLB(){lb.classList.remove("open");document.body.style.overflow=""}
-$("#gal").addEventListener("click",function(e){var it=e.target.closest(".gi");if(!it)return;refreshItems();showLB(gitems.indexOf(it))});
+$("#gal").addEventListener("click",function(e){
+  var it=e.target.closest(".gi");if(!it)return;
+  if(it.getAttribute("data-video")&&e.target.closest(".play")){window.open("https://www.youtube.com/@Gill-Int-Sch","_blank","noopener");return}
+  refreshItems();showLB(gitems.indexOf(it));
+});
 $(".x",lb).addEventListener("click",closeLB);
 $(".p",lb).addEventListener("click",function(e){e.stopPropagation();showLB(gi-1)});
 $(".n",lb).addEventListener("click",function(e){e.stopPropagation();showLB(gi+1)});
