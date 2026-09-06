@@ -561,7 +561,7 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
     <div class="head rv">
       <span class="kicker">Admissions &amp; Enrolment</span>
       <h2>Your journey to GIS in four steps</h2>
-      <p>Applications for the 2026&ndash;2027 academic year are now open.</p>
+      <p style="color:#BBC9EE">Applications for the 2026&ndash;2027 academic year are now open.</p>
     </div>
     <div class="adm-grid">
       <div class="rv l">
@@ -956,7 +956,8 @@ addEventListener("keydown",function(e){if(!lb.classList.contains("open"))return;
 
 /* calendar */
 var CAT={
-  term:{c:"#2F7D46",l:"First & Last Days of Term"},
+  term:{c:"#2F7D46",l:"First Day of Term"},
+  termend:{c:"#1F3864",l:"Last Day of Term"},
   prodev:{c:"#A2308F",l:"Teacher Professional Days"},
   public:{c:"#C05621",l:"Public Holidays"},
   school:{c:"#C9A24B",l:"School Holidays & Breaks"},
@@ -987,7 +988,7 @@ var EVENTS=[
   ["2026-11-14","","Visitation Day II","10:00 AM – 4:00 PM · All sections","visitation"],
   ["2026-11-20","","Arts, Music & Culture Evening","6:00 PM · Assembly Hall","arts"],
   ["2026-12-04","","Prize Day & Carols Service","2:00 PM · Assembly Hall","arts"],
-  ["2026-12-11","","Last Day of Term 1","Reports go home · 12:00 PM","term"],
+  ["2026-12-11","","Last Day of Term 1","Reports go home · 12:00 PM","termend"],
   ["2026-12-14","2027-01-01","Term 1 Holidays","School closed · includes Christmas & New Year","school"],
   ["2027-01-05","","First Day of Term 2","7:30 AM · Najjera Campus","term"],
   ["2027-01-26","","NRM Day","Ugandan Public Holiday","public"],
@@ -996,7 +997,7 @@ var EVENTS=[
   ["2027-03-08","","Women's Day","Ugandan Public Holiday","public"],
   ["2027-03-10","","IDD","Eid al-Fitr · Ugandan Public Holiday","public"],
   ["2027-03-16","","End of Term Assessments","Assessment week","academic"],
-  ["2027-03-24","","End of Term 2","Reports go home · 12:00 PM","term"],
+  ["2027-03-24","","End of Term 2","Reports go home · 12:00 PM","termend"],
   ["2027-03-25","","School Holiday","Term 2 break","school"],
   ["2027-03-26","","Good Friday","Ugandan Public Holiday","public"],
   ["2027-03-29","","Easter Monday","Ugandan Public Holiday","public"],
@@ -1005,7 +1006,7 @@ var EVENTS=[
   ["2027-05-01","","Labour Day","Ugandan Public Holiday","public"],
   ["2027-06-03","","Martyrs Day","Ugandan Public Holiday","public"],
   ["2027-06-09","","Heroes Day","Ugandan Public Holiday","public"],
-  ["2027-06-18","","Last Day of Term 3","Reports go home · 12:00 PM","term"],
+  ["2027-06-18","","Last Day of Term 3","Reports go home · 12:00 PM","termend"],
   ["2027-06-21","2027-07-31","Term 3 Holidays","School closed for the long break","school"]
 ];
 var view=new Date(2026,7,1),today=new Date();
