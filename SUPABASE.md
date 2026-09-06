@@ -40,10 +40,13 @@ create table if not exists public.parent_profiles (
 -- Row-Level Security: a parent can only read/write their own row
 alter table public.parent_profiles enable row level security;
 
+drop policy if exists "view own profile"   on public.parent_profiles;
 create policy "view own profile"   on public.parent_profiles
   for select using (auth.uid() = id);
+drop policy if exists "insert own profile" on public.parent_profiles;
 create policy "insert own profile" on public.parent_profiles
   for insert with check (auth.uid() = id);
+drop policy if exists "update own profile" on public.parent_profiles;
 create policy "update own profile" on public.parent_profiles
   for update using (auth.uid() = id);
 
@@ -74,6 +77,42 @@ create trigger on_auth_user_created
 ```
 
 ## 3. Recommended Auth settings
+
+> **Emails not arriving / want school-branded emails?** On the free tier
+> Supabase sends confirmation emails with its own default sender, which
+> parents often miss or get filtered as spam. For reliable, branded emails,
+> turn on **Authentication → Notifications → Emails → "Enable custom SMTP"**
+> and use Gmail:
+>
+> 1. In the Gmail account, enable **2-Step Verification**, then create an
+>    **App Password** (Google Account → Security → 2-Step Verification →
+>    App passwords). Use that 16-character App Password as the SMTP
+>    password — **not** the Gmail account password (Gmail rejects it).
+> 2. Fill in the form:
+>    - Sender email address: `iiscorockie@gmail.com` (must match the username)
+>    - Sender name: `Gill International School`
+>    - Host: `smtp.gmail.com`
+>    - Port: `465`
+>    - Username: `iiscorockie@gmail.com`
+>    - Password: the App Password
+> 3. **Save changes** — Supabase then raises the free-tier limit to
+>    30 emails/hour, which is plenty for parent sign-ups.
+>
+>    *Supabase shows an amber "personal rather than transactional email"
+>    warning for Gmail — that is expected and fine at our volume (a few
+>    sign-ups a day, well under Gmail's ~500 messages/day). If enrolment
+>    ever scales to hundreds of emails a day, swap in a domain-based
+>    transactional sender (e.g. Resend/SendGrid/Postmark on gill.ac.ug);
+>    it's a one-form change, no site changes.*
+>
+> (The site works either way; only the emailed confirmation / password-reset
+> links depend on this.)
+>
+> **Want the school domain (info@gill.ac.ug) as the sender instead?**
+> `EMAIL-SETUP.md` has the exact Vercel DNS records + Supabase form values
+> for four options (Crystal Webhosting mailbox, Zoho Mail free, Resend
+> send-only, Google Workspace).
+
 
 **Authentication → Sign In / Up:**
 

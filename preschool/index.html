@@ -358,10 +358,10 @@ details.box .inner li::before{content:"—";position:absolute;left:0;color:var(-
 .cc a:hover{color:var(--maroon)}
 .contact-split{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;margin-top:3.5rem;align-items:stretch;position:relative;z-index:1}
 @media(max-width:960px){.contact-split{grid-template-columns:1fr}}
-.map{position:relative;display:flex;align-items:center;background:var(--peri-l)}
-.map-box{position:relative;width:100%;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-s);background:var(--peri-l)}
-.map-img{width:100%;height:auto;display:block}
-.map-pin{position:absolute;left:45.27%;top:19.36%;transform:translate(-50%,-100%);z-index:3;display:block;filter:drop-shadow(0 8px 14px rgba(30,20,22,.35));transition:transform .25s}
+.map{position:relative;display:flex;align-items:stretch;background:var(--peri-l)}
+.map-box{position:relative;width:100%;height:100%;border-radius:26px;overflow:hidden;box-shadow:var(--shadow-s);background:var(--peri-l)}
+.map-img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;border-radius:inherit}
+.map-pin{position:absolute;left:52.5%;top:45.7%;transform:translate(-50%,-100%);z-index:3;display:block;filter:drop-shadow(0 8px 14px rgba(30,20,22,.35));transition:transform .25s}
 .map-pin:hover{transform:translate(-50%,-100%) scale(1.1)}
 .map-pin::before{content:"";position:absolute;left:50%;top:44%;width:52px;height:52px;border-radius:50%;background:rgba(140,36,41,.35);transform:translate(-50%,-50%) scale(.6);animation:pinpulse 2s ease-out infinite;z-index:-1}
 @keyframes pinpulse{0%{transform:translate(-50%,-50%) scale(.55);opacity:.85}70%{transform:translate(-50%,-50%) scale(1.7);opacity:0}100%{opacity:0}}
@@ -638,44 +638,7 @@ a.btn{text-decoration:none}
     <div class="contact-split">
       <div class="map rv l">
         <div class="map-box">
-        <svg class="map-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 738" role="img" aria-label="Map of Najjera, Kampala showing Gill International Pre-School at White Close, Plot 341, Najjera-Kira Municipality, opposite Hass Petrol Station">
-<rect width="1000" height="738" fill="#F4F6FA"/>
-<polyline points="387.1,786.5 461.1,794.6 679.0,818.1" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="387.1,786.5 461.1,794.6 679.0,818.1" fill="none" stroke="#DCE1EC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="387.1,786.5 461.1,794.6 679.0,818.1" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="421.4,666.3 594.0,661.7 1167.6,651.0" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="421.4,666.3 594.0,661.7 1167.6,651.0" fill="none" stroke="#DCE1EC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="421.4,666.3 594.0,661.7 1167.6,651.0" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="502.3,307.3 722.7,289.7 1073.8,264.9 1109.6,260.2" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="502.3,307.3 722.7,289.7 1073.8,264.9 1109.6,260.2" fill="none" stroke="#DCE1EC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="502.3,307.3 722.7,289.7 1073.8,264.9 1109.6,260.2" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="530.6,157.5 792.3,134.4" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="530.6,157.5 792.3,134.4" fill="none" stroke="#DCE1EC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="530.6,157.5 792.3,134.4" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="320.6,118.1 309.7,167.0" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="320.6,118.1 309.7,167.0" fill="none" stroke="#DCE1EC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="320.6,118.1 309.7,167.0" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="387.1,786.5 421.4,666.3 470.1,466.4 502.3,307.3 516.9,238.1 530.6,157.5 572.8,-115.5 589.9,-217.1 608.0,-322.7 626.3,-430.4" fill="none" stroke="#FFFFFF" stroke-width="17" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="387.1,786.5 421.4,666.3 470.1,466.4 502.3,307.3 516.9,238.1 530.6,157.5 572.8,-115.5 589.9,-217.1 608.0,-322.7 626.3,-430.4" fill="none" stroke="#CBD3DF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="387.1,786.5 421.4,666.3 470.1,466.4 502.3,307.3 516.9,238.1 530.6,157.5 572.8,-115.5 589.9,-217.1 608.0,-322.7 626.3,-430.4" fill="none" stroke="#FFFFFF" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="530.6,157.5 320.6,118.1 50.6,69.1" fill="none" stroke="#F4D9DD" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="530.6,157.5 320.6,118.1 50.6,69.1" fill="none" stroke="#C98A93" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" />
-<polyline points="530.6,157.5 320.6,118.1 50.6,69.1" fill="none" stroke="#8C2429" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
-<g transform="translate(518 122) rotate(-83)"><text font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#6A7385" font-weight="600">Kira Najjeera Rd</text></g>
-<g transform="translate(452 447) rotate(-84)"><text font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#6A7385" font-weight="600">Mbogo Rd</text></g>
-<g transform="translate(205 72) rotate(-15.5)"><text font-family="Inter,Arial,sans-serif" font-size="13" fill="#8C2429" font-weight="700" letter-spacing=".04em">White Close</text></g>
-<g transform="translate(622 148) rotate(-4)"><text font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#6A7385" font-weight="600">Mwenyi Cl</text></g>
-<g transform="translate(640 306) rotate(-3)"><text font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#6A7385" font-weight="600">Bwanika Dr</text></g>
-<g transform="translate(640 659) rotate(-1)"><text font-family="Inter,Arial,sans-serif" font-size="12.5" fill="#6A7385" font-weight="600">Victoria Cl</text></g>
-<circle cx="564.0" cy="125.9" r="8" fill="#fff" stroke="#C2453C" stroke-width="3"/>
-<circle cx="564.0" cy="125.9" r="2.6" fill="#C2453C"/>
-<g transform="translate(580.0 125.9)"><rect x="0" y="-40" width="196" height="40" rx="10" fill="#fff" opacity=".96"/><circle cx="20" cy="-20" r="9" fill="#F6D9D1"/><circle cx="20" cy="-20" r="3.4" fill="#C2453C"/><text x="36" y="-16" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="700" fill="#33222B">Hass Petroleum</text><text x="36" y="-3" font-family="Inter,Arial,sans-serif" font-size="10" fill="#7A6A72">Petrol station &#183; landmark</text></g>
-<circle cx="511.9" cy="542.6" r="8" fill="#fff" stroke="#3B7DD8" stroke-width="3"/>
-<path d="M505.9 536.6 h4 v-4 h4 v4 h4 v4 h-4 v4 h-4 v-4 h-4 z" fill="#3B7DD8"/>
-<g transform="translate(525.9 530.6)"><rect x="0" y="-18" width="172" height="36" rx="10" fill="#fff" opacity=".96"/><circle cx="18" cy="0" r="8.5" fill="#E3EDFB"/><path d="M-5 0 h3.2 v-3.2 h3.2 v3.2 h3.2 v3.2 h-3.2 v3.2 h-3.2 v-3.2 h-3.2 z" transform="translate(18 0) scale(.9)" fill="#3B7DD8"/><text x="34" y="4.5" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="600" fill="#33222B">Najjera Hospital</text></g>
-<g transform="translate(952 706)"><circle r="26" fill="#fff" stroke="#E4E7F0"/><path d="M0 -16 L7 9 L0 4 L-7 9 Z" fill="#8C2429"/><text y="-30" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="700" fill="#5D6673">N</text></g>
-<text x="16" y="726" font-family="Inter,Arial,sans-serif" font-size="9.5" fill="#98A0AF">Map data &#169; OpenStreetMap contributors</text>
-</svg>
+        <img class="map-img" src="photos/najjera-map.png" width="1551" height="892" loading="lazy" alt="Map of Najjera, Kampala showing Gill International Pre-School on Kira Najjera Road, opposite the Hass Petroleum station and near Najjera Hospital">
         <a class="map-pin" href="https://www.google.com/maps/search/?api=1&query=Gill+International+Pre-School+Plot+341+White+Close+Najjera+Kampala+Uganda" target="_blank" rel="noopener" aria-label="Open Gill International Pre-School, Plot 341, White Close, Najjera in Google Maps">
           <span class="pin-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a5.5 5.5 0 0 0-5.5 5.5C6.5 13 12 21 12 21s5.5-8 5.5-12.5A5.5 5.5 0 0 0 12 3zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg></span>
         </a>
@@ -710,7 +673,7 @@ a.btn{text-decoration:none}
       <p class="tag" style="margin-top:.6rem">&ldquo;Inspiring little minds to play, learn &amp; grow&rdquo;</p>
       <div class="soc">
         <a href="https://www.facebook.com/gillpreschool" target="_blank" rel="noopener" aria-label="Facebook — Gill International Pre-School"><svg viewBox="0 0 24 24"><path d="M13 22v-8h3l.5-4H13V7.5c0-1.1.3-1.5 1.6-1.5H16.8V2.2C16.2 2.1 15 2 13.8 2 10.9 2 9 3.7 9 6.9V10H6v4h3v8h4z"/></svg></a>
-        <a href="https://www.instagram.com/gillpreschool/" target="_blank" rel="noopener" aria-label="Instagram — @gillpreschool"><svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3 .01 4.1.06 3 .14 4.7 1.8 4.84 4.84.05 1.06.06 1.36.06 4.1s-.01 3-.06 4.1c-.14 3-1.8 4.7-4.84 4.84-1.06.05-1.36.06-4.1.06s-3-.01-4.1-.06c-3-.14-4.7-1.8-4.84-4.84C3.01 15 3 14.7 3 12s.01-3 .06-4.1C3.2 4.9 4.86 3.2 7.9 3.06 9 3.01 9.3 3 12 3zm0 4.6a5.4 5.4 0 1 0 0 10.8 5.4 5.4 0 0 0 0-10.8zm0 2a3.4 3.4 0 1 1 0 6.8 3.4 3.4 0 0 1 0-6.8zm5.6-3.2a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z"/></svg></a>
+        <a href="https://www.instagram.com/gillinterschool/" target="_blank" rel="noopener" aria-label="Instagram — @gillinterschool"><svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3 .01 4.1.06 3 .14 4.7 1.8 4.84 4.84.05 1.06.06 1.36.06 4.1s-.01 3-.06 4.1c-.14 3-1.8 4.7-4.84 4.84-1.06.05-1.36.06-4.1.06s-3-.01-4.1-.06c-3-.14-4.7-1.8-4.84-4.84C3.01 15 3 14.7 3 12s.01-3 .06-4.1C3.2 4.9 4.86 3.2 7.9 3.06 9 3.01 9.3 3 12 3zm0 4.6a5.4 5.4 0 1 0 0 10.8 5.4 5.4 0 0 0 0-10.8zm0 2a3.4 3.4 0 1 1 0 6.8 3.4 3.4 0 0 1 0-6.8zm5.6-3.2a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z"/></svg></a>
         <a href="https://www.tiktok.com/@gillpreschool" target="_blank" rel="noopener" aria-label="TikTok — @gillpreschool"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
         <a href="https://x.com/Gillpre_schools" target="_blank" rel="noopener" aria-label="X — @Gillpre_schools"><svg viewBox="0 0 24 24"><path d="M17.8 3h3l-6.6 7.6L22 21h-6.1l-4.8-6.3L5.6 21h-3l7.1-8.1L2 3h6.3l4.3 5.7L17.8 3zm-1 16.2h1.7L7.3 4.7H5.5l11.3 14.5z"/></svg></a>
       </div>
