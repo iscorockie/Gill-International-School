@@ -288,6 +288,16 @@ body.nav-open .burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg
 .feat4 p{color:#E3CDCE;font-size:.85rem}
 .req-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;position:relative;z-index:1}
 @media(max-width:860px){.req-grid{grid-template-columns:1fr}}
+.req-grid details .inner{display:flex;align-items:center;gap:1.1rem}
+.req-grid details .req-txt{flex:1 1 auto;min-width:0}
+.req-grid .bph{position:relative;flex:0 0 148px;width:148px;height:148px;margin:0 0 .2rem .4rem}
+.req-grid .bph img{position:absolute;object-fit:cover;display:block;background:rgba(255,255,255,.12)}
+.req-grid .bph .b1{width:104%;height:104%;top:-2%;left:-4%;border-radius:58% 42% 55% 45%/48% 55% 45% 52%;box-shadow:0 10px 24px rgba(0,0,0,.28)}
+.req-grid .bph .b2{width:56%;height:56%;right:-6px;bottom:-6px;border-radius:45% 55% 48% 52%/55% 45% 58% 42%;border:4px solid var(--maroon-2);z-index:2;box-shadow:0 8px 18px rgba(0,0,0,.32)}
+.req-grid details[open] .inner{animation:reqIn .4s ease}
+@keyframes reqIn{from{opacity:0;transform:translateY(.45rem)}to{opacity:1;transform:none}}
+@media(max-width:860px){.req-grid .bph{flex-basis:118px;width:118px;height:118px}}
+@media(max-width:520px){.req-grid details .inner{flex-direction:column-reverse;align-items:flex-start;gap:.9rem}.req-grid .bph{flex-basis:auto;width:158px;height:158px;margin:0}}
 details.box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden}
 details.box summary{cursor:pointer;list-style:none;padding:1.05rem 1.3rem;font-family:var(--fd);font-weight:700;color:#fff;display:flex;justify-content:space-between;align-items:center;font-size:.95rem}
 details.box summary::-webkit-details-marker{display:none}
@@ -601,10 +611,10 @@ footer .base .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap
       <h2 style="font-size:clamp(1.4rem,2.6vw,1.9rem);color:#fff">What each stage needs</h2>
     </div>
     <div class="req-grid rv">
-      <details class="box"><summary>Early Years (Ages 3&ndash;5)</summary><div class="inner"><ul><li>Age 4&ndash;5 by 1 September</li><li>Birth certificate or passport</li><li>Immunisation records</li><li>Previous school report (if applicable)</li><li>Parent interview</li></ul></div></details>
-      <details class="box"><summary>Cambridge Primary (Ages 5&ndash;11)</summary><div class="inner"><ul><li>Age appropriate for year group</li><li>Previous school transcripts</li><li>English proficiency assessment</li><li>Mathematics assessment</li><li>Student interview</li></ul></div></details>
-      <details class="box"><summary>Lower Secondary (Ages 12&ndash;14)</summary><div class="inner"><ul><li>Strong academic record</li><li>School transcripts (2 years)</li><li>English &amp; Maths placement tests</li><li>Teacher recommendations</li><li>Student &amp; parent interview</li></ul></div></details>
-      <details class="box"><summary>Upper Secondary &amp; Advanced (Ages 15&ndash;18)</summary><div class="inner"><ul><li>IGCSE certificates or equivalent</li><li>Minimum 5 IGCSEs at grade C</li><li>Subject&#8209;specific entry requirements</li><li>Academic reference letter</li><li>University aspiration interview</li></ul></div></details>
+      <details class="box"><summary>Early Years (Ages 3&ndash;5)</summary><div class="inner"><div class="req-txt"><ul><li>Age 4&ndash;5 by 1 September</li><li>Birth certificate or passport</li><li>Immunisation records</li><li>Previous school report (if applicable)</li><li>Parent interview</li></ul></div><div class="bph"><img class="b1" src="preschool/photos/circle-time.jpg" alt="Early Years classroom at Gill International School" loading="lazy"><img class="b2" src="preschool/photos/balloon-play.jpg" alt="Preschoolers playing with balloons on the playground" loading="lazy"></div></div></details>
+      <details class="box"><summary>Cambridge Primary (Ages 5&ndash;11)</summary><div class="inner"><div class="req-txt"><ul><li>Age appropriate for year group</li><li>Previous school transcripts</li><li>English proficiency assessment</li><li>Mathematics assessment</li><li>Student interview</li></ul></div><div class="bph"><img class="b1" src="preschool/photos/painting-table.jpg" alt="Primary pupils painting at Gill International School" loading="lazy"><img class="b2" src="preschool/photos/craft-table.jpg" alt="Primary class group photo at Gill International School" loading="lazy"></div></div></details>
+      <details class="box"><summary>Lower Secondary (Ages 12&ndash;14)</summary><div class="inner"><div class="req-txt"><ul><li>Strong academic record</li><li>School transcripts (2 years)</li><li>English &amp; Maths placement tests</li><li>Teacher recommendations</li><li>Student &amp; parent interview</li></ul></div><div class="bph"><img class="b1" src="images/campus-science-lab.jpg" alt="Lower secondary pupils in the science lab" loading="lazy"><img class="b2" src="images/campus-sports-pitch.jpg" alt="Students playing football on the sports pitch" loading="lazy"></div></div></details>
+      <details class="box"><summary>Upper Secondary &amp; Advanced (Ages 15&ndash;18)</summary><div class="inner"><div class="req-txt"><ul><li>IGCSE certificates or equivalent</li><li>Minimum 5 IGCSEs at grade C</li><li>Subject&#8209;specific entry requirements</li><li>Academic reference letter</li><li>University aspiration interview</li></ul></div><div class="bph"><img class="b1" src="images/campus-graduation.jpg" alt="Gill International School graduates in gowns" loading="lazy"><img class="b2" src="images/campus-community.jpg" alt="Students lined up on campus" loading="lazy"></div></div></details>
     </div>
     <div class="head" style="margin:3.6rem 0 1.4rem">
       <span class="kicker">FAQ</span>
