@@ -107,6 +107,11 @@ create trigger on_auth_user_created
 >
 > (The site works either way; only the emailed confirmation / password-reset
 > links depend on this.)
+>
+> **Want the school domain (info@gill.ac.ug) as the sender instead?**
+> `EMAIL-SETUP.md` has the exact Vercel DNS records + Supabase form values
+> for four options (Crystal Webhosting mailbox, Zoho Mail free, Resend
+> send-only, Google Workspace).
 
 
 **Authentication → Sign In / Up:**
