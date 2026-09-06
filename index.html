@@ -1104,7 +1104,6 @@ fetch("content.json").then(function(r){return r.ok?r.json():null}).then(function
     ng.insertBefore(d,ng.firstChild);
   });
 }).catch(function(){});
-})();
 /* Entry-requirement tiles: open one at a time, and auto-close all when scrolled away */
 (function(){
   var grid=$(".req-grid");
@@ -1122,6 +1121,7 @@ fetch("content.json").then(function(r){return r.ok?r.json():null}).then(function
       });
     }).observe(grid);
   }
+})();
 })();
 </script>
 </body>
