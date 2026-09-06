@@ -1102,6 +1102,24 @@ fetch("content.json").then(function(r){return r.ok?r.json():null}).then(function
   });
 }).catch(function(){});
 })();
+/* Entry-requirement tiles: open one at a time, and auto-close all when scrolled away */
+(function(){
+  var grid=$(".req-grid");
+  if(!grid)return;
+  var boxes=$$("details.box",grid);
+  boxes.forEach(function(b){
+    b.addEventListener("toggle",function(){
+      if(b.open)boxes.forEach(function(o){if(o!==b)o.open=false;});
+    });
+  });
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)boxes.forEach(function(o){o.open=false;});
+      });
+    }).observe(grid);
+  }
+})();
 </script>
 </body>
 </html>
