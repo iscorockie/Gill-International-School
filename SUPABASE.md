@@ -78,11 +78,28 @@ create trigger on_auth_user_created
 
 ## 3. Recommended Auth settings
 
-> **Emails not arriving?** On the free tier Supabase sends confirmation
-> emails with its own default sender — check the spam folder first. If they
-> keep failing, turn on **Authentication → Notifications → Emails →
-> "Enable custom SMTP"** and point it at any SMTP provider. (The site works
-> either way; only the emailed links depend on this.)
+> **Emails not arriving / want school-branded emails?** On the free tier
+> Supabase sends confirmation emails with its own default sender, which
+> parents often miss or get filtered as spam. For reliable, branded emails,
+> turn on **Authentication → Notifications → Emails → "Enable custom SMTP"**
+> and use Gmail:
+>
+> 1. In the Gmail account, enable **2-Step Verification**, then create an
+>    **App Password** (Google Account → Security → 2-Step Verification →
+>    App passwords). Use that 16-character App Password as the SMTP
+>    password — **not** the Gmail account password (Gmail rejects it).
+> 2. Fill in the form:
+>    - Sender email address: `iiscorockie@gmail.com` (must match the username)
+>    - Sender name: `Gill International School`
+>    - Host: `smtp.gmail.com`
+>    - Port: `465`
+>    - Username: `iiscorockie@gmail.com`
+>    - Password: the App Password
+> 3. **Save changes** — Supabase then raises the free-tier limit to
+>    30 emails/hour, which is plenty for parent sign-ups.
+>
+> (The site works either way; only the emailed confirmation / password-reset
+> links depend on this.)
 
 
 **Authentication → Sign In / Up:**
