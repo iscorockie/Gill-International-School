@@ -497,7 +497,27 @@ footer .base a{color:var(--peri-2)}
 </script>
 
 <script src="/config.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* Load supabase-js with CDN fallbacks so the portal never falls into demo
+   mode just because one CDN is blocked or slow (adblockers, flaky networks). */
+(function(){
+  var urls=[
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
+    "https://unpkg.com/@supabase/supabase-js@2",
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"
+  ];
+  var i=0;
+  function load(){
+    if(i>=urls.length){window.__gisSupabaseFailed=true;window.dispatchEvent(new Event("gis-supabase"));return}
+    var s=document.createElement("script");
+    s.src=urls[i++];
+    s.onload=function(){window.dispatchEvent(new Event("gis-supabase"))};
+    s.onerror=function(){if(s.parentNode)s.parentNode.removeChild(s);load()};
+    document.head.appendChild(s);
+  }
+  load();
+})();
+</script>
 <script>
 (function(){
 "use strict";
@@ -527,10 +547,19 @@ if("IntersectionObserver" in window){
 /* ---------- supabase / demo mode ---------- */
 var signup=$("#signup"),acctTitle=$("#acct-title"),acctSub=$("#acct-sub");
 var CFG=(window.GIS_CONFIG||{}),SUP=null;
-if(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase){
+function initSupabase(){
+  if(SUP||!(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase))return;
   try{SUP=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseAnonKey)}catch(e){SUP=null}
 }
-if(!SUP){var dp=$("#demo-pill");if(dp)dp.hidden=false}
+function refreshMode(){
+  var dp=$("#demo-pill");if(!dp)return;
+  if(SUP){dp.hidden=true;return}
+  /* Show demo mode only once the outcome is known: the library arrived
+     (but the client could not start) or every CDN fallback has failed. */
+  dp.hidden=!(window.supabase||window.__gisSupabaseFailed);
+}
+initSupabase();refreshMode();
+window.addEventListener("gis-supabase",function(){initSupabase();refreshMode()});
 
 /* ---------- password visibility ---------- */
 $$(".pw .eye").forEach(function(btn){
