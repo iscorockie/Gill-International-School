@@ -12,9 +12,12 @@ temporary Gmail sender.
   SPF `v=spf1 a mx ip4:104.194.11.128 ~all`, DKIM (`default._domainkey`),
   DMARC `p=none` (reports to `admin@gill.ac.ug`) — i.e. Option A is set up
   and the Crystal SMTP host is confirmed as **`mail.gill.ac.ug`**.
-- Supabase SMTP form (Authentication → Notifications → Emails) is filled
-  in with the Option A values below. Fallback sender if it fails auth:
-  custom SMTP via `iiscorockie@gmail.com` — see `SUPABASE.md` §3.
+- Supabase custom SMTP (Authentication → Notifications → Emails) is
+  configured with the Option A values below and **verified on 27 Sep
+  2026** — a test email sent from the dashboard arrived as
+  **"Gill International School" \<info@gill.ac.ug\>**. No fallback needed;
+  the old `iiscorockie@gmail.com` config can be forgotten (see
+  `SUPABASE.md` §3 for history).
 
 > ⚠️ If you chose **Option C (Resend)**, it is send-only: replies to
 > `info@gill.ac.ug` will bounce. Make sure the mailbox actually exists
@@ -199,12 +202,12 @@ signature / DKIM* — it generates one more TXT (Name `google._domainkey…`).
 
 ## After the DNS records are live
 
-1. Fill the Supabase SMTP form (table for your chosen option) →
-   **Save changes**. A credential error = wrong password/host; a success =
-   done. Leave **Minimum interval per user** at `60`.
-2. **Test:** register a throwaway account at `gill.ac.ug/register` →
-   confirmation email should arrive from **"Gill International School"
-   <info@gill.ac.ug>** (check spam first).
+1. ✅ **Done** — Fill the Supabase SMTP form (table for your chosen
+   option) → **Save changes**. Leave **Minimum interval per user** at `60`.
+2. ✅ **Done (27 Sep 2026)** — **Test:** the dashboard test email arrived
+   from **"Gill International School" \<info@gill.ac.ug\>**. (Still worth a
+   real end-to-end check: register a throwaway account at
+   `gill.ac.ug/register`.)
 3. ~~Optional polish: switch the site's contact email from
    `info.gillschool@gmail.com` to `info@gill.ac.ug`~~ — ✅ **Done**:
    all site pages (footers, "Forgot password?", "Talk to Admissions",

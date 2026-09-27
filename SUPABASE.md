@@ -108,14 +108,13 @@ create trigger on_auth_user_created
 > (The site works either way; only the emailed confirmation / password-reset
 > links depend on this.)
 >
-> **School-domain sender (info@gill.ac.ug)?** The site now shows
-> `info@gill.ac.ug` as its contact address, so Supabase emails should
-> match. `EMAIL-SETUP.md` has the exact Vercel DNS records + Supabase
-> SMTP form values for four options (Crystal Webhosting mailbox, Zoho
-> Mail free, Resend send-only, Google Workspace). In the SMTP form set
-> **Sender email address** to `info@gill.ac.ug` and **Sender name** to
-> `Gill International School`. Keep the Gmail setup above as the working
-> fallback until a test email from the new sender actually arrives.
+> **School-domain sender (info@gill.ac.ug) — ✅ live and verified
+> (27 Sep 2026).** The SMTP form (Authentication → Notifications →
+> Emails) sends as `info@gill.ac.ug` / `Gill International School` via
+> the Crystal mailbox (`mail.gill.ac.ug`), and a dashboard test email
+> arrived successfully. `EMAIL-SETUP.md` has the form values and DNS
+> notes (MX/SPF/DKIM/DMARC all live). The old `iiscorockie@gmail.com`
+> config is retired.
 
 ### Authentication → Email Templates (brand the four auth emails)
 
@@ -237,6 +236,7 @@ form (Notifications → Emails), not by these templates.
 
 - [x] Supabase project created and SQL from §2 run (verified: `parent_profiles` responds)
 - [x] `config.js` filled with Project URL + anon key (pushed)
+- [x] School-branded sender `info@gill.ac.ug` — custom SMTP configured and test email verified (27 Sep 2026)
 - [ ] Confirm-email and password policy decided (§3)
 - [ ] `/terms` and `/privacy` reviewed and approved by administration
 - [ ] Production is `https://gill.ac.ug` (Vercel root `/`)
