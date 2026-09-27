@@ -216,6 +216,35 @@ signature / DKIM* — it generates one more TXT (Name `google._domainkey…`).
    Address, Reset Password) in **Authentication → Templates** — paste-ready
    HTML is in `SUPABASE.md` §3.
 
+## Parent registration → admin@gill.ac.ug (new, 27 Sep 2026)
+
+When a parent creates an account at `/register`, the details (parent_name, phone, email, school, ref, timestamp) are now forwarded to **admin@gill.ac.ug** via a Vercel serverless function.
+
+**How it works:**
+
+- `register.html` calls `POST /api/notify-registration` after `SUP.auth.signUp` succeeds (fire-and-forget, never blocks login redirect)
+- `api/notify-registration.js` tries in order:
+  1. **Resend** if `RESEND_API_KEY` env var set (recommended for deliverability)
+  2. **Nodemailer SMTP** if `SMTP_PASS` set (defaults to `mail.gill.ac.ug:465` / `info@gill.ac.ug`)
+  3. **FormSubmit.co fallback** — no env vars needed, sends immediately via `formsubmit.co/ajax/admin@gill.ac.ug` (first email requires one-time activation click from FormSubmit to admin@)
+
+**Vercel env vars to set (Dashboard → Project → Settings → Environment Variables):**
+
+| Var | Required | Example / Note |
+|---|---|---|
+| `NOTIFY_TO` | optional | `admin@gill.ac.ug` (default) |
+| `RESEND_API_KEY` | recommended | `re_...` from resend.com → API Keys |
+| `RESEND_FROM` | optional | `Gill International School <info@gill.ac.ug>` |
+| `SMTP_HOST` | if using SMTP | `mail.gill.ac.ug` (default) |
+| `SMTP_PORT` | if using SMTP | `465` (default) |
+| `SMTP_USER` | if using SMTP | `info@gill.ac.ug` (default) |
+| `SMTP_PASS` | if using SMTP | mailbox password |
+| `SMTP_FROM` | optional | `Gill International School <info@gill.ac.ug>` |
+
+If **no env vars** are set, the function still works via FormSubmit fallback — but set at least `SMTP_PASS` or `RESEND_API_KEY` for production reliability and to avoid the one-time activation step.
+
+**Testing:** `curl -X POST https://www.gill.ac.ug/api/notify-registration -H "Content-Type: application/json" -d '{"parent_name":"Test Parent","email":"test@example.com","phone":"+256700000000","school":"kisugu","ref":"GIS-2026-0001","at":"2026-09-27T00:00:00Z"}'`
+
 ## Why not the Vercel Marketplace Supabase?
 
 That marketplace flow provisions a **second, separate Supabase database**.

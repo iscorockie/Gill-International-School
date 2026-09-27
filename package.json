@@ -1,0 +1,10 @@
+{
+  "name": "gill-international-school",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gill International School — static site + Vercel serverless functions for parent portal notifications",
+  "type": "commonjs",
+  "dependencies": {
+    "nodemailer": "^6.9.14"
+  }
+}

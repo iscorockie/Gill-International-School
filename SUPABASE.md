@@ -219,11 +219,21 @@ form (Notifications → Emails), not by these templates.
 > protected by Row-Level Security, so a browser can only ever read or
 > write its own row. Never publish the `service_role` key.
 
-## 5. Admin review before launch
+## 5. Admin email notifications (27 Sep 2026)
+
+When a parent registers at `/register`, a Vercel serverless function `POST /api/notify-registration` forwards the details to **admin@gill.ac.ug**.
+
+- Frontend: `register.html` calls `/api/notify-registration` after successful `SUP.auth.signUp` (non-blocking, uses `keepalive:true`)
+- Backend: `api/notify-registration.js` — tries Resend (`RESEND_API_KEY`), then Nodemailer SMTP (`SMTP_HOST`=`mail.gill.ac.ug`, `SMTP_USER`=`info@gill.ac.ug`, `SMTP_PASS`), then FormSubmit.co fallback so email still arrives even with no env vars
+- Vercel env vars: set `RESEND_API_KEY` or `SMTP_PASS` (see `EMAIL-SETUP.md` for full table). Default recipient `admin@gill.ac.ug` via `NOTIFY_TO`
+- Package: `package.json` adds `nodemailer` dependency for SMTP path
+
+## 6. Admin review before launch
 
 - **Accounts:** Supabase Dashboard → **Authentication → Users** — every
   parent account, with the metadata (name, phone, campus) and the
   `GIS-2026-XXXX` reference in **parent_profiles**.
+- **Email to admin:** Check `admin@gill.ac.ug` inbox — each new registration triggers an HTML+text email with Parent Name, Email, Phone, School, Ref, Timestamp and Reply-To set to parent email. Vercel function logs visible at Vercel Dashboard → Project → Logs.
 - **Terms/Privacy copy:** review the live pages before launch:
   - `https://gill.ac.ug/terms`
   - `https://gill.ac.ug/privacy`

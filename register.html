@@ -597,6 +597,23 @@ function goLogin(d,extra){
 function finish(d){goLogin(d,"")}
 function confirmMail(d){goLogin(d,"&confirm=1")}
 
+/* ---------- notify admin@gill.ac.ug (non-blocking) ---------- */
+function notifyAdmin(d){
+  try{
+    var payload={parent_name:d.parent_name||"",email:d.email||"",phone:d.phone||"",school:d.school||"",ref:d.ref||"",at:d.at||new Date().toISOString()};
+    // Fire-and-forget — never block user creation / redirect
+    fetch("/api/notify-registration",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload),
+      keepalive:true
+    }).then(function(r){return r.json().catch(function(){return {}})}).then(function(j){
+      if(j && j.ok) console.log("[GIS] Admin notified via", j.sentVia);
+      else if(j && j.warning) console.warn("[GIS] Admin notify warning:", j.warning);
+    }).catch(function(err){console.warn("[GIS] Admin notify failed (non-critical):", err && err.message || err)});
+  }catch(e){ console.warn("[GIS] notifyAdmin exception", e) }
+}
+
 /* ---------- create account ---------- */
 signup.addEventListener("submit",function(e){
   e.preventDefault();
@@ -610,6 +627,7 @@ signup.addEventListener("submit",function(e){
     SUP.auth.signUp({email:d.email,password:d.password,options:{data:{parent_name:d.parent_name,phone:d.phone,school:d.school,ref:d.ref}}})
       .then(function(res){
         if(res.error){emailErr("This email already has an account. Sign in at gill.ac.ug/login.");return}
+        notifyAdmin(d);
         if(res.data.session){finish(d);return}
         confirmMail(d);
       })
@@ -622,6 +640,7 @@ signup.addEventListener("submit",function(e){
     if(all.some(function(a){return a.email&&a.email.toLowerCase()===d.email.toLowerCase()})){emailErr("This email already has an account. Sign in at gill.ac.ug/login.");return}
     all.push(d);localStorage.setItem(KEY,JSON.stringify(all));
   }catch(err){}
+  notifyAdmin(d);
   finish(d);
 });
 signup.addEventListener("input",clearBad);
