@@ -4,8 +4,18 @@ Goal: Supabase portal emails (confirmations, password resets) sent from
 **info@gill.ac.ug** as **"Gill International School"** instead of the
 temporary Gmail sender.
 
-**Current working state** (keep it until a step below is verified):
-custom SMTP via `iiscorockie@gmail.com` — see `SUPABASE.md` §3.
+**Current working state:** the site's contact email is now
+**`info@gill.ac.ug`** everywhere (footers, mailtos, terms/privacy).
+Supabase SMTP should also send as `info@gill.ac.ug` — pick one of the
+options below and fill the Supabase SMTP form (Authentication →
+Notifications → Emails). Until that form is saved and a test email
+arrives, the fallback sender is custom SMTP via `iiscorockie@gmail.com`
+— see `SUPABASE.md` §3.
+
+> ⚠️ If you chose **Option C (Resend)**, it is send-only: replies to
+> `info@gill.ac.ug` will bounce. Make sure the mailbox actually exists
+> (Options A/B/D) or forward/monitor replies another way before the
+> school advertises this address.
 
 ## Where the DNS records go
 
@@ -183,9 +193,13 @@ signature / DKIM* — it generates one more TXT (Name `google._domainkey…`).
 2. **Test:** register a throwaway account at `gill.ac.ug/register` →
    confirmation email should arrive from **"Gill International School"
    <info@gill.ac.ug>** (check spam first).
-3. Optional polish: switch the site's contact email from
-   `info.gillschool@gmail.com` to `info@gill.ac.ug` (one-line change,
-   ~18 places) and update the "Forgot password?" mailtos.
+3. ~~Optional polish: switch the site's contact email from
+   `info.gillschool@gmail.com` to `info@gill.ac.ug`~~ — ✅ **Done**:
+   all site pages (footers, "Forgot password?", "Talk to Admissions",
+   terms & privacy) now use `info@gill.ac.ug`.
+4. Brand the four auth emails (Confirm signup, Magic Link, Change Email
+   Address, Reset Password) in **Authentication → Templates** — paste-ready
+   HTML is in `SUPABASE.md` §3.
 
 ## Why not the Vercel Marketplace Supabase?
 
