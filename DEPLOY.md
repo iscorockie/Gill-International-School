@@ -46,6 +46,7 @@ runs against **Supabase** (hosted Postgres + Auth) — no server to maintain.
   present. The portal is in **live mode**.
 - **Never** commit or publish the `service_role` key — only the anon key, which is safe
   because the table uses Row-Level Security.
+- **Parent registration emails:** `api/notify-registration.js` (Vercel serverless function) forwards every new sign-up to `admin@gill.ac.ug`. Set `RESEND_API_KEY` or `SMTP_PASS` in Vercel → Settings → Environment Variables for production (see `EMAIL-SETUP.md`). Falls back to FormSubmit.co if no keys set. Requires `package.json` (`nodemailer` dep) at repo root — Vercel auto-installs.
 
 **Before launch, the administration should:**
 
