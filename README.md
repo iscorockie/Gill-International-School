@@ -59,7 +59,7 @@ To update the site, simply replace `index.html` and push — no rebuild required
 
 - 📍 Plot 8, Block 228, Najjera, Kampala, Uganda
 - 📞 +256 771 648 684 · +256 755 071 456 · +256 783 003 231
-- ✉️ info.gillschool@gmail.com
+- ✉️ info@gill.ac.ug
 - 💬 WhatsApp: +256 771 648 684
 
 ---

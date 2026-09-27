@@ -4,8 +4,25 @@ Goal: Supabase portal emails (confirmations, password resets) sent from
 **info@gill.ac.ug** as **"Gill International School"** instead of the
 temporary Gmail sender.
 
-**Current working state** (keep it until a step below is verified):
-custom SMTP via `iiscorockie@gmail.com` — see `SUPABASE.md` §3.
+**Current working state** (verified 27 Sep 2026):
+
+- The site's contact email is **`info@gill.ac.ug`** everywhere (footers,
+  mailtos, terms/privacy).
+- Domain mail DNS is **live** — MX → `mail.gill.ac.ug` (104.194.11.128),
+  SPF `v=spf1 a mx ip4:104.194.11.128 ~all`, DKIM (`default._domainkey`),
+  DMARC `p=none` (reports to `admin@gill.ac.ug`) — i.e. Option A is set up
+  and the Crystal SMTP host is confirmed as **`mail.gill.ac.ug`**.
+- Supabase custom SMTP (Authentication → Notifications → Emails) is
+  configured with the Option A values below and **verified on 27 Sep
+  2026** — a test email sent from the dashboard arrived as
+  **"Gill International School" \<info@gill.ac.ug\>**. No fallback needed;
+  the old `iiscorockie@gmail.com` config can be forgotten (see
+  `SUPABASE.md` §3 for history).
+
+> ⚠️ If you chose **Option C (Resend)**, it is send-only: replies to
+> `info@gill.ac.ug` will bounce. Make sure the mailbox actually exists
+> (Options A/B/D) or forward/monitor replies another way before the
+> school advertises this address.
 
 ## Where the DNS records go
 
@@ -23,6 +40,14 @@ So every record below is added at:
 > Root-domain records use Name **`@`**. TTL: default/auto.
 > **Never delete the existing A / CNAME records** — they serve the website;
 > MX/TXT records are independent and can't break the site.
+
+> **Heads-up — the Crystal "DNS Management" panel shows "An issue was
+> encountered while retrieving the DNS records. Please contact support."**
+> That is expected and harmless: Crystal is only the *registrar*; the zone
+> lives on Vercel's nameservers (`ns1/ns2.vercel-dns.com`), so Crystal's
+> DNS editor has nothing to read. Don't add records there (they'd be
+> ignored) and never point the nameservers back to Crystal unless the
+> whole zone is migrated first — the website would go down.
 
 After adding records, DNS can take a few minutes to a couple of hours to
 propagate.
@@ -47,8 +72,8 @@ into Vercel DNS (tables below are what those records will look like).
 |---|---|
 | Sender email address | `info@gill.ac.ug` |
 | Sender name | `Gill International School` |
-| Host | *(their SMTP host, e.g. `mail.gill.ac.ug`)* |
-| Port | `465` (or whatever they specify) |
+| Host | `mail.gill.ac.ug` *(confirmed live)* |
+| Port | `465` |
 | Username | `info@gill.ac.ug` |
 | Password | *(the mailbox password they give you)* |
 
@@ -177,15 +202,19 @@ signature / DKIM* — it generates one more TXT (Name `google._domainkey…`).
 
 ## After the DNS records are live
 
-1. Fill the Supabase SMTP form (table for your chosen option) →
-   **Save changes**. A credential error = wrong password/host; a success =
-   done. Leave **Minimum interval per user** at `60`.
-2. **Test:** register a throwaway account at `gill.ac.ug/register` →
-   confirmation email should arrive from **"Gill International School"
-   <info@gill.ac.ug>** (check spam first).
-3. Optional polish: switch the site's contact email from
-   `info.gillschool@gmail.com` to `info@gill.ac.ug` (one-line change,
-   ~18 places) and update the "Forgot password?" mailtos.
+1. ✅ **Done** — Fill the Supabase SMTP form (table for your chosen
+   option) → **Save changes**. Leave **Minimum interval per user** at `60`.
+2. ✅ **Done (27 Sep 2026)** — **Test:** the dashboard test email arrived
+   from **"Gill International School" \<info@gill.ac.ug\>**. (Still worth a
+   real end-to-end check: register a throwaway account at
+   `gill.ac.ug/register`.)
+3. ~~Optional polish: switch the site's contact email from
+   `info.gillschool@gmail.com` to `info@gill.ac.ug`~~ — ✅ **Done**:
+   all site pages (footers, "Forgot password?", "Talk to Admissions",
+   terms & privacy) now use `info@gill.ac.ug`.
+4. Brand the four auth emails (Confirm signup, Magic Link, Change Email
+   Address, Reset Password) in **Authentication → Templates** — paste-ready
+   HTML is in `SUPABASE.md` §3.
 
 ## Why not the Vercel Marketplace Supabase?
 

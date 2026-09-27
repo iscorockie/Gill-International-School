@@ -108,10 +108,88 @@ create trigger on_auth_user_created
 > (The site works either way; only the emailed confirmation / password-reset
 > links depend on this.)
 >
-> **Want the school domain (info@gill.ac.ug) as the sender instead?**
-> `EMAIL-SETUP.md` has the exact Vercel DNS records + Supabase form values
-> for four options (Crystal Webhosting mailbox, Zoho Mail free, Resend
-> send-only, Google Workspace).
+> **School-domain sender (info@gill.ac.ug) — ✅ live and verified
+> (27 Sep 2026).** The SMTP form (Authentication → Notifications →
+> Emails) sends as `info@gill.ac.ug` / `Gill International School` via
+> the Crystal mailbox (`mail.gill.ac.ug`), and a dashboard test email
+> arrived successfully. `EMAIL-SETUP.md` has the form values and DNS
+> notes (MX/SPF/DKIM/DMARC all live). The old `iiscorockie@gmail.com`
+> config is retired.
+
+### Authentication → Email Templates (brand the four auth emails)
+
+Dashboard: **Authentication → Templates**
+(<https://supabase.com/dashboard/project/lsdzmllnjpwzysukzxhz/auth/templates>).
+Four templates — *Confirm signup*, *Magic Link*, *Change Email Address*,
+*Reset Password*. Each has a **Subject** and an HTML **Message** body;
+keep every `{{ .Variable }}` exactly as-is (removing one breaks the
+email). Paste-ready branded versions (site colors, support address
+`info@gill.ac.ug`):
+
+**1 — Confirm signup**
+Subject: `Confirm your Gill International School account`
+
+```html
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;padding:28px 20px;color:#1E222A">
+  <h2 style="margin:0 0 6px;font-size:20px;color:#8C2429">Welcome to Gill International School</h2>
+  <p style="margin:0 0 18px;font-size:15px;line-height:1.6">Hello,</p>
+  <p style="margin:0 0 18px;font-size:15px;line-height:1.6">Thank you for creating a Parent Portal account. Please confirm your email address to activate it:</p>
+  <p style="margin:0 0 22px"><a href="{{ .ConfirmationURL }}" style="background:#8C2429;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block">Confirm my account</a></p>
+  <p style="margin:0 0 18px;font-size:13px;line-height:1.6;color:#5D6673">If the button does not work, copy this link into your browser:<br><a href="{{ .ConfirmationURL }}" style="color:#8C2429">{{ .ConfirmationURL }}</a></p>
+  <p style="margin:0 0 18px;font-size:13px;line-height:1.6;color:#5D6673">If you did not create this account, you can safely ignore this email.</p>
+  <p style="margin:24px 0 0;padding-top:16px;border-top:1px solid #E5E8F0;font-size:12px;line-height:1.7;color:#5D6673">Gill International School &middot; Najjera, Kampala, Uganda<br>Questions? Write to <a href="mailto:info@gill.ac.ug" style="color:#8C2429">info@gill.ac.ug</a> or call +256 755 071 456</p>
+</div>
+```
+
+**2 — Magic Link**
+Subject: `Your Gill International School sign-in link`
+
+```html
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;padding:28px 20px;color:#1E222A">
+  <h2 style="margin:0 0 18px;font-size:20px;color:#8C2429">Sign in to the Parent Portal</h2>
+  <p style="margin:0 0 18px;font-size:15px;line-height:1.6">Hello,</p>
+  <p style="margin:0 0 18px;font-size:15px;line-height:1.6">Follow the button below to sign in to Gill International School. The link can be used once and expires shortly:</p>
+  <p style="margin:0 0 22px"><a href="{{ .ConfirmationURL }}" style="background:#8C2429;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block">Sign me in</a></p>
+  <p style="margin:0 0 18px;font-size:13px;line-height:1.6;color:#5D6673">If the button does not work, copy this link into your browser:<br><a href="{{ .ConfirmationURL }}" style="color:#8C2429">{{ .ConfirmationURL }}</a></p>
+  <p style="margin:0 0 18px;font-size:13px;line-height:1.6;color:#5D6673">If you did not request this link, you can safely ignore this email.</p>
+  <p style="margin:24px 0 0;padding-top:16px;border-top:1px solid #E5E8F0;font-size:12px;line-height:1.7;color:#5D6673">Gill International School &middot; Najjera, Kampala, Uganda<br>Questions? Write to <a href="mailto:info@gill.ac.ug" style="color:#8C2429">info@gill.ac.ug</a> or call +256 755 071 456</p>
+</div>
+```
+
+**3 — Change Email Address**
+Subject: `Confirm your new email address`
+
+```html
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;padding:28px 20px;color:#1E222A">
+  <h2 style="margin:0 0 18px;font-size:20px;color:#8C2429">Confirm your new email address</h2>
+  <p style="margin:0 0 18px;font-size:15px;line-height:1.6">Hello,</p>
+  <p style="margin:0 0 18px;font-size:15px;line-height:1.6">Follow the button below to confirm the new email address for your Gill International School Parent Portal account:</p>
+  <p style="margin:0 0 22px"><a href="{{ .ConfirmationURL }}" style="background:#8C2429;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block">Confirm new email</a></p>
+  <p style="margin:0 0 18px;font-size:13px;line-height:1.6;color:#5D6673">If the button does not work, copy this link into your browser:<br><a href="{{ .ConfirmationURL }}" style="color:#8C2429">{{ .ConfirmationURL }}</a></p>
+  <p style="margin:0 0 18px;font-size:13px;line-height:1.6;color:#5D6673">If you did not request this change, please contact us immediately.</p>
+  <p style="margin:24px 0 0;padding-top:16px;border-top:1px solid #E5E8F0;font-size:12px;line-height:1.7;color:#5D6673">Gill International School &middot; Najjera, Kampala, Uganda<br>Questions? Write to <a href="mailto:info@gill.ac.ug" style="color:#8C2429">info@gill.ac.ug</a> or call +256 755 071 456</p>
+</div>
+```
+
+**4 — Reset Password**
+Subject: `Reset your Parent Portal password`
+
+```html
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;padding:28px 20px;color:#1E222A">
+  <h2 style="margin:0 0 18px;font-size:20px;color:#8C2429">Reset your password</h2>
+  <p style="margin:0 0 18px;font-size:15px;line-height:1.6">Hello,</p>
+  <p style="margin:0 0 18px;font-size:15px;line-height:1.6">Follow the button below to choose a new password for your Gill International School Parent Portal account:</p>
+  <p style="margin:0 0 22px"><a href="{{ .ConfirmationURL }}" style="background:#8C2429;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block">Reset my password</a></p>
+  <p style="margin:0 0 18px;font-size:13px;line-height:1.6;color:#5D6673">If the button does not work, copy this link into your browser:<br><a href="{{ .ConfirmationURL }}" style="color:#8C2429">{{ .ConfirmationURL }}</a></p>
+  <p style="margin:0 0 18px;font-size:13px;line-height:1.6;color:#5D6673">If you did not request a password reset, you can safely ignore this email.</p>
+  <p style="margin:24px 0 0;padding-top:16px;border-top:1px solid #E5E8F0;font-size:12px;line-height:1.7;color:#5D6673">Gill International School &middot; Najjera, Kampala, Uganda<br>Questions? Write to <a href="mailto:info@gill.ac.ug" style="color:#8C2429">info@gill.ac.ug</a> or call +256 755 071 456</p>
+</div>
+```
+
+For each template: paste the HTML into the **Message** box, set the
+**Subject** line above, click **Save**, then use **Send test email**.
+The `From` name/address on those test emails is controlled by the SMTP
+form (Notifications → Emails), not by these templates.
 
 
 **Authentication → Sign In / Up:**
@@ -158,6 +236,7 @@ create trigger on_auth_user_created
 
 - [x] Supabase project created and SQL from §2 run (verified: `parent_profiles` responds)
 - [x] `config.js` filled with Project URL + anon key (pushed)
+- [x] School-branded sender `info@gill.ac.ug` — custom SMTP configured and test email verified (27 Sep 2026)
 - [ ] Confirm-email and password policy decided (§3)
 - [ ] `/terms` and `/privacy` reviewed and approved by administration
 - [ ] Production is `https://gill.ac.ug` (Vercel root `/`)
