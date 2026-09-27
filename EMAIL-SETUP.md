@@ -4,13 +4,17 @@ Goal: Supabase portal emails (confirmations, password resets) sent from
 **info@gill.ac.ug** as **"Gill International School"** instead of the
 temporary Gmail sender.
 
-**Current working state:** the site's contact email is now
-**`info@gill.ac.ug`** everywhere (footers, mailtos, terms/privacy).
-Supabase SMTP should also send as `info@gill.ac.ug` — pick one of the
-options below and fill the Supabase SMTP form (Authentication →
-Notifications → Emails). Until that form is saved and a test email
-arrives, the fallback sender is custom SMTP via `iiscorockie@gmail.com`
-— see `SUPABASE.md` §3.
+**Current working state** (verified 27 Sep 2026):
+
+- The site's contact email is **`info@gill.ac.ug`** everywhere (footers,
+  mailtos, terms/privacy).
+- Domain mail DNS is **live** — MX → `mail.gill.ac.ug` (104.194.11.128),
+  SPF `v=spf1 a mx ip4:104.194.11.128 ~all`, DKIM (`default._domainkey`),
+  DMARC `p=none` (reports to `admin@gill.ac.ug`) — i.e. Option A is set up
+  and the Crystal SMTP host is confirmed as **`mail.gill.ac.ug`**.
+- Supabase SMTP form (Authentication → Notifications → Emails) is filled
+  in with the Option A values below. Fallback sender if it fails auth:
+  custom SMTP via `iiscorockie@gmail.com` — see `SUPABASE.md` §3.
 
 > ⚠️ If you chose **Option C (Resend)**, it is send-only: replies to
 > `info@gill.ac.ug` will bounce. Make sure the mailbox actually exists
@@ -57,8 +61,8 @@ into Vercel DNS (tables below are what those records will look like).
 |---|---|
 | Sender email address | `info@gill.ac.ug` |
 | Sender name | `Gill International School` |
-| Host | *(their SMTP host, e.g. `mail.gill.ac.ug`)* |
-| Port | `465` (or whatever they specify) |
+| Host | `mail.gill.ac.ug` *(confirmed live)* |
+| Port | `465` |
 | Username | `info@gill.ac.ug` |
 | Password | *(the mailbox password they give you)* |
 
