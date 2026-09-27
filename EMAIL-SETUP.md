@@ -38,6 +38,14 @@ So every record below is added at:
 > **Never delete the existing A / CNAME records** — they serve the website;
 > MX/TXT records are independent and can't break the site.
 
+> **Heads-up — the Crystal "DNS Management" panel shows "An issue was
+> encountered while retrieving the DNS records. Please contact support."**
+> That is expected and harmless: Crystal is only the *registrar*; the zone
+> lives on Vercel's nameservers (`ns1/ns2.vercel-dns.com`), so Crystal's
+> DNS editor has nothing to read. Don't add records there (they'd be
+> ignored) and never point the nameservers back to Crystal unless the
+> whole zone is migrated first — the website would go down.
+
 After adding records, DNS can take a few minutes to a couple of hours to
 propagate.
 
