@@ -12,15 +12,14 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
 
     def translate_path(self, path):
-        # Normalize and strip query string
         parsed = urllib.parse.urlsplit(path)
         clean_path = parsed.path
-        if clean_path in ('/', '/design', '/design.html'):
-            path = '/design.html'
-        elif clean_path in ('/figma', '/figma-ui', '/figma-ui.html'):
-            path = '/figma-ui.html'
-        elif clean_path in ('/site', '/home', '/website'):
+        if clean_path in ('/', '/home'):
             path = '/index.html'
+        elif clean_path in ('/figma', '/figma-ui'):
+            path = '/figma-ui.html'
+        elif clean_path in ('/design', '/design-ui'):
+            path = '/design.html'
         return super().translate_path(path)
 
     def end_headers(self):
@@ -33,7 +32,7 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
 def run():
     socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(('0.0.0.0', PORT), CustomHandler) as httpd:
-        print(f"UI Design Preview Server running on http://0.0.0.0:{PORT} (dir: {DIRECTORY})")
+        print(f"Server running on http://0.0.0.0:{PORT} (serving restored site at {DIRECTORY})")
         sys.stdout.flush()
         try:
             httpd.serve_forever()
