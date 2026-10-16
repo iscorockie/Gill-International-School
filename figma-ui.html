@@ -1,0 +1,2638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gill International School — Figma UI Kit & Design System (HTML for Figma)</title>
+<meta name="description" content="Official Figma-ready UI HTML file for Gill International School. Formatted with native Auto-Layout, Tokens, Desktop (1440px), Mobile (390px), and Design System components.">
+
+<!-- Google Fonts standard in Figma -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   FIGMA DESIGN SYSTEM TOKENS & AUTO-LAYOUT ENGINE
+   All CSS rules are mapped 1:1 to Figma Auto-Layout properties (flexbox, gap, padding, hugs/fills)
+   ========================================================================== */
+:root {
+  /* Brand Color Tokens */
+  --figma-maroon-primary: #8C2429;
+  --figma-maroon-dark: #6E1B20;
+  --figma-maroon-deep: #3B0D10;
+  --figma-maroon-darkest: #2A090C;
+  --figma-maroon-soft: #F9EDED;
+  
+  --figma-peri-light: #EDF1FC;
+  --figma-peri-accent: #C9D4F2;
+  --figma-peri-medium: #A9BBEA;
+  
+  --figma-gold-accent: #D4AF37;
+  --figma-gold-light: #FFF8E7;
+
+  /* Neutral Surface Tokens */
+  --figma-ink-900: #1E222A;
+  --figma-ink-700: #333A48;
+  --figma-ink-500: #5D6673;
+  --figma-ink-300: #9AA3B2;
+  --figma-line-200: #E5E8F0;
+  --figma-line-100: #F0F2F7;
+  --figma-bg-canvas: #F7F8FB;
+  --figma-bg-white: #FFFFFF;
+
+  /* Elevation Shadows */
+  --figma-shadow-sm: 0 2px 8px rgba(30, 20, 22, 0.06);
+  --figma-shadow-md: 0 8px 24px rgba(30, 20, 22, 0.08);
+  --figma-shadow-lg: 0 16px 40px rgba(30, 20, 22, 0.12);
+  --figma-shadow-maroon: 0 10px 28px rgba(140, 36, 41, 0.28);
+
+  /* Corner Radius Tokens */
+  --figma-radius-sm: 6px;
+  --figma-radius-md: 12px;
+  --figma-radius-lg: 18px;
+  --figma-radius-xl: 24px;
+  --figma-radius-full: 9999px;
+
+  /* Font Families */
+  --font-display: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Reset for Clean Figma Layer Hierarchy */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--figma-ink-900);
+  background-color: #1e1e1e; /* Figma Workspace Canvas Background */
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+/* ---------------------------------------------------------
+   FIGMA WORKSPACE CANVAS & TOOLBAR (Viewer & Inspector)
+   --------------------------------------------------------- */
+.figma-toolbar {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background: rgba(30, 30, 30, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  border-radius: var(--figma-radius-full);
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 13px;
+  user-select: none;
+}
+
+.figma-toolbar .tool-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  font-weight: 700;
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.figma-toolbar .tool-brand svg {
+  width: 18px;
+  height: 18px;
+}
+
+.figma-nav-pills {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.figma-pill {
+  background: transparent;
+  border: none;
+  color: #c0c4cc;
+  padding: 6px 12px;
+  border-radius: var(--figma-radius-full);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.figma-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.figma-pill.active {
+  background: var(--figma-maroon-primary);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(140, 36, 41, 0.5);
+}
+
+.figma-tool-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.figma-action-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: var(--figma-radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.figma-action-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.figma-action-btn.primary {
+  background: linear-gradient(135deg, #0D99FF, #0077CC);
+  border: none;
+  font-weight: 700;
+}
+
+.figma-action-btn.primary:hover {
+  background: linear-gradient(135deg, #22A3FF, #0088EA);
+}
+
+/* Workspace Canvas Viewports */
+.figma-canvas {
+  padding: 90px 48px 120px 48px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 64px;
+  width: max-content;
+  min-width: 100vw;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: top center;
+}
+
+/* Artboard Frame Container */
+.figma-artboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.figma-artboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #8c8c8c;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0 4px;
+}
+
+.figma-artboard-header .badge {
+  background: #333333;
+  color: #c9c9c9;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+.figma-artboard {
+  background: var(--figma-bg-white);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Layout Grid Overlay (Toggleable) */
+.show-grid .figma-artboard::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: repeating-linear-gradient(90deg, rgba(255, 0, 85, 0.04) 0, rgba(255, 0, 85, 0.04) calc((100% - 11 * 24px) / 12), transparent calc((100% - 11 * 24px) / 12), transparent calc((100% - 11 * 24px) / 12 + 24px));
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* ---------------------------------------------------------
+   FRAME 1: FIGMA DESIGN SYSTEM & TOKENS CANVAS (1200px)
+   --------------------------------------------------------- */
+.frame-design-system {
+  width: 1200px;
+  border-radius: var(--figma-radius-lg);
+  padding: 56px 48px;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.ds-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom: 2px solid var(--figma-line-200);
+  padding-bottom: 24px;
+}
+
+.ds-title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--figma-maroon-primary);
+  letter-spacing: -0.02em;
+}
+
+.ds-subtitle {
+  font-size: 15px;
+  color: var(--figma-ink-500);
+}
+
+.ds-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ds-section-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--figma-ink-900);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ds-section-title::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 18px;
+  background: var(--figma-maroon-primary);
+  border-radius: 2px;
+}
+
+/* Color Tokens Grid */
+.ds-colors-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+}
+
+.ds-color-card {
+  border: 1px solid var(--figma-line-200);
+  border-radius: var(--figma-radius-md);
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-color-swatch {
+  height: 70px;
+  width: 100%;
+}
+
+.ds-color-info {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ds-color-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--figma-ink-900);
+}
+
+.ds-color-hex {
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--figma-ink-500);
+}
+
+/* Typography Hierarchy Table */
+.ds-type-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--figma-line-200);
+  border-radius: var(--figma-radius-md);
+  overflow: hidden;
+}
+
+.ds-type-table th, .ds-type-table td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid var(--figma-line-200);
+}
+
+.ds-type-table th {
+  background: var(--figma-bg-canvas);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--figma-ink-500);
+  font-weight: 700;
+}
+
+.ds-type-table td {
+  font-size: 13px;
+  color: var(--figma-ink-700);
+}
+
+/* Component Showcases */
+.ds-component-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 18px;
+  background: var(--figma-bg-canvas);
+  border-radius: var(--figma-radius-md);
+  border: 1px solid var(--figma-line-200);
+}
+
+/* ---------------------------------------------------------
+   FRAME 2: DESKTOP 1440px ARTBOARD UI
+   --------------------------------------------------------- */
+.frame-desktop {
+  width: 1440px;
+  background: var(--figma-bg-white);
+  border-radius: 4px;
+}
+
+/* 1440 Desktop Container Layout */
+.gis-desktop-wrap {
+  width: 1220px;
+  margin: 0 auto;
+}
+
+/* Desktop Top Announcement Bar */
+.desktop-topbar {
+  background: var(--figma-maroon-deep);
+  color: #fff;
+  padding: 9px 0;
+  font-size: 12.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.desktop-topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topbar-badge {
+  background: rgba(212, 175, 55, 0.22);
+  color: #FFDF80;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.topbar-contact {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.topbar-contact a {
+  color: #E2E8F5;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.topbar-contact a:hover {
+  color: #fff;
+}
+
+/* Desktop Main Navbar */
+.desktop-navbar {
+  background: var(--figma-bg-white);
+  border-bottom: 1px solid var(--figma-line-200);
+  padding: 18px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.desktop-navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-crest-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.brand-crest-img {
+  height: 52px;
+  width: auto;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.brand-crest-fallback {
+  width: 52px;
+  height: 52px;
+  background: var(--figma-maroon-primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 18px;
+  font-family: var(--font-display);
+}
+
+.brand-text-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-school-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--figma-maroon-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.brand-school-sub {
+  font-size: 11px;
+  color: var(--figma-ink-500);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.nav-links-row {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  list-style: none;
+}
+
+.nav-link-item a {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--figma-ink-700);
+  text-decoration: none;
+  transition: color 0.2s;
+  padding: 6px 0;
+  position: relative;
+}
+
+.nav-link-item a:hover {
+  color: var(--figma-maroon-primary);
+}
+
+.nav-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Button UI Components */
+.btn-ui {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: var(--figma-radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--figma-maroon-primary) 0%, var(--figma-maroon-dark) 100%);
+  color: #fff;
+  box-shadow: var(--figma-shadow-maroon);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(140, 36, 41, 0.38);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--figma-maroon-primary);
+  border: 2px solid var(--figma-maroon-primary);
+}
+
+.btn-secondary:hover {
+  background: var(--figma-maroon-primary);
+  color: #fff;
+}
+
+.btn-light {
+  background: #fff;
+  color: var(--figma-maroon-primary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.btn-light:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 12.5px;
+}
+
+.btn-lg {
+  padding: 15px 32px;
+  font-size: 15.5px;
+}
+
+/* Desktop Hero Section */
+.desktop-hero {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--figma-peri-light) 100%);
+  padding: 72px 0 96px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.desktop-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.hero-content-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hero-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFFFFF;
+  border: 1px solid var(--figma-peri-accent);
+  box-shadow: var(--figma-shadow-sm);
+  padding: 6px 14px;
+  border-radius: var(--figma-radius-full);
+  width: fit-content;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--figma-maroon-primary);
+  letter-spacing: 0.02em;
+}
+
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: 54px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--figma-maroon-deep);
+  letter-spacing: -0.025em;
+}
+
+.hero-headline span.gradient-text {
+  background: linear-gradient(120deg, var(--figma-maroon-primary), #B3393F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-lead-p {
+  font-size: 18px;
+  color: var(--figma-ink-700);
+  line-height: 1.65;
+  max-width: 95%;
+}
+
+.hero-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 6px;
+}
+
+.hero-social-proof {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 8px;
+}
+
+.star-rating-stars {
+  display: flex;
+  gap: 2px;
+  color: #F59E0B;
+}
+
+.star-rating-text {
+  font-size: 13.5px;
+  color: var(--figma-ink-700);
+  font-weight: 600;
+}
+
+/* Hero Visual Artboard Card */
+.hero-visual-card {
+  position: relative;
+}
+
+.hero-main-img-wrap {
+  width: 100%;
+  height: 480px;
+  border-radius: var(--figma-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--figma-shadow-lg);
+  border: 6px solid #FFFFFF;
+  background: #2a090c;
+}
+
+.hero-main-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-float-badge {
+  position: absolute;
+  bottom: -24px;
+  left: -28px;
+  background: #FFFFFF;
+  padding: 16px 22px;
+  border-radius: var(--figma-radius-lg);
+  box-shadow: var(--figma-shadow-md);
+  border: 1px solid var(--figma-line-200);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 10;
+}
+
+.hero-float-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--figma-peri-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--figma-maroon-primary);
+}
+
+.hero-float-text-h {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--figma-ink-900);
+}
+
+.hero-float-text-p {
+  font-size: 12px;
+  color: var(--figma-ink-500);
+}
+
+/* Stats Ribbon Strip */
+.stats-ribbon {
+  background: var(--figma-bg-white);
+  margin-top: -36px;
+  position: relative;
+  z-index: 20;
+}
+
+.stats-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  background: #FFFFFF;
+  padding: 32px 36px;
+  border-radius: var(--figma-radius-xl);
+  box-shadow: var(--figma-shadow-md);
+  border: 1px solid var(--figma-line-200);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 12px;
+  border-right: 1px solid var(--figma-line-200);
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--figma-maroon-primary);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--figma-ink-700);
+}
+
+.stat-sub {
+  font-size: 12px;
+  color: var(--figma-ink-500);
+}
+
+/* Core Values / 4 Pillars */
+.section-pad {
+  padding: 88px 0;
+}
+
+.section-title-center {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 52px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-pill-tag {
+  display: inline-block;
+  align-self: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--figma-maroon-primary);
+  background: var(--figma-maroon-soft);
+  padding: 4px 12px;
+  border-radius: var(--figma-radius-full);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.section-title-h2 {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--figma-maroon-deep);
+  letter-spacing: -0.02em;
+}
+
+.section-subtext {
+  font-size: 16px;
+  color: var(--figma-ink-500);
+  line-height: 1.6;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.pillar-card {
+  background: #FFFFFF;
+  border: 1px solid var(--figma-line-200);
+  border-radius: var(--figma-radius-lg);
+  padding: 32px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.25s ease;
+  box-shadow: var(--figma-shadow-sm);
+}
+
+.pillar-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--figma-shadow-md);
+  border-color: var(--figma-peri-accent);
+}
+
+.pillar-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--figma-radius-md);
+  background: var(--figma-maroon-soft);
+  color: var(--figma-maroon-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pillar-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--figma-ink-900);
+}
+
+.pillar-desc {
+  font-size: 14px;
+  color: var(--figma-ink-700);
+  line-height: 1.6;
+}
+
+/* Cambridge 5 Stages Showcase */
+.academic-stages-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.stage-card {
+  background: #FFFFFF;
+  border: 1px solid var(--figma-line-200);
+  border-radius: var(--figma-radius-lg);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  box-shadow: var(--figma-shadow-sm);
+}
+
+.stage-num-badge {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--figma-maroon-primary);
+  background: var(--figma-peri-light);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stage-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--figma-maroon-deep);
+  line-height: 1.25;
+}
+
+.stage-ages {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--figma-maroon-primary);
+  background: var(--figma-maroon-soft);
+  padding: 3px 8px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.stage-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--figma-ink-700);
+}
+
+.stage-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.stage-bullets svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: #10B981;
+}
+
+/* Beyond the Classroom (Facilities Grid) */
+.beyond-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.facility-card {
+  border-radius: var(--figma-radius-lg);
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid var(--figma-line-200);
+  box-shadow: var(--figma-shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.facility-img-wrap {
+  height: 180px;
+  background: #3B0D10;
+  overflow: hidden;
+  position: relative;
+}
+
+.facility-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.facility-card:hover .facility-img-wrap img {
+  transform: scale(1.05);
+}
+
+.facility-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.facility-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--figma-ink-900);
+}
+
+.facility-desc {
+  font-size: 13.5px;
+  color: var(--figma-ink-500);
+  line-height: 1.5;
+}
+
+/* Admissions Roadmap & Banner */
+.admissions-banner-card {
+  background: linear-gradient(135deg, var(--figma-maroon-deep) 0%, var(--figma-maroon-primary) 100%);
+  border-radius: var(--figma-radius-xl);
+  padding: 48px;
+  color: #FFFFFF;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  box-shadow: var(--figma-shadow-lg);
+}
+
+.admissions-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admissions-banner-h2 {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+.admissions-banner-p {
+  font-size: 15.5px;
+  color: var(--figma-peri-light);
+  line-height: 1.6;
+}
+
+.admissions-steps-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.adm-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 14px 18px;
+  border-radius: var(--figma-radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.adm-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--figma-gold-accent);
+  color: #000;
+  font-weight: 800;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.adm-step-text-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.adm-step-text-desc {
+  font-size: 12px;
+  color: var(--figma-peri-light);
+}
+
+/* Testimonial Cards */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.testimonial-card {
+  background: #FFFFFF;
+  border: 1px solid var(--figma-line-200);
+  border-radius: var(--figma-radius-lg);
+  padding: 30px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: var(--figma-shadow-sm);
+}
+
+.testimonial-quote-text {
+  font-size: 14.5px;
+  color: var(--figma-ink-700);
+  line-height: 1.65;
+  font-style: italic;
+}
+
+.testimonial-author-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--figma-line-200);
+  padding-top: 16px;
+}
+
+.testimonial-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--figma-maroon-primary);
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.author-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--figma-ink-900);
+}
+
+.author-role {
+  font-size: 12px;
+  color: var(--figma-ink-500);
+}
+
+/* Contact & Tour Booking Form */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 48px;
+  background: #FFFFFF;
+  border: 1px solid var(--figma-line-200);
+  border-radius: var(--figma-radius-xl);
+  padding: 48px;
+  box-shadow: var(--figma-shadow-md);
+}
+
+.contact-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact-card-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.contact-icon-pill {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--figma-maroon-soft);
+  color: var(--figma-maroon-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-text-h {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--figma-ink-900);
+}
+
+.contact-text-p {
+  font-size: 13.5px;
+  color: var(--figma-ink-500);
+  line-height: 1.5;
+}
+
+/* Figma-Ready Form UI Controls */
+.figma-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--figma-ink-700);
+}
+
+.form-input, .form-select, .form-textarea {
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--figma-line-200);
+  border-radius: var(--figma-radius-sm);
+  background: #FFFFFF;
+  color: var(--figma-ink-900);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--figma-maroon-primary);
+  box-shadow: 0 0 0 3px rgba(140, 36, 41, 0.12);
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Desktop Footer */
+.desktop-footer {
+  background: var(--figma-maroon-darkest);
+  color: #FFFFFF;
+  padding: 72px 0 36px 0;
+}
+
+.footer-main-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.footer-col-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+.footer-links-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links-list a {
+  color: var(--figma-peri-light);
+  font-size: 13.5px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links-list a:hover {
+  color: #FFFFFF;
+}
+
+.footer-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 28px;
+  font-size: 12.5px;
+  color: var(--figma-ink-300);
+}
+
+/* ---------------------------------------------------------
+   FRAME 3: MOBILE 390px IPHONE ARTBOARD
+   --------------------------------------------------------- */
+.frame-mobile {
+  width: 390px;
+  background: var(--figma-bg-white);
+  border-radius: 36px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 0 12px #2A2A2E, 0 0 0 13px #444;
+  overflow: hidden;
+  position: relative;
+}
+
+/* iPhone Dynamic Island & Notch */
+.mobile-island-bar {
+  background: #000000;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.mobile-island-pill {
+  width: 100px;
+  height: 26px;
+  background: #000;
+  border-radius: 14px;
+}
+
+/* Mobile Navbar */
+.mobile-nav {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--figma-line-200);
+  background: #fff;
+}
+
+.mobile-hero {
+  padding: 32px 18px;
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--figma-peri-light) 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.mobile-headline {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--figma-maroon-deep);
+}
+
+.mobile-hero-img {
+  width: 100%;
+  height: 220px;
+  border-radius: var(--figma-radius-lg);
+  object-fit: cover;
+  box-shadow: var(--figma-shadow-md);
+  margin-top: 10px;
+}
+
+.mobile-stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 18px;
+}
+
+.mobile-stat-box {
+  background: #fff;
+  border: 1px solid var(--figma-line-200);
+  border-radius: var(--figma-radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: center;
+}
+
+.mobile-stage-list {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobile-stage-item {
+  background: #fff;
+  border: 1px solid var(--figma-line-200);
+  border-radius: var(--figma-radius-md);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-stage-pill {
+  background: var(--figma-maroon-soft);
+  color: var(--figma-maroon-primary);
+  font-weight: 800;
+  font-size: 13px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mobile-bottom-bar {
+  position: sticky;
+  bottom: 0;
+  background: #FFFFFF;
+  border-top: 1px solid var(--figma-line-200);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  z-index: 99;
+}
+
+/* Modal Guide */
+.figma-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.figma-modal-backdrop.open {
+  display: flex;
+}
+
+.figma-modal {
+  background: #1E1E1E;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  width: 580px;
+  max-width: 92vw;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: var(--font-body);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.step-badge {
+  background: #0D99FF;
+  color: #fff;
+  font-weight: 800;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+</style>
+</head>
+<body class="figma-mode">
+
+<!-- ==========================================================================
+     FIGMA TOP TOOLBAR (Switch Artboards, Zoom, Grid, Import Guide)
+     ========================================================================== -->
+<header class="figma-toolbar" id="toolbar" data-figma-name="Toolbar / Canvas Controls">
+  <div class="tool-brand">
+    <svg viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 28.5C19 23.2533 23.2533 19 28.5 19C33.7467 19 38 23.2533 38 28.5C38 33.7467 33.7467 38 28.5 38C23.2533 38 19 33.7467 19 28.5Z" fill="#1ABCFE"/>
+      <path d="M0 47.5C0 42.2533 4.25329 38 9.5 38H19V47.5C19 52.7467 14.7467 57 9.5 57C4.25329 57 0 52.7467 0 47.5Z" fill="#0ACF83"/>
+      <path d="M19 0V19H28.5C33.7467 19 38 14.7467 38 9.5C38 4.25329 33.7467 0 28.5 0H19Z" fill="#FF7262"/>
+      <path d="M0 9.5C0 14.7467 4.25329 19 9.5 19H19V0H9.5C4.25329 0 0 4.25329 0 9.5Z" fill="#F24E1E"/>
+      <path d="M0 28.5C0 33.7467 4.25329 38 9.5 38H19V19H9.5C4.25329 19 0 23.2533 0 28.5Z" fill="#A259FF"/>
+    </svg>
+    <span>Figma UI Canvas</span>
+  </div>
+
+  <div class="figma-nav-pills">
+    <button class="figma-pill active" onclick="switchView('all', this)">All Frames</button>
+    <button class="figma-pill" onclick="switchView('desktop', this)">🖥️ Desktop (1440)</button>
+    <button class="figma-pill" onclick="switchView('mobile', this)">📱 Mobile (390)</button>
+    <button class="figma-pill" onclick="switchView('design-system', this)">💎 Design System</button>
+  </div>
+
+  <div class="figma-tool-actions">
+    <a href="/index.html" class="figma-action-btn" title="View Full School Website" style="text-decoration:none;color:#fff;">🌐 School Website</a>
+    <button class="figma-action-btn" onclick="toggleGrid()" title="Toggle Layout Grid (Columns)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+      Grid
+    </button>
+    <button class="figma-action-btn" onclick="zoomCanvas(-0.1)" title="Zoom Out">-</button>
+    <span id="zoomLabel" style="font-size:11px;font-family:monospace;min-width:34px;text-align:center;">100%</span>
+    <button class="figma-action-btn" onclick="zoomCanvas(0.1)" title="Zoom In">+</button>
+    <button class="figma-action-btn" onclick="resetZoom()">1:1</button>
+    <button class="figma-action-btn primary" onclick="openFigmaGuide()">⚡ Import to Figma</button>
+  </div>
+</header>
+
+
+<!-- ==========================================================================
+     WORKSPACE CANVAS (All Artboards Layout)
+     ========================================================================== -->
+<main class="figma-canvas" id="canvas">
+
+  <!-- ========================================================================
+       ARTBOARD 1: FIGMA DESIGN SYSTEM & TOKENS (1200px)
+       ======================================================================== -->
+  <div class="figma-artboard-wrapper" id="artboard-ds">
+    <div class="figma-artboard-header">
+      <span>#01 · Design System & Tokens</span>
+      <span class="badge">1200 x Auto · Auto-Layout</span>
+    </div>
+
+    <div class="figma-artboard frame-design-system" data-figma-name="Frame / Design System & Tokens">
+      
+      <!-- DS Header -->
+      <div class="ds-header" data-figma-name="Header / DS Info">
+        <h1 class="ds-title">Gill International School — Design System v2.0</h1>
+        <p class="ds-subtitle">Cambridge International Education · Kampala, Uganda · Official Brand Tokens, Typography Scale, and Component Library.</p>
+      </div>
+
+      <!-- Color Palette -->
+      <div class="ds-section" data-figma-name="Section / Color Styles">
+        <h2 class="ds-section-title">Color Palette Styles (Tokens)</h2>
+        <div class="ds-colors-grid">
+          
+          <div class="ds-color-card" data-figma-name="Color / Primary Maroon">
+            <div class="ds-color-swatch" style="background:#8C2429;"></div>
+            <div class="ds-color-info">
+              <span class="ds-color-name">Maroon Primary</span>
+              <span class="ds-color-hex">#8C2429</span>
+            </div>
+          </div>
+
+          <div class="ds-color-card" data-figma-name="Color / Deep Maroon">
+            <div class="ds-color-swatch" style="background:#3B0D10;"></div>
+            <div class="ds-color-info">
+              <span class="ds-color-name">Deep Burgundy</span>
+              <span class="ds-color-hex">#3B0D10</span>
+            </div>
+          </div>
+
+          <div class="ds-color-card" data-figma-name="Color / Maroon Darkest">
+            <div class="ds-color-swatch" style="background:#2A090C;"></div>
+            <div class="ds-color-info">
+              <span class="ds-color-name">Ink Maroon</span>
+              <span class="ds-color-hex">#2A090C</span>
+            </div>
+          </div>
+
+          <div class="ds-color-card" data-figma-name="Color / Periwinkle Light">
+            <div class="ds-color-swatch" style="background:#EDF1FC;"></div>
+            <div class="ds-color-info">
+              <span class="ds-color-name">Periwinkle Light</span>
+              <span class="ds-color-hex">#EDF1FC</span>
+            </div>
+          </div>
+
+          <div class="ds-color-card" data-figma-name="Color / Periwinkle Accent">
+            <div class="ds-color-swatch" style="background:#C9D4F2;"></div>
+            <div class="ds-color-info">
+              <span class="ds-color-name">Periwinkle Accent</span>
+              <span class="ds-color-hex">#C9D4F2</span>
+            </div>
+          </div>
+
+          <div class="ds-color-card" data-figma-name="Color / Gold Accent">
+            <div class="ds-color-swatch" style="background:#D4AF37;"></div>
+            <div class="ds-color-info">
+              <span class="ds-color-name">Cambridge Gold</span>
+              <span class="ds-color-hex">#D4AF37</span>
+            </div>
+          </div>
+
+          <div class="ds-color-card" data-figma-name="Color / Ink 900">
+            <div class="ds-color-swatch" style="background:#1E222A;"></div>
+            <div class="ds-color-info">
+              <span class="ds-color-name">Dark Ink (Text)</span>
+              <span class="ds-color-hex">#1E222A</span>
+            </div>
+          </div>
+
+          <div class="ds-color-card" data-figma-name="Color / Ink 700">
+            <div class="ds-color-swatch" style="background:#333A48;"></div>
+            <div class="ds-color-info">
+              <span class="ds-color-name">Slate Body</span>
+              <span class="ds-color-hex">#333A48</span>
+            </div>
+          </div>
+
+          <div class="ds-color-card" data-figma-name="Color / Muted 500">
+            <div class="ds-color-swatch" style="background:#5D6673;"></div>
+            <div class="ds-color-info">
+              <span class="ds-color-name">Muted Neutral</span>
+              <span class="ds-color-hex">#5D6673</span>
+            </div>
+          </div>
+
+          <div class="ds-color-card" data-figma-name="Color / Line 200">
+            <div class="ds-color-swatch" style="background:#E5E8F0;"></div>
+            <div class="ds-color-info">
+              <span class="ds-color-name">Border Line</span>
+              <span class="ds-color-hex">#E5E8F0</span>
+            </div>
+          </div>
+
+          <div class="ds-color-card" data-figma-name="Color / Canvas Bg">
+            <div class="ds-color-swatch" style="background:#F7F8FB;border-bottom:1px solid #ddd;"></div>
+            <div class="ds-color-info">
+              <span class="ds-color-name">Canvas Background</span>
+              <span class="ds-color-hex">#F7F8FB</span>
+            </div>
+          </div>
+
+          <div class="ds-color-card" data-figma-name="Color / Pure White">
+            <div class="ds-color-swatch" style="background:#FFFFFF;border-bottom:1px solid #ddd;"></div>
+            <div class="ds-color-info">
+              <span class="ds-color-name">Pure White</span>
+              <span class="ds-color-hex">#FFFFFF</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Typography Hierarchy Scale -->
+      <div class="ds-section" data-figma-name="Section / Typography Hierarchy">
+        <h2 class="ds-section-title">Typography Hierarchy (Sora & Inter)</h2>
+        <table class="ds-type-table" data-figma-name="Table / Type Scale">
+          <thead>
+            <tr>
+              <th>Style Name</th>
+              <th>Font & Weight</th>
+              <th>Size / Line Height</th>
+              <th>Visual Sample</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Display / Hero</strong></td>
+              <td>Sora · 800 ExtraBold</td>
+              <td>54px / 1.1</td>
+              <td style="font-family:'Sora';font-weight:800;font-size:32px;color:var(--figma-maroon-primary);">Empowering Global Citizens</td>
+            </tr>
+            <tr>
+              <td><strong>Heading 1</strong></td>
+              <td>Sora · 700 Bold</td>
+              <td>38px / 1.2</td>
+              <td style="font-family:'Sora';font-weight:700;font-size:24px;">Cambridge International Education</td>
+            </tr>
+            <tr>
+              <td><strong>Heading 2</strong></td>
+              <td>Sora · 600 SemiBold</td>
+              <td>28px / 1.25</td>
+              <td style="font-family:'Sora';font-weight:600;font-size:20px;">Christ-Centred Moral Foundations</td>
+            </tr>
+            <tr>
+              <td><strong>Heading 3</strong></td>
+              <td>Sora · 600 SemiBold</td>
+              <td>20px / 1.3</td>
+              <td style="font-family:'Sora';font-weight:600;font-size:17px;">Early Years Foundation Stage (Ages 3–5)</td>
+            </tr>
+            <tr>
+              <td><strong>Body Large</strong></td>
+              <td>Inter · 400 Regular</td>
+              <td>18px / 1.6</td>
+              <td style="font-size:16px;">Inspiring young minds from Early Years to A Levels in Najjera, Kampala.</td>
+            </tr>
+            <tr>
+              <td><strong>Body Regular</strong></td>
+              <td>Inter · 400 Regular</td>
+              <td>16px / 1.6</td>
+              <td style="font-size:14px;color:var(--figma-ink-700);">High-calibre educators dedicated to nurturing character, critical thinking, and global awareness.</td>
+            </tr>
+            <tr>
+              <td><strong>Caption / Small</strong></td>
+              <td>Inter · 500 Medium</td>
+              <td>12px / 1.4</td>
+              <td style="font-size:12px;color:var(--figma-ink-500);">Plot 8, Block 228, Najjera, Kampala, Uganda · Registration UG-CAIE-042</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Component Matrix: Buttons & Tags -->
+      <div class="ds-section" data-figma-name="Section / Button Components">
+        <h2 class="ds-section-title">Button & Badge Components (Auto-Layout)</h2>
+        <div class="ds-component-row" data-figma-name="Row / Buttons">
+          <button class="btn-ui btn-primary" data-figma-name="Btn / Primary Large">Schedule Campus Tour →</button>
+          <button class="btn-ui btn-secondary" data-figma-name="Btn / Secondary Outline">Explore Curriculum</button>
+          <button class="btn-ui btn-primary btn-sm" data-figma-name="Btn / Primary Small">Apply Now</button>
+          <button class="btn-ui btn-light" data-figma-name="Btn / Light on Dark">Parent Portal</button>
+          
+          <div class="hero-pill-badge" data-figma-name="Badge / Cambridge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Cambridge Accredited
+          </div>
+
+          <div style="background:#EBFDF2;color:#059669;padding:4px 12px;border-radius:99px;font-size:12px;font-weight:700;" data-figma-name="Badge / Admissions Open">
+            ● Admissions Open 2026/27
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Controls Matrix -->
+      <div class="ds-section" data-figma-name="Section / Form Fields">
+        <h2 class="ds-section-title">Input Controls & Textfields</h2>
+        <div class="ds-component-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" data-figma-name="Grid / Form Controls">
+          <div class="form-group" data-figma-name="Input / Default">
+            <label class="form-label">Parent / Guardian Name *</label>
+            <input type="text" class="form-input" placeholder="e.g. Dr. Sarah Kigozi" value="Dr. Sarah Kigozi">
+          </div>
+          <div class="form-group" data-figma-name="Input / Select">
+            <label class="form-label">Desired Entry Stage</label>
+            <select class="form-select">
+              <option>Cambridge Primary (Ages 5–11)</option>
+              <option>Early Years (Ages 3–5)</option>
+              <option>Lower Secondary (Ages 11–14)</option>
+              <option>IGCSE (Ages 14–16)</option>
+              <option>A Levels (Ages 16–19)</option>
+            </select>
+          </div>
+          <div class="form-group" data-figma-name="Input / Email Focus">
+            <label class="form-label">Email Address *</label>
+            <input type="email" class="form-input" style="border-color:var(--figma-maroon-primary);box-shadow:0 0 0 3px rgba(140,36,41,0.12);" value="parent@example.com">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================
+       ARTBOARD 2: DESKTOP 1440px LANDING PAGE ARTBOARD
+       ======================================================================== -->
+  <div class="figma-artboard-wrapper" id="artboard-desktop">
+    <div class="figma-artboard-header">
+      <span>#02 · Desktop UI Frame</span>
+      <span class="badge">1440 x Auto · Responsive Auto-Layout</span>
+    </div>
+
+    <div class="figma-artboard frame-desktop" data-figma-name="Frame / Desktop 1440px - Gill International School">
+      
+      <!-- Top Notification Strip -->
+      <div class="desktop-topbar" data-figma-name="Bar / Desktop Notification">
+        <div class="gis-desktop-wrap desktop-topbar-inner">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="topbar-badge">2026/2027 ENROLMENT</span>
+            <span>Rolling intakes in September, January & April · Limited spots available per class.</span>
+          </div>
+          <div class="topbar-contact">
+            <a href="tel:+256771648684">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +256 771 648 684
+            </a>
+            <a href="mailto:info@gill.ac.ug">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              info@gill.ac.ug
+            </a>
+            <a href="login.html" style="color:#FFDF80;font-weight:700;">Parent Portal →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Header -->
+      <nav class="desktop-navbar" data-figma-name="Navbar / Header Frame">
+        <div class="gis-desktop-wrap desktop-navbar-inner">
+          
+          <!-- Logo & Identity -->
+          <a href="#" class="brand-crest-group" data-figma-name="Group / Brand Crest">
+            <img src="images/gill-logo.png" alt="Gill International School Crest" class="brand-crest-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="brand-crest-fallback" style="display:none;">GIS</div>
+            <div class="brand-text-col">
+              <span class="brand-school-title">GILL INTERNATIONAL SCHOOL</span>
+              <span class="brand-school-sub">CAMBRIDGE INTERNATIONAL · NAJJERA</span>
+            </div>
+          </a>
+
+          <!-- Navigation Links -->
+          <ul class="nav-links-row" data-figma-name="Row / Nav Links">
+            <li class="nav-link-item"><a href="#about">About GIS</a></li>
+            <li class="nav-link-item"><a href="#academics">Cambridge Curriculum</a></li>
+            <li class="nav-link-item"><a href="#beyond">Beyond Classroom</a></li>
+            <li class="nav-link-item"><a href="#admissions">Admissions & Fees</a></li>
+            <li class="nav-link-item"><a href="#staff">Faculty</a></li>
+            <li class="nav-link-item"><a href="#contact">Campus Visit</a></li>
+          </ul>
+
+          <!-- Action Buttons -->
+          <div class="nav-actions-group" data-figma-name="Group / Header CTAs">
+            <a href="login.html" class="btn-ui btn-secondary btn-sm" data-figma-name="Btn / Portal">Sign In</a>
+            <a href="#admissions" class="btn-ui btn-primary btn-sm" data-figma-name="Btn / Book Tour">Enrol Now →</a>
+          </div>
+
+        </div>
+      </nav>
+
+      <!-- Hero Section -->
+      <header class="desktop-hero" data-figma-name="Section / Hero (Desktop)">
+        <div class="gis-desktop-wrap desktop-hero-grid">
+          
+          <!-- Left Column Content -->
+          <div class="hero-content-col" data-figma-name="Col / Hero Content">
+            
+            <div class="hero-pill-badge" data-figma-name="Badge / Cambridge Accredited">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              CAMBRIDGE CURRICULUM · AGES 3–19
+            </div>
+
+            <h1 class="hero-headline" data-figma-name="Text / Headline">
+              Empowering <span class="gradient-text">Global Citizens</span> of Tomorrow
+            </h1>
+
+            <p class="hero-lead-p" data-figma-name="Text / Hero Description">
+              Christ-centred Cambridge International education in Najjera, Kampala. Inspiring academic excellence, sound moral character, and critical inquiry from Early Years through to A Levels.
+            </p>
+
+            <div class="hero-cta-row" data-figma-name="Row / Hero Actions">
+              <a href="#contact" class="btn-ui btn-primary btn-lg" data-figma-name="Btn / Schedule Visit">Book Campus Tour →</a>
+              <a href="#academics" class="btn-ui btn-secondary btn-lg" data-figma-name="Btn / View Curriculum">Explore Curriculum</a>
+            </div>
+
+            <div class="hero-social-proof" data-figma-name="Row / Social Proof">
+              <div class="star-rating-stars">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <span class="star-rating-text">Trusted by 350+ Parents across 25+ Global Nationalities</span>
+            </div>
+
+          </div>
+
+          <!-- Right Column Hero Artboard Card -->
+          <div class="hero-visual-card" data-figma-name="Col / Hero Visual Card">
+            <div class="hero-main-img-wrap" data-figma-name="Frame / Hero Image">
+              <img src="images/campus-main-building.jpg" alt="Gill International School Najjera Campus" onerror="this.src='images/campus-lawn.jpg'">
+            </div>
+
+            <!-- Floating Trust Badge -->
+            <div class="hero-float-badge" data-figma-name="Badge / Floating Accreditation">
+              <div class="hero-float-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <div class="hero-float-text-h">Cambridge International CAIE</div>
+                <div class="hero-float-text-p">Direct Centre Registration UG-042</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </header>
+
+      <!-- Key Stats Ribbon -->
+      <section class="stats-ribbon" data-figma-name="Section / Stats Strip">
+        <div class="gis-desktop-wrap">
+          <div class="stats-card-grid" data-figma-name="Grid / 4 Metric Cards">
+            
+            <div class="stat-item" data-figma-name="Stat / Pass Rate">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Cambridge Pass Rate</span>
+              <span class="stat-sub">IGCSE & A Level Checkpoint</span>
+            </div>
+
+            <div class="stat-item" data-figma-name="Stat / Ratio">
+              <span class="stat-number">15 : 1</span>
+              <span class="stat-label">Student-Teacher Ratio</span>
+              <span class="stat-sub">Personalized mentoring</span>
+            </div>
+
+            <div class="stat-item" data-figma-name="Stat / Nationalities">
+              <span class="stat-number">25+</span>
+              <span class="stat-label">Global Nationalities</span>
+              <span class="stat-sub">Diverse multicultural community</span>
+            </div>
+
+            <div class="stat-item" data-figma-name="Stat / Age Continuum">
+              <span class="stat-number">3–19</span>
+              <span class="stat-label">Years of Age</span>
+              <span class="stat-sub">Seamless Early Years to University</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Pillars / Why GIS -->
+      <section class="section-pad" id="about" data-figma-name="Section / Core Pillars">
+        <div class="gis-desktop-wrap">
+          
+          <div class="section-title-center" data-figma-name="Header / Pillars Title">
+            <span class="section-pill-tag">Why Gill International School</span>
+            <h2 class="section-title-h2">A Foundation Built for Global Leadership</h2>
+            <p class="section-subtext">We combine Cambridge academic rigour with Christ-centred principles to develop articulate, resilient, and compassionate leaders.</p>
+          </div>
+
+          <div class="pillars-grid" data-figma-name="Grid / 4 Pillars">
+            
+            <div class="pillar-card" data-figma-name="Card / Christ-Centred">
+              <div class="pillar-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M7 8h10"/></svg>
+              </div>
+              <h3 class="pillar-title">Christ-Centred Values</h3>
+              <p class="pillar-desc">Rooted in integrity, empathy, and moral courage, nurturing students to stand upright in an evolving global society.</p>
+            </div>
+
+            <div class="pillar-card" data-figma-name="Card / Cambridge Rigour">
+              <div class="pillar-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/></svg>
+              </div>
+              <h3 class="pillar-title">Cambridge Rigour</h3>
+              <p class="pillar-desc">Internationally benchmarked CAIE curriculum opening gateways to top tier universities worldwide.</p>
+            </div>
+
+            <div class="pillar-card" data-figma-name="Card / Holistic Arts">
+              <div class="pillar-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+              </div>
+              <h3 class="pillar-title">Holistic Co-Curricular</h3>
+              <p class="pillar-desc">Vibrant athletics, performing arts, chess, robotics, and community service clubs balancing the classroom experience.</p>
+            </div>
+
+            <div class="pillar-card" data-figma-name="Card / Nurturing Environment">
+              <div class="pillar-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <h3 class="pillar-title">Safe, Modern Campus</h3>
+              <p class="pillar-desc">Spacious green lawns, high-tech science labs, and secure modern facilities located at Plot 8 Najjera.</p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Cambridge 5 Academic Stages -->
+      <section class="section-pad" style="background:var(--figma-bg-canvas);" id="academics" data-figma-name="Section / Cambridge Pathway">
+        <div class="gis-desktop-wrap">
+          
+          <div class="section-title-center" data-figma-name="Header / Academics Title">
+            <span class="section-pill-tag">Academic Pathway</span>
+            <h2 class="section-title-h2">The 5 Cambridge Stages at GIS</h2>
+            <p class="section-subtext">Structured developmental continuum designed to guide students from early childhood exploration through university entrance credentials.</p>
+          </div>
+
+          <div class="academic-stages-grid" data-figma-name="Grid / 5 Academic Stages">
+            
+            <!-- Stage 1 -->
+            <div class="stage-card" data-figma-name="Stage 1 / Early Years">
+              <div class="stage-num-badge">01</div>
+              <span class="stage-ages">Ages 3–5 Years</span>
+              <h3 class="stage-name">Early Years Foundation</h3>
+              <ul class="stage-bullets">
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Play-based inquiry</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Phonics & numeracy</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Motor skills & arts</li>
+              </ul>
+            </div>
+
+            <!-- Stage 2 -->
+            <div class="stage-card" data-figma-name="Stage 2 / Primary">
+              <div class="stage-num-badge">02</div>
+              <span class="stage-ages">Ages 5–11 Years</span>
+              <h3 class="stage-name">Cambridge Primary</h3>
+              <ul class="stage-bullets">
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>English, Math & Science</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Global Perspectives</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Primary Checkpoint</li>
+              </ul>
+            </div>
+
+            <!-- Stage 3 -->
+            <div class="stage-card" data-figma-name="Stage 3 / Lower Secondary">
+              <div class="stage-num-badge">03</div>
+              <span class="stage-ages">Ages 11–14 Years</span>
+              <h3 class="stage-name">Lower Secondary</h3>
+              <ul class="stage-bullets">
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Broad subject discovery</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Laboratory practicals</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Checkpoint exams</li>
+              </ul>
+            </div>
+
+            <!-- Stage 4 -->
+            <div class="stage-card" data-figma-name="Stage 4 / IGCSE">
+              <div class="stage-num-badge">04</div>
+              <span class="stage-ages">Ages 14–16 Years</span>
+              <h3 class="stage-name">Upper Secondary / IGCSE</h3>
+              <ul class="stage-bullets">
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Cambridge IGCSE certs</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>7–9 subject options</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Global standards</li>
+              </ul>
+            </div>
+
+            <!-- Stage 5 -->
+            <div class="stage-card" data-figma-name="Stage 5 / A Levels">
+              <div class="stage-num-badge">05</div>
+              <span class="stage-ages">Ages 16–19 Years</span>
+              <h3 class="stage-name">Advanced AS & A Levels</h3>
+              <ul class="stage-bullets">
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Specialized subjects</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>University admissions</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Leadership program</li>
+              </ul>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Beyond the Classroom (Campus Facilities) -->
+      <section class="section-pad" id="beyond" data-figma-name="Section / Beyond Classroom">
+        <div class="gis-desktop-wrap">
+          
+          <div class="section-title-center" data-figma-name="Header / Facilities Title">
+            <span class="section-pill-tag">Campus Life</span>
+            <h2 class="section-title-h2">Beyond the Classroom</h2>
+            <p class="section-subtext">A vibrant campus life balancing academic discovery with athletics, creative arts, and social development.</p>
+          </div>
+
+          <div class="beyond-grid" data-figma-name="Grid / 4 Facilities">
+            
+            <div class="facility-card" data-figma-name="Card / Science Lab">
+              <div class="facility-img-wrap">
+                <img src="images/campus-science-lab.jpg" alt="Science Laboratory" onerror="this.src='images/campus-lawn.jpg'">
+              </div>
+              <div class="facility-body">
+                <h3 class="facility-title">Modern Science Labs</h3>
+                <p class="facility-desc">Fully-equipped Chemistry, Biology, and Physics labs designed for Cambridge practical experiments.</p>
+              </div>
+            </div>
+
+            <div class="facility-card" data-figma-name="Card / Sports Pitch">
+              <div class="facility-img-wrap">
+                <img src="images/campus-sports-pitch.jpg" alt="Sports & Athletics Pitch" onerror="this.src='images/campus-lawn.jpg'">
+              </div>
+              <div class="facility-body">
+                <h3 class="facility-title">Athletics & Sports Pitch</h3>
+                <p class="facility-desc">Football field, basketball, swimming sessions, and active inter-school sports leagues.</p>
+              </div>
+            </div>
+
+            <div class="facility-card" data-figma-name="Card / Performing Arts">
+              <div class="facility-img-wrap">
+                <img src="images/campus-assembly.jpg" alt="Performing Arts & Assembly Hall" onerror="this.src='images/campus-lawn.jpg'">
+              </div>
+              <div class="facility-body">
+                <h3 class="facility-title">Music, Drama & Arts</h3>
+                <p class="facility-desc">Orchestra, choir, musical instruments, annual theatre productions, and creative fine arts.</p>
+              </div>
+            </div>
+
+            <div class="facility-card" data-figma-name="Card / Community">
+              <div class="facility-img-wrap">
+                <img src="images/campus-community.jpg" alt="Student Community" onerror="this.src='images/campus-lawn.jpg'">
+              </div>
+              <div class="facility-body">
+                <h3 class="facility-title">Global Community</h3>
+                <p class="facility-desc">Cultural days, debate societies, robotics club, and community outreach projects.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Admissions & Enrolment Banner -->
+      <section class="section-pad" style="padding-top:0;" id="admissions" data-figma-name="Section / Admissions Process">
+        <div class="gis-desktop-wrap">
+          
+          <div class="admissions-banner-card" data-figma-name="Card / Admissions 4-Step Banner">
+            
+            <div class="admissions-banner-text">
+              <span class="topbar-badge" style="background:rgba(212,175,55,0.3);color:#FFDF80;width:fit-content;">ADMISSIONS 2026/2027</span>
+              <h2 class="admissions-banner-h2">Join the Gill International School Family</h2>
+              <p class="admissions-banner-p">
+                We accept rolling applications throughout the academic year. Our straightforward 4-step admission journey ensures every student is matched to their ideal learning stage.
+              </p>
+              <div style="display:flex;gap:12px;padding-top:8px;">
+                <a href="#contact" class="btn-ui btn-light" data-figma-name="Btn / Enrol Now">Apply Online Now →</a>
+                <a href="#contact" class="btn-ui btn-secondary" style="border-color:#fff;color:#fff;" data-figma-name="Btn / Download Fees">Download Fee Schedule</a>
+              </div>
+            </div>
+
+            <div class="admissions-steps-col" data-figma-name="Col / 4 Steps">
+              
+              <div class="adm-step-item" data-figma-name="Step 1 / Inquiry">
+                <div class="adm-step-num">1</div>
+                <div>
+                  <div class="adm-step-text-title">Submit Inquiry or Application</div>
+                  <div class="adm-step-text-desc">Fill out our online inquiry form or visit our admissions office in Najjera.</div>
+                </div>
+              </div>
+
+              <div class="adm-step-item" data-figma-name="Step 2 / Assessment">
+                <div class="adm-step-num">2</div>
+                <div>
+                  <div class="adm-step-text-title">Campus Tour & Diagnostic Review</div>
+                  <div class="adm-step-text-desc">Meet faculty, explore facilities, and complete friendly age-appropriate placement review.</div>
+                </div>
+              </div>
+
+              <div class="adm-step-item" data-figma-name="Step 3 / Offer">
+                <div class="adm-step-num">3</div>
+                <div>
+                  <div class="adm-step-text-title">Official Offer & Registration</div>
+                  <div class="adm-step-text-desc">Receive formal admission letter and secure placement via our flexible fee policy.</div>
+                </div>
+              </div>
+
+              <div class="adm-step-item" data-figma-name="Step 4 / Orientation">
+                <div class="adm-step-num">4</div>
+                <div>
+                  <div class="adm-step-text-title">Welcome & Student Induction</div>
+                  <div class="adm-step-text-desc">Receive school uniform, meet teachers, and begin your Cambridge journey!</div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section class="section-pad" style="background:var(--figma-bg-canvas);" data-figma-name="Section / Testimonials">
+        <div class="gis-desktop-wrap">
+          
+          <div class="section-title-center" data-figma-name="Header / Testimonials Title">
+            <span class="section-pill-tag">Community Voices</span>
+            <h2 class="section-title-h2">What Parents & Students Say</h2>
+            <p class="section-subtext">Hear from families who have experienced the warmth, discipline, and academic transformation at GIS.</p>
+          </div>
+
+          <div class="testimonials-grid" data-figma-name="Grid / 3 Testimonials">
+            
+            <div class="testimonial-card" data-figma-name="Card / Testimonial 1">
+              <p class="testimonial-quote-text">
+                "Enrolling our twin daughters at Gill International was the best decision. The Cambridge curriculum taught them to think critically rather than memorize, and the Christian values keep them grounded."
+              </p>
+              <div class="testimonial-author-row">
+                <div class="testimonial-avatar">MK</div>
+                <div>
+                  <div class="author-name">Dr. Mary K. Mukasa</div>
+                  <div class="author-role">Parent of Year 6 & Year 8 Pupils</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card" data-figma-name="Card / Testimonial 2">
+              <p class="testimonial-quote-text">
+                "The 15:1 student-teacher ratio truly makes a difference. My son received personalized guidance in Chemistry and Physics and secured straight A* grades in his Cambridge IGCSEs."
+              </p>
+              <div class="testimonial-author-row">
+                <div class="testimonial-avatar">JO</div>
+                <div>
+                  <div class="author-name">Joseph Okello</div>
+                  <div class="author-role">Parent of IGCSE Graduate</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card" data-figma-name="Card / Testimonial 3">
+              <p class="testimonial-quote-text">
+                "The atmosphere is international, safe, and warm. Teachers know every child by name, and the sports and music programmes bring out their confidence."
+              </p>
+              <div class="testimonial-author-row">
+                <div class="testimonial-avatar">SN</div>
+                <div>
+                  <div class="author-name">Sarah Nalubwama</div>
+                  <div class="author-role">Parent of Early Years Learner</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Contact & Campus Tour Booking -->
+      <section class="section-pad" id="contact" data-figma-name="Section / Contact & Visit Form">
+        <div class="gis-desktop-wrap">
+          
+          <div class="contact-grid" data-figma-name="Card / Contact Box">
+            
+            <div class="contact-info-col" data-figma-name="Col / Campus Info">
+              <span class="section-pill-tag" style="align-self:flex-start;">Get in Touch</span>
+              <h2 class="section-title-h2" style="font-size:30px;line-height:1.2;">Visit Our Najjera Campus</h2>
+              <p style="font-size:14.5px;color:var(--figma-ink-700);line-height:1.6;">
+                We would be delighted to welcome you and your family for a personal guided tour of our classrooms, science labs, and sports grounds.
+              </p>
+
+              <div class="contact-card-item">
+                <div class="contact-icon-pill">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div>
+                  <div class="contact-text-h">Campus Address</div>
+                  <div class="contact-text-p">Plot 8, Block 228, Najjera, Kampala, Uganda</div>
+                </div>
+              </div>
+
+              <div class="contact-card-item">
+                <div class="contact-icon-pill">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div>
+                  <div class="contact-text-h">Telephone & WhatsApp</div>
+                  <div class="contact-text-p">+256 771 648 684 · +256 755 071 456</div>
+                </div>
+              </div>
+
+              <div class="contact-card-item">
+                <div class="contact-icon-pill">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div>
+                  <div class="contact-text-h">Visiting Hours</div>
+                  <div class="contact-text-p">Monday – Friday: 8:00 AM – 4:30 PM<br>Saturday: 9:00 AM – 1:00 PM (By Appointment)</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Booking Form -->
+            <form class="figma-form" onsubmit="event.preventDefault();alert('Thank you! Tour booking received. Our admissions officer will contact you.');" data-figma-name="Form / Book Tour">
+              <h3 style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--figma-maroon-deep);">Schedule a Personal Campus Tour</h3>
+              
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">Parent Name *</label>
+                  <input type="text" class="form-input" placeholder="Your full name" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Phone Number *</label>
+                  <input type="tel" class="form-input" placeholder="+256 7XX XXX XXX" required>
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">Email Address *</label>
+                  <input type="email" class="form-input" placeholder="parent@domain.com" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Child's Current Age / Stage</label>
+                  <select class="form-select">
+                    <option>Early Years (Ages 3–5)</option>
+                    <option>Primary Year 1–6 (Ages 5–11)</option>
+                    <option>Lower Secondary (Ages 11–14)</option>
+                    <option>IGCSE (Ages 14–16)</option>
+                    <option>AS & A Levels (Ages 16–19)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Preferred Tour Date & Questions</label>
+                <textarea class="form-textarea" rows="3" placeholder="Tell us when you would like to visit or any specific questions..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-ui btn-primary" style="justify-content:center;margin-top:6px;">Confirm Tour Request →</button>
+            </form>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Desktop Footer -->
+      <footer class="desktop-footer" data-figma-name="Footer / Desktop Frame">
+        <div class="gis-desktop-wrap">
+          
+          <div class="footer-main-grid">
+            
+            <div class="footer-col" style="gap:14px;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div class="brand-crest-fallback" style="width:42px;height:42px;font-size:15px;">GIS</div>
+                <span style="font-family:var(--font-display);font-weight:800;font-size:16px;">GILL INTERNATIONAL SCHOOL</span>
+              </div>
+              <p style="font-size:13.5px;color:var(--figma-ink-300);line-height:1.6;">
+                Christ-centred Cambridge International education in Najjera, Kampala. Inspiring academic brilliance and moral courage for learners aged 3 to 19.
+              </p>
+              <div style="font-size:12px;color:#FFDF80;font-weight:600;">
+                Cambridge CAIE Centre Registered
+              </div>
+            </div>
+
+            <div class="footer-col">
+              <h4 class="footer-col-title">Academics</h4>
+              <ul class="footer-links-list">
+                <li><a href="#academics">Early Years (Ages 3–5)</a></li>
+                <li><a href="#academics">Cambridge Primary</a></li>
+                <li><a href="#academics">Lower Secondary</a></li>
+                <li><a href="#academics">Cambridge IGCSE</a></li>
+                <li><a href="#academics">AS & A Levels</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4 class="footer-col-title">School Life</h4>
+              <ul class="footer-links-list">
+                <li><a href="#beyond">Modern Science Labs</a></li>
+                <li><a href="#beyond">Sports Pitch & Athletics</a></li>
+                <li><a href="#beyond">Music & Performing Arts</a></li>
+                <li><a href="#staff">Teaching Team</a></li>
+                <li><a href="login.html">Parent Portal Login</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4 class="footer-col-title">Admissions & Contact</h4>
+              <p style="font-size:13px;color:var(--figma-ink-300);line-height:1.6;">
+                Plot 8, Block 228, Najjera<br>
+                Kampala, Uganda<br>
+                Phone: +256 771 648 684<br>
+                Email: info@gill.ac.ug
+              </p>
+              <a href="#contact" class="btn-ui btn-primary btn-sm" style="width:fit-content;margin-top:6px;">Book Campus Tour</a>
+            </div>
+
+          </div>
+
+          <div class="footer-bottom-bar">
+            <span>© 2026 Gill International School. All rights reserved. Cambridge Assessment International Education.</span>
+            <div style="display:flex;gap:20px;">
+              <a href="privacy.html" style="color:inherit;text-decoration:none;">Privacy Policy</a>
+              <a href="terms.html" style="color:inherit;text-decoration:none;">Terms of Service</a>
+            </div>
+          </div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================
+       ARTBOARD 3: MOBILE 390px IPHONE ARTBOARD
+       ======================================================================== -->
+  <div class="figma-artboard-wrapper" id="artboard-mobile">
+    <div class="figma-artboard-header">
+      <span>#03 · Mobile Frame</span>
+      <span class="badge">390 x 844 · iPhone 15/16</span>
+    </div>
+
+    <div class="figma-artboard frame-mobile" data-figma-name="Frame / Mobile 390px - iPhone">
+      
+      <!-- iOS Island -->
+      <div class="mobile-island-bar" data-figma-name="Bar / iOS Status">
+        <span>9:41</span>
+        <div class="mobile-island-pill"></div>
+        <span>5G  100%</span>
+      </div>
+
+      <!-- Mobile Navbar -->
+      <div class="mobile-nav" data-figma-name="Bar / Mobile Navigation">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="brand-crest-fallback" style="width:34px;height:34px;font-size:13px;border-radius:6px;">GIS</div>
+          <span style="font-family:var(--font-display);font-weight:800;font-size:14px;color:var(--figma-maroon-primary);">GILL INTER.</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <a href="tel:+256771648684" style="color:var(--figma-maroon-primary);padding:6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </a>
+          <button style="background:none;border:none;cursor:pointer;padding:4px;color:var(--figma-ink-900);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Hero -->
+      <div class="mobile-hero" data-figma-name="Section / Mobile Hero">
+        <div class="hero-pill-badge" style="font-size:10px;padding:3px 10px;">
+          CAMBRIDGE ACCREDITED · AGES 3–19
+        </div>
+        <h1 class="mobile-headline">
+          Empowering Global Citizens
+        </h1>
+        <p style="font-size:13.5px;color:var(--figma-ink-700);line-height:1.5;">
+          Christ-centred Cambridge International education in Najjera, Kampala.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="#contact" class="btn-ui btn-primary" style="justify-content:center;padding:11px 16px;font-size:13px;">Book Campus Tour →</a>
+          <a href="#academics" class="btn-ui btn-secondary" style="justify-content:center;padding:10px 16px;font-size:13px;">Explore Curriculum</a>
+        </div>
+        <img src="images/campus-main-building.jpg" alt="Campus Building" class="mobile-hero-img">
+      </div>
+
+      <!-- Mobile Stats Grid -->
+      <div class="mobile-stats-row" data-figma-name="Grid / Mobile Stats">
+        <div class="mobile-stat-box">
+          <span style="font-family:var(--font-display);font-weight:800;font-size:24px;color:var(--figma-maroon-primary);">100%</span>
+          <span style="font-size:11px;font-weight:600;color:var(--figma-ink-700);">Pass Rate</span>
+        </div>
+        <div class="mobile-stat-box">
+          <span style="font-family:var(--font-display);font-weight:800;font-size:24px;color:var(--figma-maroon-primary);">15 : 1</span>
+          <span style="font-size:11px;font-weight:600;color:var(--figma-ink-700);">Student Ratio</span>
+        </div>
+        <div class="mobile-stat-box">
+          <span style="font-family:var(--font-display);font-weight:800;font-size:24px;color:var(--figma-maroon-primary);">25+</span>
+          <span style="font-size:11px;font-weight:600;color:var(--figma-ink-700);">Nationalities</span>
+        </div>
+        <div class="mobile-stat-box">
+          <span style="font-family:var(--font-display);font-weight:800;font-size:24px;color:var(--figma-maroon-primary);">Ages 3–19</span>
+          <span style="font-size:11px;font-weight:600;color:var(--figma-ink-700);">Full Continuum</span>
+        </div>
+      </div>
+
+      <!-- Mobile Stage List -->
+      <div class="mobile-stage-list" data-figma-name="List / Cambridge Stages">
+        <h4 style="font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--figma-maroon-deep);">Cambridge Stages</h4>
+        
+        <div class="mobile-stage-item">
+          <div class="mobile-stage-pill">01</div>
+          <div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:13px;">Early Years (Ages 3–5)</div>
+            <div style="font-size:11px;color:var(--figma-ink-500);">Inquiry & play-based foundations</div>
+          </div>
+        </div>
+
+        <div class="mobile-stage-item">
+          <div class="mobile-stage-pill">02</div>
+          <div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:13px;">Cambridge Primary (5–11)</div>
+            <div style="font-size:11px;color:var(--figma-ink-500);">Core subjects & Primary Checkpoint</div>
+          </div>
+        </div>
+
+        <div class="mobile-stage-item">
+          <div class="mobile-stage-pill">03</div>
+          <div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:13px;">Lower Secondary (11–14)</div>
+            <div style="font-size:11px;color:var(--figma-ink-500);">Discovery & Secondary Checkpoint</div>
+          </div>
+        </div>
+
+        <div class="mobile-stage-item">
+          <div class="mobile-stage-pill">04</div>
+          <div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:13px;">Cambridge IGCSE (14–16)</div>
+            <div style="font-size:11px;color:var(--figma-ink-500);">International CAIE examinations</div>
+          </div>
+        </div>
+
+        <div class="mobile-stage-item">
+          <div class="mobile-stage-pill">05</div>
+          <div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:13px;">AS & A Levels (16–19)</div>
+            <div style="font-size:11px;color:var(--figma-ink-500);">University pre-requisite credentials</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Bottom Action Bar -->
+      <div class="mobile-bottom-bar" data-figma-name="Bar / Mobile Sticky CTA">
+        <div>
+          <div style="font-size:11px;color:var(--figma-ink-500);">Admissions Open</div>
+          <div style="font-weight:700;font-size:13px;color:var(--figma-maroon-primary);">Najjera Campus</div>
+        </div>
+        <a href="#contact" class="btn-ui btn-primary btn-sm" style="font-size:12px;padding:8px 16px;">Book Tour →</a>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+
+<!-- ==========================================================================
+     FIGMA IMPORT INSTRUCTIONS MODAL
+     ========================================================================== -->
+<div class="figma-modal-backdrop" id="figmaModal" onclick="if(event.target===this)closeFigmaGuide()">
+  <div class="figma-modal">
+    <div class="modal-header">
+      <h3 class="modal-title">⚡ How to Import & Edit this UI in Figma</h3>
+      <button class="modal-close" onclick="closeFigmaGuide()">✕</button>
+    </div>
+
+    <p style="font-size:13.5px;color:#c0c4cc;line-height:1.5;">
+      This HTML file is structured with native flexbox rules and <code>data-figma-name</code> attributes to convert into clean Figma Auto-Layout frames and components.
+    </p>
+
+    <div class="modal-step">
+      <div class="step-badge">1</div>
+      <div>
+        <strong style="font-size:14px;color:#fff;">Option A: Use "html.to.design" Plugin (Recommended)</strong>
+        <p style="font-size:12.5px;color:#a0a4b0;margin-top:4px;">
+          In Figma, go to <strong>Plugins → html.to.design</strong>. Paste the live preview URL or choose <em>"Import from HTML"</em>. It imports the frames directly with Auto-Layout, editable text, and vectors!
+        </p>
+      </div>
+    </div>
+
+    <div class="modal-step">
+      <div class="step-badge">2</div>
+      <div>
+        <strong style="font-size:14px;color:#fff;">Option B: Use "Builder.io (HTML to Figma)" Plugin</strong>
+        <p style="font-size:12.5px;color:#a0a4b0;margin-top:4px;">
+          Install the <strong>Builder.io HTML to Figma</strong> plugin in Figma. Paste this HTML file or URL, and it instantly builds Figma artboards and design layers.
+        </p>
+      </div>
+    </div>
+
+    <div class="modal-step">
+      <div class="step-badge">3</div>
+      <div>
+        <strong style="font-size:14px;color:#fff;">Option C: Use Chrome Extension "html.to.design"</strong>
+        <p style="font-size:12.5px;color:#a0a4b0;margin-top:4px;">
+          Open this page in Chrome, click the extension icon, choose "Full page" or selected artboard, and send directly into your Figma workspace.
+        </p>
+      </div>
+    </div>
+
+    <button class="btn-ui btn-primary" onclick="copyCleanHtml()" style="justify-content:center;margin-top:8px;">
+      📋 Copy HTML Code for Figma Plugin
+    </button>
+  </div>
+</div>
+
+
+<!-- ==========================================================================
+     INTERACTIVE JAVASCRIPT FOR CANVAS ZOOM & VIEW SWITCHING
+     ========================================================================== -->
+<script>
+let currentZoom = 1;
+const canvas = document.getElementById('canvas');
+const zoomLabel = document.getElementById('zoomLabel');
+
+function zoomCanvas(delta) {
+  currentZoom = Math.min(Math.max(0.3, currentZoom + delta), 2.0);
+  applyZoom();
+}
+
+function resetZoom() {
+  currentZoom = 1;
+  applyZoom();
+}
+
+function applyZoom() {
+  canvas.style.transform = `scale(${currentZoom})`;
+  zoomLabel.textContent = `${Math.round(currentZoom * 100)}%`;
+}
+
+function switchView(view, btn) {
+  document.querySelectorAll('.figma-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+
+  const ds = document.getElementById('artboard-ds');
+  const desktop = document.getElementById('artboard-desktop');
+  const mobile = document.getElementById('artboard-mobile');
+
+  if (view === 'all') {
+    ds.style.display = 'flex';
+    desktop.style.display = 'flex';
+    mobile.style.display = 'flex';
+    resetZoom();
+  } else if (view === 'desktop') {
+    ds.style.display = 'none';
+    desktop.style.display = 'flex';
+    mobile.style.display = 'none';
+  } else if (view === 'mobile') {
+    ds.style.display = 'none';
+    desktop.style.display = 'none';
+    mobile.style.display = 'flex';
+  } else if (view === 'design-system') {
+    ds.style.display = 'flex';
+    desktop.style.display = 'none';
+    mobile.style.display = 'none';
+  }
+}
+
+function toggleGrid() {
+  document.body.classList.toggle('show-grid');
+}
+
+function openFigmaGuide() {
+  document.getElementById('figmaModal').classList.add('open');
+}
+
+function closeFigmaGuide() {
+  document.getElementById('figmaModal').classList.remove('open');
+}
+
+function copyCleanHtml() {
+  navigator.clipboard.writeText(document.documentElement.outerHTML).then(() => {
+    alert("Copied full UI HTML to clipboard! You can now paste it into your Figma HTML plugin.");
+  }).catch(() => {
+    alert("Please select all (Ctrl+A / Cmd+A) and copy this document source code.");
+  });
+}
+</script>
+
+</body>
+</html>
